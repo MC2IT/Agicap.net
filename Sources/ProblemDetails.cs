@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 /// <summary>
 /// A machine-readable format for specifying errors in HTTP API responses based on RFC 7807.
 /// </summary>
-public sealed class ProblemDetails {
+public class ProblemDetails {
 
 	/// <summary>
 	/// A human-readable explanation specific to this occurrence of the problem.
