@@ -105,7 +105,7 @@ public class BankJournalEntry {
 	/// <summary>
 	/// The banking transaction payment date.
 	/// </summary>
-	public DateTime PaymentDate { get; set; } = DateTime.MinValue;
+	public DateTime PaymentDate { get; set; }
 
 	/// <summary>
 	/// The journal entry type.

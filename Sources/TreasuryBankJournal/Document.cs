@@ -33,7 +33,7 @@ public class Document {
 	/// <summary>
 	/// The document due date.
 	/// </summary>
-	public DateTime OriginalDueDate { get; set; } = DateTime.MinValue;
+	public DateTime OriginalDueDate { get; set; }
 
 	/// <summary>
 	/// A unique alphanumeric identifier for the document.

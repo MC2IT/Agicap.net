@@ -20,7 +20,7 @@ public class PurchaseJournal {
 	/// <summary>
 	/// The billing date of the document.
 	/// </summary>
-	public DateTime BillingDate { get; set; } = DateTime.MinValue;
+	public DateTime BillingDate { get; set; }
 
 	/// <summary>
 	/// The date when the payment is due.
