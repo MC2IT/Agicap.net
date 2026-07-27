@@ -2,8 +2,8 @@
 	<PropertyGroup>
 		<Company>MC2IT</Company>
 		<Copyright>© MC2IT</Copyright>
-		<Description>TODO</Description>
-		<Product>Agicap SDK for .NET</Product>
+		<Description>Agicap SDK for .NET.</Description>
+		<Product>Agicap for .NET</Product>
 		<Version>0.3.0</Version>
 	</PropertyGroup>
 
