@@ -13,14 +13,14 @@ public sealed class AccessToken {
 	[JsonInclude, JsonPropertyName("expires_in")]
 	internal int ExpiresIn {
 		get => (int) (ExpiresOn - DateTime.Now).TotalSeconds;
-		set => ExpiresOn = DateTime.Now.AddSeconds(value);
+		init => ExpiresOn = DateTime.Now.AddSeconds(value);
 	}
 
 	/// <summary>
 	/// The time when this token expires.
 	/// </summary>
 	[JsonIgnore]
-	public DateTime ExpiresOn { get; set; } = DateTime.Now;
+	public DateTime ExpiresOn { get; init; } = DateTime.Now;
 
 	/// <summary>
 	/// Value indicating whether this token has expired.
@@ -34,24 +34,24 @@ public sealed class AccessToken {
 	[JsonInclude, JsonPropertyName("scope")]
 	internal string Scope {
 		get => string.Join(' ', Scopes);
-		set => Scopes = value.Length > 0 ? [.. value.Split(' ')] : new List<string>();
+		init => Scopes = value.Length > 0 ? [.. value.Split(' ')] : new List<string>();
 	}
 
 	/// <summary>
 	/// The OAuth scopes.
 	/// </summary>
 	[JsonIgnore]
-	public IList<string> Scopes { get; set; } = [];
+	public IList<string> Scopes { get; init; } = [];
 
 	/// <summary>
 	/// The token type.
 	/// </summary>
 	[JsonPropertyName("token_type")]
-	public string Type { get; set; } = "Bearer";
+	public string Type { get; init; } = "Bearer";
 
 	/// <summary>
 	/// The token value.
 	/// </summary>
 	[JsonPropertyName("access_token")]
-	public string Value { get; set; } = "";
+	public string Value { get; init; } = "";
 }

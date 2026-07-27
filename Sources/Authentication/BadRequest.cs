@@ -8,5 +8,5 @@ public sealed class BadRequest {
 	/// <summary>
 	/// The error message.
 	/// </summary>
-	public string Error { get; set; } = "";
+	public string Error { get; init; } = "";
 }
