@@ -1,5 +1,6 @@
 namespace Mc2it.Agicap;
 
+using Mc2it.Agicap.Authentication;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 
@@ -14,6 +15,11 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	/// The assembly version.
 	/// </summary>
 	private static Version Version => typeof(Client).Assembly.GetName().Version!;
+
+	/// <summary>
+	/// The access token.
+	/// </summary>
+	internal AccessToken AccessToken { get; private set; } = new();
 
 	/// <summary>
 	/// The base URL of the remote API endpoint.
@@ -55,4 +61,19 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	/// <param name="baseUrl">The base URL of the remote API endpoint.</param>
 	public Client(string clientId, string clientSecret, [StringSyntax(StringSyntaxAttribute.Uri)] string baseUrl):
 		this(new NetworkCredential(clientId, clientSecret), new Uri(baseUrl, UriKind.Absolute)) {}
+
+	/// <summary>
+	/// TODO
+	/// </summary>
+	public void Authenticate() {
+		// TODO
+	}
+
+	/// <summary>
+	/// TODO
+	/// </summary>
+	public Task AuthenticateAsync() {
+		// TODO
+		return Task.CompletedTask;
+	}
 }

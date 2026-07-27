@@ -9,10 +9,10 @@ public sealed class PaginatedList<T> {
 	/// <summary>
 	/// The list items.
 	/// </summary>
-	public IList<T> Items { get; set; } = [];
+	public IList<T> Items { get; init; } = [];
 
 	/// <summary>
 	/// The information relevant to the pagination of list items.
 	/// </summary>
-	public Pagination Pagination { get; set; } = new();
+	public Pagination Pagination { get; init; } = new();
 }
