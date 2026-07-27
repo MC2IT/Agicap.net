@@ -1,5 +1,7 @@
 namespace Mc2it.Agicap.PurchaseJournal;
 
+using Mc2it.Agicap.Payments;
+
 /// <summary>
 /// Represents an entry of the Agicap purchase journal.
 /// </summary>
