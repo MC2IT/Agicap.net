@@ -1,0 +1,19 @@
+{
+	"items": [
+		{
+			"id": "3ebb0163-6ac8-449d-a34b-496244f380a1",
+			"name": "Company #1"
+		},
+		{
+			"id": "866faf6e-19c3-4131-97da-c50ff9a92961",
+			"name": "Company #2"
+		}
+	],
+	"pagination": {
+		"currentPageItemsCount": 2,
+		"currentPageNumber": 1,
+		"pagesCount": 1,
+		"pageSize": 10,
+		"totalItemsCount": 2
+	}
+}
