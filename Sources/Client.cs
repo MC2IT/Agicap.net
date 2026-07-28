@@ -1,9 +1,12 @@
 namespace Mc2it.Agicap;
 
 using Mc2it.Agicap.Authentication;
+using System.Collections.Specialized;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Net;
 using System.Net.Http.Json;
+using System.Web;
 
 /// <summary>
 /// Retrieves and manages Agicap data with HTTP requests.
@@ -96,7 +99,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 			["scope"] = string.Join(' ', scopes ?? [Scopes.PublicApi])
 		});
 
-		using var httpClient = GetHttpClient();
+		using var httpClient = CreateHttpClient();
 		using var response = await httpClient.PostAsync(new Uri(BaseUrl, "auth/v1/token"), httpContent, cancellationToken);
 		response.EnsureSuccessStatusCode();
 		return AccessToken = (await response.Content.ReadFromJsonAsync<AccessToken>(cancellationToken))!;
@@ -134,7 +137,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	/// Creates a new HTTP client with default settings.
 	/// </summary>
 	/// <returns>The newly created HTTP client.</returns>
-	internal HttpClient CreateHttpClient() {
+	private HttpClient CreateHttpClient() {
 		var httpClient = new HttpClient { Timeout = TimeSpan.FromMinutes(1) };
 		httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent);
 		if (IsAuthenticated) httpClient.DefaultRequestHeaders.Authorization = new("Bearer", AccessToken.Value);
@@ -146,7 +149,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	/// </summary>
 	/// <param name="parameters">The query parameters whose elements are copied to the collection.</param>
 	/// <returns>The newly created query string collection.</returns>
-	internal NameValueCollection CreateQueryString(IDictionary<string, object?>? parameters = null) {
+	private NameValueCollection CreateQueryString(IDictionary<string, object?>? parameters = null) {
 		var queryString = HttpUtility.ParseQueryString("");
 		if (parameters is not null)
 			foreach (var parameter in parameters)
