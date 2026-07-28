@@ -8,9 +8,9 @@ namespace Mc2it.Agicap.Organizations;
 public sealed class ApiTests(TestContext testContext) {
 
 	/// <summary>
-	/// The client used to query the remote API.
+	/// The client used to query the Agicap API.
 	/// </summary>
-	private readonly Api api =
+	private readonly Api client =
 		new Client(Environment.GetEnvironmentVariable("AGICAP_CLIENT_ID")!, Environment.GetEnvironmentVariable("AGICAP_CLIENT_SECRET")!).Organizations;
 
 	[TestMethod]
@@ -18,7 +18,7 @@ public sealed class ApiTests(TestContext testContext) {
 		var entityId = int.Parse(Environment.GetEnvironmentVariable("AGICAP_ENTITY")!);
 		var organizationId = Guid.Parse(Environment.GetEnvironmentVariable("AGICAP_ORGANIZATION")!);
 
-		var list = await api.GetEntitiesAsync(organizationId, cancellationToken: testContext.CancellationToken);
+		var list = await client.GetEntitiesAsync(organizationId, cancellationToken: testContext.CancellationToken);
 		IsGreaterThanOrEqualTo(1, list.Items.Count);
 		AreEqual(list.Items.Count, list.Pagination.TotalItemsCount);
 
@@ -31,7 +31,7 @@ public sealed class ApiTests(TestContext testContext) {
 	public async Task GetOrganizations() {
 		var organizationId = Guid.Parse(Environment.GetEnvironmentVariable("AGICAP_ORGANIZATION")!);
 
-		var list = await api.GetOrganizationsAsync(cancellationToken: testContext.CancellationToken);
+		var list = await client.GetOrganizationsAsync(cancellationToken: testContext.CancellationToken);
 		HasCount(1, list.Items);
 		AreEqual(list.Items.Count, list.Pagination.TotalItemsCount);
 
