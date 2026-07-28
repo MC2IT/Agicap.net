@@ -1,5 +1,7 @@
 namespace Mc2it.Agicap;
 
+using Mc2it.Agicap.Authentication;
+
 /// <summary>
 /// Tests the features of the <see cref="Client"/> class.
 /// </summary>
@@ -11,7 +13,7 @@ public sealed class ClientTests(TestContext testContext) {
 	public async Task Authenticate() {
 		// It should return a new access token.
 		var client = new Client(Environment.GetEnvironmentVariable("AGICAP_CLIENT_ID")!, Environment.GetEnvironmentVariable("AGICAP_CLIENT_SECRET")!);
-		var scopes = new[] { "agicap:public-api", "public-api:import_payment_files", "public-api:manage-payment-beneficiaries" };
+		var scopes = new[] { Scopes.PublicApi, Scopes.ImportPaymentFiles, Scopes.ManagePaymentBeneficiaries };
 		IsFalse(client.IsAuthenticated);
 
 		var accessToken = await client.AuthenticateAsync(scopes, testContext.CancellationToken);
