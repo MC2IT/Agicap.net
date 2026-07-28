@@ -4,6 +4,6 @@ namespace Mc2it.Agicap.PurchaseJournal;
 /// Provides access to the "PurchaseJournal" API.
 /// </summary>
 /// <param name="client">The Agicap API client.</param>
-public class Api(Client client) {
+public class PurchaseJournalApi(Client client) {
 	// TODO
 }

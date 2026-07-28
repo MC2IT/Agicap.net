@@ -9,7 +9,7 @@ public class PaymentApi(Client client) {
 	/// <summary>
 	/// Gets a new API client for the beneficiaries of the entity with the specified identifier.
 	/// </summary>
-	/// <param name="id">The entity identifier.</param>
+	/// <param name="entityId">The entity identifier.</param>
 	/// <returns>The API client for the beneficiaries of the specified entity.</returns>
-	public BeneficiaryApi Beneficiaries(int id) => new(client, id);
+	public BeneficiaryApi Beneficiaries(int entityId) => new(client, entityId);
 }

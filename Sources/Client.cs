@@ -21,11 +21,6 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	private static Version Version => typeof(Client).Assembly.GetName().Version!;
 
 	/// <summary>
-	/// The current access token.
-	/// </summary>
-	internal AccessToken AccessToken { get; private set; } = new();
-
-	/// <summary>
 	/// The base URL of the remote API endpoint.
 	/// </summary>
 	public Uri BaseUrl { get; set; } = baseUrl ?? new Uri("https://api.agicap.com/public/");
@@ -33,7 +28,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	/// <summary>
 	/// Provides access to the "ChartOfAccounts" API.
 	/// </summary>
-	public ChartOfAccounts.Api ChartOfAccounts => new(this);
+	public ChartOfAccounts.ChartOfAccountsApi ChartOfAccounts => new(this);
 
 	/// <summary>
 	/// The client identifier and secret.
@@ -43,7 +38,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	/// <summary>
 	/// Value indicating whether this client is authenticated.
 	/// </summary>
-	public bool IsAuthenticated => !AccessToken.HasExpired;
+	public bool IsAuthenticated => !accessToken.HasExpired;
 
 	/// <summary>
 	/// Provides access to the "Organizations" API.
@@ -58,17 +53,22 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	/// <summary>
 	/// Provides access to the "PurchaseJournal" API.
 	/// </summary>
-	public PurchaseJournal.Api PurchaseJournal => new(this);
+	public PurchaseJournal.PurchaseJournalApi PurchaseJournal => new(this);
 
 	/// <summary>
 	/// Provides access to the "TreasuryBankJournal" API.
 	/// </summary>
-	public TreasuryBankJournal.Api TreasuryBankJournal => new(this);
+	public TreasuryBankJournal.TreasuryBankJournalApi TreasuryBankJournal => new(this);
 
 	/// <summary>
 	/// The user agent string to use when making requests.
 	/// </summary>
 	public string UserAgent { get; set; } = $".NET/{Environment.Version} | Mc2it.Agicap/{Version.ToString(3)}";
+
+	/// <summary>
+	/// The current access token.
+	/// </summary>
+	private AccessToken accessToken = new();
 
 	/// <summary>
 	/// Creates a new client.
@@ -122,7 +122,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 		using var httpClient = CreateHttpClient();
 		using var response = await httpClient.PostAsync(new Uri(BaseUrl, "auth/v1/token"), httpContent, cancellationToken);
 		response.EnsureSuccessStatusCode();
-		return AccessToken = (await response.Content.ReadFromJsonAsync<AccessToken>(cancellationToken))!;
+		return accessToken = (await response.Content.ReadFromJsonAsync<AccessToken>(cancellationToken))!;
 	}
 
 	/// <summary>
@@ -160,7 +160,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	private HttpClient CreateHttpClient() {
 		var httpClient = new HttpClient { Timeout = TimeSpan.FromMinutes(1) };
 		httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent);
-		if (IsAuthenticated) httpClient.DefaultRequestHeaders.Authorization = new("Bearer", AccessToken.Value);
+		if (IsAuthenticated) httpClient.DefaultRequestHeaders.Authorization = new("Bearer", accessToken.Value);
 		return httpClient;
 	}
 
@@ -169,7 +169,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	/// </summary>
 	/// <param name="parameters">The query parameters whose elements are copied to the collection.</param>
 	/// <returns>The newly created query string collection.</returns>
-	private NameValueCollection CreateQueryString(IDictionary<string, object?>? parameters = null) {
+	private static NameValueCollection CreateQueryString(IDictionary<string, object?>? parameters = null) {
 		var queryString = HttpUtility.ParseQueryString("");
 		if (parameters is not null)
 			foreach (var parameter in parameters)

@@ -4,6 +4,6 @@ namespace Mc2it.Agicap.TreasuryBankJournal;
 /// Provides access to the "TreasuryBankJournal" API.
 /// </summary>
 /// <param name="client">The Agicap API client.</param>
-public class Api(Client client) {
+public class TreasuryBankJournalApi(Client client) {
 	// TODO
 }

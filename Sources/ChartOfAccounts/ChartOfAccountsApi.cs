@@ -4,6 +4,6 @@ namespace Mc2it.Agicap.ChartOfAccounts;
 /// Provides access to the "ChartOfAccounts" API.
 /// </summary>
 /// <param name="client">The Agicap API client.</param>
-public class Api(Client client) {
+public class ChartOfAccountsApi(Client client) {
 	// TODO
 }

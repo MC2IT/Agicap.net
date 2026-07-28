@@ -9,9 +9,9 @@ public class OrganizationApi(Client client) {
 	/// <summary>
 	/// Gets a new API client for the entities of the organization with the specified identifier.
 	/// </summary>
-	/// <param name="id">The organization identifier.</param>
+	/// <param name="organizationId">The organization identifier.</param>
 	/// <returns>The API client for the entities of the specified organization.</returns>
-	public EntityApi Entities(Guid id) => new(client, id);
+	public EntityApi Entities(Guid organizationId) => new(client, organizationId);
 
 	/// <summary>
 	/// Fetches the organization list.
