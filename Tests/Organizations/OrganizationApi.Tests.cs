@@ -10,7 +10,7 @@ public sealed class OrganizationApiTests(TestContext testContext) {
 	/// <summary>
 	/// The client used to query the Agicap API.
 	/// </summary>
-	private readonly OrganizationApi client =
+	private readonly OrganizationApi api =
 		new Client(Environment.GetEnvironmentVariable("AGICAP_CLIENT_ID")!, Environment.GetEnvironmentVariable("AGICAP_CLIENT_SECRET")!)
 			.Organizations;
 
@@ -18,7 +18,7 @@ public sealed class OrganizationApiTests(TestContext testContext) {
 	public async Task GetAll() {
 		var organizationId = Guid.Parse(Environment.GetEnvironmentVariable("AGICAP_ORGANIZATION")!);
 
-		var list = await client.GetAllAsync(cancellationToken: testContext.CancellationToken);
+		var list = await api.GetAllAsync(cancellationToken: testContext.CancellationToken);
 		HasCount(1, list.Items);
 		AreEqual(list.Items.Count, list.Pagination.TotalItemsCount);
 

@@ -10,7 +10,7 @@ public sealed class EntityApiTests(TestContext testContext) {
 	/// <summary>
 	/// The client used to query the Agicap API.
 	/// </summary>
-	private readonly EntityApi client =
+	private readonly EntityApi api =
 		new Client(Environment.GetEnvironmentVariable("AGICAP_CLIENT_ID")!, Environment.GetEnvironmentVariable("AGICAP_CLIENT_SECRET")!)
 			.Organizations.Entities(Guid.Parse(Environment.GetEnvironmentVariable("AGICAP_ORGANIZATION")!));
 
@@ -18,7 +18,7 @@ public sealed class EntityApiTests(TestContext testContext) {
 	public async Task GetAll() {
 		var entityId = int.Parse(Environment.GetEnvironmentVariable("AGICAP_ENTITY")!);
 
-		var list = await client.GetAllAsync(cancellationToken: testContext.CancellationToken);
+		var list = await api.GetAllAsync(cancellationToken: testContext.CancellationToken);
 		IsGreaterThanOrEqualTo(1, list.Items.Count);
 		AreEqual(list.Items.Count, list.Pagination.TotalItemsCount);
 
