@@ -6,10 +6,10 @@ using Mc2it.Agicap.Authentication;
 /// Tests the features of the <see cref="Client"/> class.
 /// </summary>
 /// <param name="testContext">The test context.</param>
-[TestClass]
+[TestClass, CICondition(ConditionMode.Exclude)]
 public sealed class ClientTests(TestContext testContext) {
 
-	[TestMethod, CICondition(ConditionMode.Exclude)]
+	[TestMethod]
 	public async Task Authenticate() {
 		// It should return a new access token.
 		var client = new Client(Environment.GetEnvironmentVariable("AGICAP_CLIENT_ID")!, Environment.GetEnvironmentVariable("AGICAP_CLIENT_SECRET")!);
