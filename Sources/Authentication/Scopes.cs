@@ -6,6 +6,17 @@ namespace Mc2it.Agicap.Authentication;
 public static class Scopes {
 
 	/// <summary>
+	/// The list of all scopes.
+	/// </summary>
+	public static string[] All => [
+		PublicApi,
+		ImportPaymentFiles,
+		ImportPaymentFilesWithSignedBeneficiaries,
+		ManagePaymentBeneficiaries,
+		ManageSuppliers
+	];
+
+	/// <summary>
 	/// Authorize to import payment files.
 	/// </summary>
 	public const string ImportPaymentFiles = "public-api:import_payment_files";
