@@ -1,6 +1,5 @@
 # Agicap for .NET
-TODO ! ...
-in [C#](https://learn.microsoft.com/en-us/dotnet/csharp).
+An [Agicap](https://agicap.com) API client library for [C#](https://learn.microsoft.com/en-us/dotnet/csharp).
 
 ## Documentation
 - [User guide](https://github.com/MC2IT/Agicap.net/tree/main/Documentation)
