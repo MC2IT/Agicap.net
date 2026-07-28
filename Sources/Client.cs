@@ -93,7 +93,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 			["client_id"] = Credential.UserName,
 			["client_secret"] = Credential.Password,
 			["grant_type"] = "client_credentials",
-			["scope"] = string.Join(' ', scopes ?? ["agicap:public-api"])
+			["scope"] = string.Join(' ', scopes ?? [Scopes.PublicApi])
 		});
 
 		using var httpClient = GetHttpClient();
@@ -103,12 +103,55 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	}
 
 	/// <summary>
+	/// Sends a <c>GET</c> request to the specified URI and returns the value that results from deserializing the response body as JSON.
+	/// </summary>
+	/// <typeparam name="T">The target type to deserialize to.</typeparam>
+	/// <param name="requestUri">The URI the request is sent to.</param>
+	/// <param name="query">Any query information to include in the specified request URI.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>The deserialized response body.</returns>
+	internal async Task<T> GetAsync<T>(string requestUri, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
+		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
+		using var httpClient = CreateHttpClient();
+		return (await httpClient.GetFromJsonAsync<T>(new Uri(BaseUrl, $"{requestUri}?{CreateQueryString(query)}"), cancellationToken: cancellationToken))!;
+	}
+
+	/// <summary>
+	/// TODO Sends a <c>POST</c> request to the specified URI and returns the value that results from deserializing the response body as JSON.
+	/// </summary>
+	/// <typeparam name="T">The target type to deserialize to.</typeparam>
+	/// <param name="requestUri">The URI the request is sent to.</param>
+	/// <param name="query">Any query information to include in the specified request URI.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>The deserialized response body.</returns>
+	// internal async Task<T> PostAsync<T>(string requestUri, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
+	// 	if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
+	// 	using var httpClient = CreateHttpClient();
+	// 	return (await httpClient.GetFromJsonAsync<T>(new Uri(BaseUrl, $"{requestUri}?{CreateQueryString(query)}"), cancellationToken: cancellationToken))!;
+	// }
+
+	/// <summary>
 	/// Creates a new HTTP client with default settings.
 	/// </summary>
 	/// <returns>The newly created HTTP client.</returns>
-	internal HttpClient GetHttpClient() {
+	internal HttpClient CreateHttpClient() {
 		var httpClient = new HttpClient { Timeout = TimeSpan.FromMinutes(1) };
 		httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent);
+		if (IsAuthenticated) httpClient.DefaultRequestHeaders.Authorization = new("Bearer", AccessToken.Value);
 		return httpClient;
+	}
+
+	/// <summary>
+	/// Creates a new collection encapsulating a query string.
+	/// </summary>
+	/// <param name="parameters">The query parameters whose elements are copied to the collection.</param>
+	/// <returns>The newly created query string collection.</returns>
+	internal NameValueCollection CreateQueryString(IDictionary<string, object?>? parameters = null) {
+		var queryString = HttpUtility.ParseQueryString("");
+		if (parameters is not null)
+			foreach (var parameter in parameters)
+				queryString.Add(parameter.Key, parameter.Value is null ? null : Convert.ToString(parameter.Value, CultureInfo.InvariantCulture));
+
+		return queryString;
 	}
 }
