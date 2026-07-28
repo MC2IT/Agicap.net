@@ -31,6 +31,11 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	public Uri BaseUrl { get; set; } = baseUrl ?? new Uri("https://api.agicap.com/public/");
 
 	/// <summary>
+	/// Provides access to the "ChartOfAccounts" endpoints.
+	/// </summary>
+	public ChartOfAccounts.Api ChartOfAccounts => new(this);
+
+	/// <summary>
 	/// The client identifier and secret.
 	/// </summary>
 	public NetworkCredential Credential => credential;
@@ -44,6 +49,21 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	/// Provides access to the "Organizations" endpoints.
 	/// </summary>
 	public Organizations.Api Organizations => new(this);
+
+	/// <summary>
+	/// Provides access to the "Payments" endpoints.
+	/// </summary>
+	public Payments.Api Payments => new(this);
+
+	/// <summary>
+	/// Provides access to the "PurchaseJournal" endpoints.
+	/// </summary>
+	public PurchaseJournal.Api PurchaseJournal => new(this);
+
+	/// <summary>
+	/// Provides access to the "TreasuryBankJournal" endpoints.
+	/// </summary>
+	public TreasuryBankJournal.Api TreasuryBankJournal => new(this);
 
 	/// <summary>
 	/// The user agent string to use when making requests.
