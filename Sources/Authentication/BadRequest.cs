@@ -1,7 +1,7 @@
 namespace Mc2it.Agicap.Authentication;
 
 /// <summary>
-///	Represents a bad request.
+///	Represents the response to a bad request.
 /// </summary>
 public sealed class BadRequest {
 

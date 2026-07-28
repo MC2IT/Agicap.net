@@ -6,11 +6,11 @@ using System.Net;
 using System.Net.Http.Json;
 
 /// <summary>
-/// TODO
+/// Retrieves and manages Agicap data with HTTP requests.
 /// </summary>
 /// <param name="credential">The client identifier and secret.</param>
 /// <param name="baseUrl">The base URL of the remote API endpoint.</param>
-public class Client(NetworkCredential credential, Uri? baseUrl = null) /* TODO IDisposable !!! */ {
+public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 
 	/// <summary>
 	/// The assembly version.
@@ -18,7 +18,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) /* TODO I
 	private static Version Version => typeof(Client).Assembly.GetName().Version!;
 
 	/// <summary>
-	/// The access token.
+	/// The current access token.
 	/// </summary>
 	internal AccessToken AccessToken { get; private set; } = new();
 
@@ -31,6 +31,16 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) /* TODO I
 	/// The client identifier and secret.
 	/// </summary>
 	public NetworkCredential Credential => credential;
+
+	/// <summary>
+	/// Value indicating whether this client is authenticated.
+	/// </summary>
+	public bool IsAuthenticated => !AccessToken.HasExpired;
+
+	/// <summary>
+	/// Provides access to the "Organizations" endpoints.
+	/// </summary>
+	public Organizations.Api Organizations => new(this);
 
 	/// <summary>
 	/// The user agent string to use when making requests.
@@ -64,18 +74,21 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) /* TODO I
 		this(new NetworkCredential(clientId, clientSecret), new Uri(baseUrl, UriKind.Absolute)) {}
 
 	/// <summary>
-	/// TODO
+	/// Generates a new access token.
 	/// </summary>
+	/// <param name="scopes">The delegated permissions to consent to.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The generated access token.</param>
-	public AccessToken Authenticate(IEnumerable<string>? scopes = null, CancellationToken cancellationToken = default) =>
+	public AccessToken Authenticate(string[]? scopes = null, CancellationToken cancellationToken = default) =>
 		AuthenticateAsync(scopes, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
-	/// TODO
+	/// Generates a new access token.
 	/// </summary>
+	/// <param name="scopes">The delegated permissions to consent to.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The generated access token.</param>
-	public async Task<AccessToken> AuthenticateAsync(IEnumerable<string>? scopes = null, CancellationToken cancellationToken = default) {
-		using var httpClient = GetHttpClient();
+	public async Task<AccessToken> AuthenticateAsync(string[]? scopes = null, CancellationToken cancellationToken = default) {
 		using var httpContent = new FormUrlEncodedContent(new Dictionary<string, string> {
 			["client_id"] = Credential.UserName,
 			["client_secret"] = Credential.Password,
@@ -83,17 +96,18 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) /* TODO I
 			["scope"] = string.Join(' ', scopes ?? ["agicap:public-api"])
 		});
 
+		using var httpClient = GetHttpClient();
 		using var response = await httpClient.PostAsync(new Uri(BaseUrl, "auth/v1/token"), httpContent, cancellationToken);
 		response.EnsureSuccessStatusCode();
 		return AccessToken = (await response.Content.ReadFromJsonAsync<AccessToken>(cancellationToken))!;
 	}
 
 	/// <summary>
-	/// TODO
+	/// Creates a new HTTP client with default settings.
 	/// </summary>
 	/// <returns>The newly created HTTP client.</returns>
 	internal HttpClient GetHttpClient() {
-		var httpClient = new HttpClient();
+		var httpClient = new HttpClient { Timeout = TimeSpan.FromMinutes(1) };
 		httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent);
 		return httpClient;
 	}
