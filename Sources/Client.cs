@@ -36,7 +36,7 @@ public class Client(NetworkCredential credential) {
 	/// <summary>
 	/// The scopes to use by default when invoking the <see cref="AuthenticateAsync"/> method.
 	/// </summary>
-	public string[] DefaultScopes { get; set; } = [Scopes.PublicApi];
+	public IList<string> DefaultScopes { get; set; } = [Scopes.PublicApi];
 
 	/// <summary>
 	/// Value indicating whether this client is authenticated.
@@ -104,7 +104,7 @@ public class Client(NetworkCredential credential) {
 		});
 
 		using var httpClient = CreateHttpClient();
-		using var response = await httpClient.PostAsync(new Uri(BaseUrl, "auth/v1/token"), httpContent, cancellationToken);
+		using var response = await httpClient.PostAsync("auth/v1/token", httpContent, cancellationToken);
 		response.EnsureSuccessStatusCode();
 		return accessToken = (await response.Content.ReadFromJsonAsync<AccessToken>(cancellationToken))!;
 	}
