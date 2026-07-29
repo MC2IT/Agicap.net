@@ -36,9 +36,9 @@ public sealed class PostalAddressTests {
 		};
 
 		var json = JsonSerializer.Serialize(postalAddress, JsonSerializerOptions.Web);
-		Contains(@"""city"":""Paris""", json);
-		Contains(@"""zipCode"":""75000""", json);
-		DoesNotContain("number", json);
-		DoesNotContain("state", json);
+		Contains("\"city\":\"Paris\"", json);
+		Contains("\"zipCode\":\"75000\"", json);
+		DoesNotContain("\"number\"", json);
+		DoesNotContain("\"state\"", json);
 	}
 }

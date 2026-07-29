@@ -1,0 +1,23 @@
+{
+	"companyLegalIdentifier": null,
+	"id": "e4cd6d44-4d22-445f-909b-e55e59ad0436",
+	"name": "My Company",
+	"uncertaintyStatus": "Uncertain",
+	"validationStatus": null,
+	"bankAccount": {
+		"bankName": "My Bank",
+		"bic": "BNPAFRPPXXX",
+		"country": "FR",
+		"identifier": "FR7630006000011234567890189",
+		"intermediaryBankBic": null,
+		"localClearingCode": null
+	},
+	"postalAddress": {
+		"city": "Paris",
+		"country": "FR",
+		"number": null,
+		"state": null,
+		"streetName": "Rue de la Paix",
+		"zipCode": "75000"
+	}
+}

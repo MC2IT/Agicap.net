@@ -36,9 +36,9 @@ public sealed class BankAccountTests {
 		};
 
 		var json = JsonSerializer.Serialize(bankAccount, JsonSerializerOptions.Web);
-		Contains(@"""bankName"":""My Bank""", json);
-		Contains(@"""identifier"":""FR7630006000011234567890189""", json);
-		DoesNotContain("intermediaryBankBic", json);
-		DoesNotContain("localClearingCode", json);
+		Contains("\"bankName\":\"My Bank\"", json);
+		Contains("\"identifier\":\"FR7630006000011234567890189\"", json);
+		DoesNotContain("\"intermediaryBankBic\"", json);
+		DoesNotContain("\"localClearingCode\"", json);
 	}
 }
