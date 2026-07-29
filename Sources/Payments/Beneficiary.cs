@@ -79,6 +79,7 @@ public class Beneficiary: IEquatable<Beneficiary> {
 	/// <returns><see langword="true"/> if the specified object is equal to this object, otherwise <see langword="false"/>.</returns>
 	public bool Equals(Beneficiary? other) => other is not null &&
 		BankAccount == other.BankAccount &&
+		CompanyLegalIdentifier == other.CompanyLegalIdentifier &&
 		Id == other.Id &&
 		Name == other.Name &&
 		PostalAddress == other.PostalAddress &&
@@ -90,5 +91,5 @@ public class Beneficiary: IEquatable<Beneficiary> {
 	/// </summary>
 	/// <returns>The hash code for this object.</returns>
 	public override int GetHashCode() =>
-		HashCode.Combine(BankAccount, Id, Name, PostalAddress, UncertaintyStatus, ValidationStatus);
+		HashCode.Combine(BankAccount, CompanyLegalIdentifier, Id, Name, PostalAddress, UncertaintyStatus, ValidationStatus);
 }
