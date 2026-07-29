@@ -1,6 +1,6 @@
 namespace Mc2it.Agicap.Payments;
 
-using System.Collections;
+using System.Text.Json.Serialization;
 
 /// <summary>
 /// The postal address of a beneficiary.
@@ -31,12 +31,14 @@ public class PostalAddress: IEquatable<PostalAddress> {
 	/// <summary>
 	/// The number of the building.
 	/// </summary>
-	public string Number { get; set; } = "";
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? Number { get; set; }
 
 	/// <summary>
 	/// The state in which the beneficiary is located.
 	/// </summary>
-	public string State { get; set; } = "";
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? State { get; set; }
 
 	/// <summary>
 	/// The name of the street.
@@ -46,7 +48,8 @@ public class PostalAddress: IEquatable<PostalAddress> {
 	/// <summary>
 	/// The ZIP code of the beneficiary location.
 	/// </summary>
-	public string ZipCode { get; set; } = "";
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? ZipCode { get; set; }
 
 	/// <summary>
 	/// Determines whether the two specified objects are equal.
@@ -64,20 +67,6 @@ public class PostalAddress: IEquatable<PostalAddress> {
 	/// <param name="object2">The second object.</param>
 	/// <returns><see langword="true"/> if <paramref name="object1"/> does not equal <paramref name="object2"/>, otherwise <see langword="false"/>.</returns>
 	public static bool operator !=(PostalAddress? object1, PostalAddress? object2) => !(object1 == object2);
-
-	/// <summary>
-	/// Converts the specified postal address to a hash table.
-	/// </summary>
-	/// <param name="postalAddress">The postal address to convert.</param>
-	/// <returns>The hash table corresponding to the specified postal address.</returns>
-	public static explicit operator Hashtable(PostalAddress postalAddress) => new() {
-		["city"] = postalAddress.City,
-		["country"] = postalAddress.Country,
-		["number"] = string.IsNullOrWhiteSpace(postalAddress.Number) ? null : postalAddress.Number,
-		["state"] = string.IsNullOrWhiteSpace(postalAddress.State) ? null : postalAddress.State,
-		["streetName"] = postalAddress.StreetName,
-		["zipCode"] = string.IsNullOrWhiteSpace(postalAddress.ZipCode) ? null : postalAddress.ZipCode
-	};
 
 	/// <summary>
 	/// Determines whether the specified object is equal to this object.
