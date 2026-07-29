@@ -1,6 +1,6 @@
 namespace Mc2it.Agicap.Payments;
 
-using System.Collections;
+using System.Text.Json.Serialization;
 
 /// <summary>
 /// Represents the bank account of a beneficiary.
@@ -10,22 +10,26 @@ public class BankAccount: IEquatable<BankAccount> {
 	/// <summary>
 	/// The name of the bank the account is located.
 	/// </summary>
-	public string BankName { get; set; } = "";
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? BankName { get; set; }
 
 	/// <summary>
 	/// The bank identifier code of the bank where the account is located.
 	/// </summary>
-	public string Bic { get; set; } = "";
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? Bic { get; set; }
 
 	/// <summary>
 	/// The ISO 3166 alpha-2 code of the country of the bank where the account is located.
 	/// </summary>
-	public string Country { get; set; } = "";
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? Country { get; set; }
 
 	/// <summary>
 	/// The bank account number (IBAN/BBAN/Other).
 	/// </summary>
-	public string Identifier { get; set; } = "";
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? Identifier { get; set; }
 
 	/// <summary>
 	/// Value indicating whether this bank account is empty.
@@ -41,12 +45,14 @@ public class BankAccount: IEquatable<BankAccount> {
 	/// <summary>
 	/// The bank identifier code of the intermediary bank processing the payments.
 	/// </summary>
-	public string IntermediaryBankBic { get; set; } = "";
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? IntermediaryBankBic { get; set; }
 
 	/// <summary>
 	/// The local identifier of the bank.
 	/// </summary>
-	public string LocalClearingCode { get; set; } = "";
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? LocalClearingCode { get; set; }
 
 	/// <summary>
 	/// Determines whether the two specified objects are equal.
@@ -64,20 +70,6 @@ public class BankAccount: IEquatable<BankAccount> {
 	/// <param name="object2">The second object.</param>
 	/// <returns><see langword="true"/> if <paramref name="object1"/> does not equal <paramref name="object2"/>, otherwise <see langword="false"/>.</returns>
 	public static bool operator !=(BankAccount? object1, BankAccount? object2) => !(object1 == object2);
-
-	/// <summary>
-	/// Converts the specified bank account to a hash table.
-	/// </summary>
-	/// <param name="bankAccount">The bank account to convert.</param>
-	/// <returns>The hash table corresponding to the specified bank account.</returns>
-	public static explicit operator Hashtable(BankAccount bankAccount) => new() {
-		["bankName"] = string.IsNullOrWhiteSpace(bankAccount.BankName) ? null : bankAccount.BankName,
-		["bic"] = string.IsNullOrWhiteSpace(bankAccount.Bic) ? null : bankAccount.Bic,
-		["country"] = string.IsNullOrWhiteSpace(bankAccount.Country) ? null : bankAccount.Country,
-		["identifier"] = string.IsNullOrWhiteSpace(bankAccount.Identifier) ? null : bankAccount.Identifier,
-		["intermediaryBankBic"] = string.IsNullOrWhiteSpace(bankAccount.IntermediaryBankBic) ? null : bankAccount.IntermediaryBankBic,
-		["localClearingCode"] = string.IsNullOrWhiteSpace(bankAccount.LocalClearingCode) ? null : bankAccount.LocalClearingCode
-	};
 
 	/// <summary>
 	/// Determines whether the specified object is equal to this object.

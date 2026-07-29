@@ -1,0 +1,8 @@
+{
+	"bankName": "My Bank",
+	"bic": "BNPAFRPPXXX",
+	"country": "FR",
+	"identifier": "FR7630006000011234567890189",
+	"intermediaryBankBic": null,
+	"localClearingCode": null
+}
