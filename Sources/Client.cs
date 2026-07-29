@@ -36,6 +36,11 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	public NetworkCredential Credential => credential;
 
 	/// <summary>
+	/// The scopes to use by default when invoking the <see cref="AuthenticateAsync"/> method.
+	/// </summary>
+	public string[] DefaultScopes { get; set; } = [Scopes.PublicApi];
+
+	/// <summary>
 	/// Value indicating whether this client is authenticated.
 	/// </summary>
 	public bool IsAuthenticated => !accessToken.HasExpired;
@@ -116,7 +121,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 			["client_id"] = Credential.UserName,
 			["client_secret"] = Credential.Password,
 			["grant_type"] = "client_credentials",
-			["scope"] = string.Join(' ', scopes ?? [Scopes.PublicApi])
+			["scope"] = string.Join(' ', scopes ?? DefaultScopes)
 		});
 
 		using var httpClient = CreateHttpClient();
@@ -136,7 +141,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	internal async Task<HttpResponseMessage> DeleteAsync(string requestUri, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
 		using var httpClient = CreateHttpClient();
-		return (await httpClient.DeleteAsync(new Uri(BaseUrl, $"{requestUri}?{CreateQueryString(query)}"), cancellationToken: cancellationToken)).EnsureSuccessStatusCode();
+		return (await httpClient.DeleteAsync($"{requestUri}?{CreateQueryString(query)}", cancellationToken: cancellationToken)).EnsureSuccessStatusCode();
 	}
 
 	/// <summary>
@@ -150,7 +155,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	internal async Task<T> DeleteAsync<T>(string requestUri, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
 		using var httpClient = CreateHttpClient();
-		return (await httpClient.DeleteFromJsonAsync<T>(new Uri(BaseUrl, $"{requestUri}?{CreateQueryString(query)}"), cancellationToken: cancellationToken))!;
+		return (await httpClient.DeleteFromJsonAsync<T>($"{requestUri}?{CreateQueryString(query)}", cancellationToken: cancellationToken))!;
 	}
 
 	/// <summary>
@@ -164,7 +169,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	internal async Task<T> GetAsync<T>(string requestUri, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
 		using var httpClient = CreateHttpClient();
-		return (await httpClient.GetFromJsonAsync<T>(new Uri(BaseUrl, $"{requestUri}?{CreateQueryString(query)}"), cancellationToken: cancellationToken))!;
+		return (await httpClient.GetFromJsonAsync<T>($"{requestUri}?{CreateQueryString(query)}", cancellationToken: cancellationToken))!;
 	}
 
 	/// <summary>
@@ -178,7 +183,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	// internal async Task<T> PostAsync<T>(string requestUri, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 	// 	if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
 	// 	using var httpClient = CreateHttpClient();
-	// 	return (await httpClient.GetFromJsonAsync<T>(new Uri(BaseUrl, $"{requestUri}?{CreateQueryString(query)}"), cancellationToken: cancellationToken))!;
+	// 	return (await httpClient.GetFromJsonAsync<T>($"{requestUri}?{CreateQueryString(query)}", cancellationToken: cancellationToken))!;
 	// }
 
 	/// <summary>
@@ -186,7 +191,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	/// </summary>
 	/// <returns>The newly created HTTP client.</returns>
 	private HttpClient CreateHttpClient() {
-		var httpClient = new HttpClient { Timeout = TimeSpan.FromMinutes(1) };
+		var httpClient = new HttpClient { BaseAddress = BaseUrl, Timeout = TimeSpan.FromMinutes(1) };
 		httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent);
 		if (IsAuthenticated) httpClient.DefaultRequestHeaders.Authorization = new("Bearer", accessToken.Value);
 		return httpClient;

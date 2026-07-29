@@ -1,7 +1,5 @@
 namespace Mc2it.Agicap;
 
-using Mc2it.Agicap.Authentication;
-
 /// <summary>
 /// Tests the features of the <see cref="Client"/> class.
 /// </summary>
@@ -12,13 +10,14 @@ public sealed class ClientTests(TestContext testContext) {
 	[TestMethod]
 	public async Task Authenticate() {
 		// It should return a new access token.
-		var client = new Client(Environment.GetEnvironmentVariable("AGICAP_CLIENT_ID")!, Environment.GetEnvironmentVariable("AGICAP_CLIENT_SECRET")!);
+		var client = Fixtures.CreateClient();
 		IsFalse(client.IsAuthenticated);
 
-		var accessToken = await client.AuthenticateAsync(Scopes.All, testContext.CancellationToken);
+		var scopes = new[] { "agicap:public-api", "public-api:manage-payment-beneficiaries", "public-api:manage-suppliers" };
+		var accessToken = await client.AuthenticateAsync(scopes, testContext.CancellationToken);
 		IsTrue(client.IsAuthenticated);
 		IsFalse(accessToken.HasExpired);
-		AreSequenceEqual(Scopes.All, accessToken.Scopes);
+		AreSequenceEqual(scopes, accessToken.Scopes);
 		AreEqual("Bearer", accessToken.Type);
 		MatchesRegex(@"^[A-Z\d]{64,}", accessToken.Value);
 

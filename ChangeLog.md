@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [0.3.0](https://github.com/MC2IT/Agicap.net/compare/v0.2.0...v0.3.0)
+- Added the `Client.DefaultScopes` property.
+
 ## Version [0.2.0](https://github.com/MC2IT/Agicap.net/compare/v0.1.0...v0.2.0)
 - Added the `Authentication.Scopes.All` property.
 - Added the `Payments.Beneficiary.CompanyLegalIdentifier` property.
