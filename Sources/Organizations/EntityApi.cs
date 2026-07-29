@@ -8,6 +8,11 @@ namespace Mc2it.Agicap.Organizations;
 public class EntityApi(Client client, Guid organizationId) {
 
 	/// <summary>
+	/// The relative URI of the API endpoint.
+	/// </summary>
+	private readonly string requestUri = $"organizations/v1/{organizationId}/entities";
+
+	/// <summary>
 	/// Fetches the entity list.
 	/// </summary>
 	/// <param name="pageNumber">The page number.</param>
@@ -26,6 +31,6 @@ public class EntityApi(Client client, Guid organizationId) {
 	/// <returns>The entity list.</returns>
 	public async Task<PaginatedList<Entity>> GetAllAsync(int? pageNumber = null, int? pageSize = null, CancellationToken cancellationToken = default) {
 		var queryString = new Dictionary<string, object?> { ["pageNumber"] = pageNumber, ["pageSize"] = pageSize };
-		return await client.GetAsync<PaginatedList<Entity>>($"organizations/v1/{organizationId}/entities", queryString, cancellationToken);
+		return await client.GetAsync<PaginatedList<Entity>>(requestUri, queryString, cancellationToken);
 	}
 }

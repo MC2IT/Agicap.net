@@ -126,6 +126,34 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	}
 
 	/// <summary>
+	/// Sends a <c>DELETE</c> request to the specified URI and returns the server response.
+	/// </summary>
+	/// <typeparam name="T">The target type to deserialize to.</typeparam>
+	/// <param name="requestUri">The URI the request is sent to.</param>
+	/// <param name="query">Any query information to include in the specified request URI.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>The server response.</returns>
+	internal async Task<HttpResponseMessage> DeleteAsync(string requestUri, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
+		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
+		using var httpClient = CreateHttpClient();
+		return (await httpClient.DeleteAsync(new Uri(BaseUrl, $"{requestUri}?{CreateQueryString(query)}"), cancellationToken: cancellationToken)).EnsureSuccessStatusCode();
+	}
+
+	/// <summary>
+	/// Sends a <c>DELETE</c> request to the specified URI and returns the value that results from deserializing the response body as JSON.
+	/// </summary>
+	/// <typeparam name="T">The target type to deserialize to.</typeparam>
+	/// <param name="requestUri">The URI the request is sent to.</param>
+	/// <param name="query">Any query information to include in the specified request URI.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>The deserialized response body.</returns>
+	internal async Task<T> DeleteAsync<T>(string requestUri, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
+		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
+		using var httpClient = CreateHttpClient();
+		return (await httpClient.DeleteFromJsonAsync<T>(new Uri(BaseUrl, $"{requestUri}?{CreateQueryString(query)}"), cancellationToken: cancellationToken))!;
+	}
+
+	/// <summary>
 	/// Sends a <c>GET</c> request to the specified URI and returns the value that results from deserializing the response body as JSON.
 	/// </summary>
 	/// <typeparam name="T">The target type to deserialize to.</typeparam>

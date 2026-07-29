@@ -7,6 +7,11 @@ namespace Mc2it.Agicap.Organizations;
 public class OrganizationApi(Client client) {
 
 	/// <summary>
+	/// The relative URI of the API endpoint.
+	/// </summary>
+	private readonly string requestUri = "organizations/v1";
+
+	/// <summary>
 	/// Gets a new API client for the entities of the organization with the specified identifier.
 	/// </summary>
 	/// <param name="organizationId">The organization identifier.</param>
@@ -32,6 +37,6 @@ public class OrganizationApi(Client client) {
 	/// <returns>The organization list.</returns>
 	public async Task<PaginatedList<Organization>> GetAllAsync(int? pageNumber = null, int? pageSize = null, CancellationToken cancellationToken = default) {
 		var queryString = new Dictionary<string, object?> { ["pageNumber"] = pageNumber, ["pageSize"] = pageSize };
-		return await client.GetAsync<PaginatedList<Organization>>("organizations/v1", queryString, cancellationToken);
+		return await client.GetAsync<PaginatedList<Organization>>(requestUri, queryString, cancellationToken);
 	}
 }
