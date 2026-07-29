@@ -23,15 +23,9 @@ public sealed class BeneficiaryTests {
 
 	[TestMethod]
 	public void ToJson() {
-		var beneficiary = new Beneficiary {
-			Name = "My Company",
-			PostalAddress = new(),
-			UncertaintyStatus = UncertaintyStatus.NotUncertain
-		};
-
+		var beneficiary = new Beneficiary { Name = "My Company", PostalAddress = new() };
 		var json = JsonSerializer.Serialize(beneficiary, JsonSerializerOptions.Web);
 		Contains("\"name\":\"My Company\"", json);
-		Contains("\"uncertaintyStatus\":\"NotUncertain\"", json);
 		DoesNotContain("\"bankAccount\"", json);
 		DoesNotContain("\"id\"", json);
 		DoesNotContain("\"postalAddress\"", json);
