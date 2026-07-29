@@ -121,7 +121,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 			["client_id"] = Credential.UserName,
 			["client_secret"] = Credential.Password,
 			["grant_type"] = "client_credentials",
-			["scope"] = string.Join(' ', scopes ?? DefaultScopes)
+			["scope"] = string.Join(' ', scopes is not null && scopes.Length > 0 ? scopes : DefaultScopes)
 		});
 
 		using var httpClient = CreateHttpClient();
