@@ -1,6 +1,6 @@
 namespace Mc2it.Agicap.Payments;
 
-using System.Collections;
+using System.Text.Json.Serialization;
 
 /// <summary>
 /// Represents a beneficiary.
@@ -10,11 +10,19 @@ public class Beneficiary: IEquatable<Beneficiary> {
 	/// <summary>
 	/// The bank account of the beneficiary.
 	/// </summary>
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public BankAccount? BankAccount { get; set; }
 
 	/// <summary>
-	/// The unique identifier of the beneficiary.
+	/// The legal entity identifier (LEI).
 	/// </summary>
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? CompanyLegalIdentifier { get; set; }
+
+	/// <summary>
+	/// The beneficiary identifier.
+	/// </summary>
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
 	public Guid Id { get; set; } = Guid.Empty;
 
 	/// <summary>
@@ -25,17 +33,20 @@ public class Beneficiary: IEquatable<Beneficiary> {
 	/// <summary>
 	/// The postal address of the beneficiary.
 	/// </summary>
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public PostalAddress? PostalAddress { get; set; }
 
 	/// <summary>
 	/// The uncertainty status.
 	/// </summary>
-	public UncertaintyStatus UncertaintyStatus { get; set; } = UncertaintyStatus.Uncertain;
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public UncertaintyStatus? UncertaintyStatus { get; set; }
 
 	/// <summary>
 	/// The validation status.
 	/// </summary>
-	public ValidationStatus ValidationStatus { get; set; } = ValidationStatus.PendingValidation;
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public ValidationStatus? ValidationStatus { get; set; }
 
 	/// <summary>
 	/// Determines whether the two specified objects are equal.
@@ -53,17 +64,6 @@ public class Beneficiary: IEquatable<Beneficiary> {
 	/// <param name="object2">The second object.</param>
 	/// <returns><see langword="true"/> if <paramref name="object1"/> does not equal <paramref name="object2"/>, otherwise <see langword="false"/>.</returns>
 	public static bool operator !=(Beneficiary? object1, Beneficiary? object2) => !(object1 == object2);
-
-	/// <summary>
-	/// Converts the specified beneficiary to a hash table.
-	/// </summary>
-	/// <param name="beneficiary">The beneficiary to convert.</param>
-	/// <returns>The hash table corresponding to the specified beneficiary.</returns>
-	public static explicit operator Hashtable(Beneficiary beneficiary) => new() {
-		["bankAccount"] = beneficiary.BankAccount is null ? null : (Hashtable) beneficiary.BankAccount,
-		["name"] = beneficiary.Name,
-		["postalAddress"] = beneficiary.PostalAddress is null ? null : (Hashtable) beneficiary.PostalAddress,
-	};
 
 	/// <summary>
 	/// Determines whether the specified object is equal to this object.
