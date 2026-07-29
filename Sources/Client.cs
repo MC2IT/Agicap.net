@@ -2,7 +2,6 @@ namespace Mc2it.Agicap;
 
 using Mc2it.Agicap.Authentication;
 using System.Collections.Specialized;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Net;
 using System.Net.Http.Json;
@@ -12,8 +11,7 @@ using System.Web;
 /// Retrieves and manages Agicap data with HTTP requests.
 /// </summary>
 /// <param name="credential">The client identifier and secret.</param>
-/// <param name="baseUrl">The base URL of the remote API endpoint.</param>
-public class Client(NetworkCredential credential, Uri? baseUrl = null) {
+public class Client(NetworkCredential credential) {
 
 	/// <summary>
 	/// The assembly version.
@@ -23,7 +21,7 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	/// <summary>
 	/// The base URL of the remote API endpoint.
 	/// </summary>
-	public Uri BaseUrl { get; set; } = baseUrl ?? new Uri("https://api.agicap.com/public/");
+	public Uri BaseUrl { get; set; } = new Uri("https://api.agicap.com/public/");
 
 	/// <summary>
 	/// Provides access to the "ChartOfAccounts" API.
@@ -78,28 +76,9 @@ public class Client(NetworkCredential credential, Uri? baseUrl = null) {
 	/// <summary>
 	/// Creates a new client.
 	/// </summary>
-	/// <param name="credential">The client identifier and secret.</param>
-	/// <param name="baseUrl">The base URL of the remote API endpoint.</param>
-	public Client(NetworkCredential credential, [StringSyntax(StringSyntaxAttribute.Uri)] string baseUrl):
-		this(credential, new Uri(baseUrl, UriKind.Absolute)) { }
-
-	/// <summary>
-	/// Creates a new client.
-	/// </summary>
 	/// <param name="clientId">The client identifier.</param>
 	/// <param name="clientSecret">The client secret.</param>
-	/// <param name="baseUrl">The base URL of the remote API endpoint.</param>
-	public Client(string clientId, string clientSecret, Uri? baseUrl = null):
-		this(new NetworkCredential(clientId, clientSecret), baseUrl) {}
-
-	/// <summary>
-	/// Creates a new client.
-	/// </summary>
-	/// <param name="clientId">The client identifier.</param>
-	/// <param name="clientSecret">The client secret.</param>
-	/// <param name="baseUrl">The base URL of the remote API endpoint.</param>
-	public Client(string clientId, string clientSecret, [StringSyntax(StringSyntaxAttribute.Uri)] string baseUrl):
-		this(new NetworkCredential(clientId, clientSecret), new Uri(baseUrl, UriKind.Absolute)) {}
+	public Client(string clientId, string clientSecret): this(new NetworkCredential(clientId, clientSecret)) {}
 
 	/// <summary>
 	/// Generates a new access token.
