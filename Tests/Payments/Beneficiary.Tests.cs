@@ -25,6 +25,7 @@ public sealed class BeneficiaryTests {
 	public void ToJson() {
 		var beneficiary = new Beneficiary {
 			Name = "My Company",
+			PostalAddress = new(),
 			UncertaintyStatus = UncertaintyStatus.NotUncertain
 		};
 

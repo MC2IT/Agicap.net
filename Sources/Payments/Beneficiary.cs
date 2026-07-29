@@ -11,7 +11,7 @@ public class Beneficiary: IEquatable<Beneficiary> {
 	/// The bank account of the beneficiary.
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public BankAccount? BankAccount { get; set; }
+	public BankAccount? BankAccount { get; set => field = value is null || value.IsEmpty ? null : value; }
 
 	/// <summary>
 	/// The legal entity identifier (LEI).
@@ -34,7 +34,7 @@ public class Beneficiary: IEquatable<Beneficiary> {
 	/// The postal address of the beneficiary.
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public PostalAddress? PostalAddress { get; set; }
+	public PostalAddress? PostalAddress { get; set => field = value is null || value.IsEmpty ? null : value; }
 
 	/// <summary>
 	/// The uncertainty status.
