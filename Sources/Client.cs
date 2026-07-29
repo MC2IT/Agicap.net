@@ -110,7 +110,7 @@ public class Client(NetworkCredential credential) {
 	}
 
 	/// <summary>
-	/// Sends a <c>DELETE</c> request to the specified URI and returns the server response.
+	/// Sends a <c>DELETE</c> request to the specified URI.
 	/// </summary>
 	/// <typeparam name="T">The target type to deserialize to.</typeparam>
 	/// <param name="requestUri">The URI the request is sent to.</param>
@@ -121,20 +121,6 @@ public class Client(NetworkCredential credential) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
 		using var httpClient = CreateHttpClient();
 		return (await httpClient.DeleteAsync($"{requestUri}?{CreateQueryString(query)}", cancellationToken: cancellationToken)).EnsureSuccessStatusCode();
-	}
-
-	/// <summary>
-	/// Sends a <c>DELETE</c> request to the specified URI and returns the value that results from deserializing the response body as JSON.
-	/// </summary>
-	/// <typeparam name="T">The target type to deserialize to.</typeparam>
-	/// <param name="requestUri">The URI the request is sent to.</param>
-	/// <param name="query">Any query information to include in the specified request URI.</param>
-	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The deserialized response body.</returns>
-	internal async Task<T> DeleteAsync<T>(string requestUri, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
-		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-		using var httpClient = CreateHttpClient();
-		return (await httpClient.DeleteFromJsonAsync<T>($"{requestUri}?{CreateQueryString(query)}", cancellationToken: cancellationToken))!;
 	}
 
 	/// <summary>
@@ -152,18 +138,49 @@ public class Client(NetworkCredential credential) {
 	}
 
 	/// <summary>
-	/// TODO Sends a <c>POST</c> request to the specified URI and returns the value that results from deserializing the response body as JSON.
+	/// Sends a <c>PATCH</c> request to the specified URI containing the <paramref name="value"/> serialized as JSON in the request body.
 	/// </summary>
-	/// <typeparam name="T">The target type to deserialize to.</typeparam>
+	/// <typeparam name="T">The type of the value to serialize.</typeparam>
 	/// <param name="requestUri">The URI the request is sent to.</param>
+	/// <param name="value">The request body.</param>
 	/// <param name="query">Any query information to include in the specified request URI.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The deserialized response body.</returns>
-	// internal async Task<T> PostAsync<T>(string requestUri, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
-	// 	if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-	// 	using var httpClient = CreateHttpClient();
-	// 	return (await httpClient.GetFromJsonAsync<T>($"{requestUri}?{CreateQueryString(query)}", cancellationToken: cancellationToken))!;
-	// }
+	/// <returns>The server response.</returns>
+	internal async Task<HttpResponseMessage> PatchAsync<T>(string requestUri, T value, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
+		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
+		using var httpClient = CreateHttpClient();
+		return (await httpClient.PatchAsJsonAsync($"{requestUri}?{CreateQueryString(query)}", value, cancellationToken: cancellationToken)).EnsureSuccessStatusCode();
+	}
+
+	/// <summary>
+	/// Sends a <c>POST</c> request to the specified URI containing the <paramref name="value"/> serialized as JSON in the request body.
+	/// </summary>
+	/// <typeparam name="T">The type of the value to serialize.</typeparam>
+	/// <param name="requestUri">The URI the request is sent to.</param>
+	/// <param name="value">The request body.</param>
+	/// <param name="query">Any query information to include in the specified request URI.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>The server response.</returns>
+	internal async Task<HttpResponseMessage> PostAsync<T>(string requestUri, T value, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
+		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
+		using var httpClient = CreateHttpClient();
+		return (await httpClient.PostAsJsonAsync($"{requestUri}?{CreateQueryString(query)}", value, cancellationToken: cancellationToken)).EnsureSuccessStatusCode();
+	}
+
+	/// <summary>
+	/// Sends a <c>PUT</c> request to the specified URI containing the <paramref name="value"/> serialized as JSON in the request body.
+	/// </summary>
+	/// <typeparam name="T">The type of the value to serialize.</typeparam>
+	/// <param name="requestUri">The URI the request is sent to.</param>
+	/// <param name="value">The request body.</param>
+	/// <param name="query">Any query information to include in the specified request URI.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>The server response.</returns>
+	internal async Task<HttpResponseMessage> PutAsync<T>(string requestUri, T value, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
+		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
+		using var httpClient = CreateHttpClient();
+		return (await httpClient.PutAsJsonAsync($"{requestUri}?{CreateQueryString(query)}", value, cancellationToken: cancellationToken)).EnsureSuccessStatusCode();
+	}
 
 	/// <summary>
 	/// Creates a new HTTP client with default settings.

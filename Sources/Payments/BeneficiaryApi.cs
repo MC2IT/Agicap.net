@@ -15,7 +15,7 @@ public class BeneficiaryApi(Client client, int entityId) {
 	/// <summary>
 	/// Creates a new beneficiary.
 	/// </summary>
-	/// <param name="beneficiary">The beneficiary to update.</param>
+	/// <param name="beneficiary">The beneficiary to create.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	public void Create(Beneficiary beneficiary, CancellationToken cancellationToken = default) =>
 		CreateAsync(beneficiary, cancellationToken).GetAwaiter().GetResult();
@@ -23,7 +23,7 @@ public class BeneficiaryApi(Client client, int entityId) {
 	/// <summary>
 	/// Creates a new beneficiary.
 	/// </summary>
-	/// <param name="beneficiary">The beneficiary to update.</param>
+	/// <param name="beneficiary">The beneficiary to create.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns></returns>
 	public Task CreateAsync(Beneficiary beneficiary, CancellationToken cancellationToken = default) {
