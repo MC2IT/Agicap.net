@@ -4,7 +4,7 @@
 		<Copyright>© MC2IT</Copyright>
 		<Description>An Agicap API client library for .NET.</Description>
 		<Product>Agicap for .NET</Product>
-		<Version>0.2.0</Version>
+		<Version>0.3.0</Version>
 	</PropertyGroup>
 
 	<PropertyGroup>
