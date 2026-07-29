@@ -13,8 +13,8 @@ public sealed class OrganizationApiTests(TestContext testContext) {
 	private readonly BeneficiaryApi api = Fixtures.CreateClient().Payments.Beneficiaries(Fixtures.EntityId);
 
 	[TestMethod]
-	public async Task GetAll() {
-		var list = await api.GetAllAsync(cancellationToken: testContext.CancellationToken);
+	public async Task ReadAll() {
+		var list = await api.ReadAllAsync(cancellationToken: testContext.CancellationToken);
 		IsGreaterThan(1, list.Count);
 
 		var beneficiary = list.Single(item => item.Name.StartsWith("Agicap", StringComparison.InvariantCultureIgnoreCase));

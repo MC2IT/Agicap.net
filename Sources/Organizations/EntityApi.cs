@@ -19,8 +19,8 @@ public class EntityApi(Client client, Guid organizationId) {
 	/// <param name="pageSize">The number of elements per page.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The entity list.</returns>
-	public PaginatedList<Entity> GetAll(int? pageNumber = null, int? pageSize = null, CancellationToken cancellationToken = default) =>
-		GetAllAsync(pageNumber, pageSize, cancellationToken).GetAwaiter().GetResult();
+	public PaginatedList<Entity> ReadAll(int? pageNumber = null, int? pageSize = null, CancellationToken cancellationToken = default) =>
+		ReadAllAsync(pageNumber, pageSize, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
 	/// Fetches the entity list.
@@ -29,7 +29,7 @@ public class EntityApi(Client client, Guid organizationId) {
 	/// <param name="pageSize">The number of elements per page.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The entity list.</returns>
-	public async Task<PaginatedList<Entity>> GetAllAsync(int? pageNumber = null, int? pageSize = null, CancellationToken cancellationToken = default) {
+	public async Task<PaginatedList<Entity>> ReadAllAsync(int? pageNumber = null, int? pageSize = null, CancellationToken cancellationToken = default) {
 		var queryString = new Dictionary<string, object?> { ["pageNumber"] = pageNumber, ["pageSize"] = pageSize };
 		return await client.GetAsync<PaginatedList<Entity>>(requestUri, queryString, cancellationToken);
 	}

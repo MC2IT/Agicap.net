@@ -66,15 +66,15 @@ public class BeneficiaryApi(Client client, int entityId) {
 	/// </summary>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The beneficiary list.</returns>
-	public IList<Beneficiary> GetAll(CancellationToken cancellationToken = default) =>
-		GetAllAsync(cancellationToken).GetAwaiter().GetResult();
+	public IList<Beneficiary> ReadAll(CancellationToken cancellationToken = default) =>
+		ReadAllAsync(cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
 	/// Fetches all beneficiaries.
 	/// </summary>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The beneficiary list.</returns>
-	public async Task<IList<Beneficiary>> GetAllAsync(CancellationToken cancellationToken = default) =>
+	public async Task<IList<Beneficiary>> ReadAllAsync(CancellationToken cancellationToken = default) =>
 		await client.GetAsync<IList<Beneficiary>>(requestUri, cancellationToken: cancellationToken);
 
 	/// <summary>

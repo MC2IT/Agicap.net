@@ -13,8 +13,8 @@ public sealed class OrganizationApiTests(TestContext testContext) {
 	private readonly OrganizationApi api = Fixtures.CreateClient().Organizations;
 
 	[TestMethod]
-	public async Task GetAll() {
-		var list = await api.GetAllAsync(cancellationToken: testContext.CancellationToken);
+	public async Task ReadAll() {
+		var list = await api.ReadAllAsync(cancellationToken: testContext.CancellationToken);
 		HasCount(1, list.Items);
 		AreEqual(list.Items.Count, list.Pagination.TotalItemsCount);
 
