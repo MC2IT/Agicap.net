@@ -26,9 +26,8 @@ public class BeneficiaryApi(Client client, int entityId) {
 	/// <param name="beneficiary">The beneficiary to create.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns></returns>
-	public Task CreateAsync(Beneficiary beneficiary, CancellationToken cancellationToken = default) {
-		return Task.CompletedTask;
-	}
+	public async Task CreateAsync(Beneficiary beneficiary, CancellationToken cancellationToken = default) =>
+		await client.PostAsync(requestUri, beneficiary, cancellationToken: cancellationToken);
 
 	/// <summary>
 	/// Deletes the beneficiary with the specified identifier.
@@ -91,7 +90,6 @@ public class BeneficiaryApi(Client client, int entityId) {
 	/// </summary>
 	/// <param name="beneficiary">The beneficiary to update.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	public Task UpdateAsync(Beneficiary beneficiary, CancellationToken cancellationToken = default) {
-		return Task.CompletedTask;
-	}
+	public async Task UpdateAsync(Beneficiary beneficiary, CancellationToken cancellationToken = default) =>
+		await client.PutAsync(requestUri, beneficiary, cancellationToken: cancellationToken);
 }
