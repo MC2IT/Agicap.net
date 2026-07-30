@@ -2,6 +2,8 @@
 
 ## Version [0.3.0](https://github.com/MC2IT/Agicap.net/compare/v0.2.0...v0.3.0)
 - Added the `Client.DefaultScopes` property.
+- Renamed the `GetAll` methods to `ReadAll`.
+- **Payments:** added the beneficiary API, with the exception of `sync` endpoints.
 
 ## Version [0.2.0](https://github.com/MC2IT/Agicap.net/compare/v0.1.0...v0.2.0)
 - Added the `Authentication.Scopes.All` property.
