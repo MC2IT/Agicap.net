@@ -96,16 +96,17 @@ public class Client(NetworkCredential credential) {
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The generated access token.</param>
 	public async Task<AccessToken> AuthenticateAsync(string[]? scopes = null, CancellationToken cancellationToken = default) {
-		using var httpContent = new FormUrlEncodedContent(new Dictionary<string, string> {
+		using var content = new FormUrlEncodedContent(new Dictionary<string, string> {
 			["client_id"] = Credential.UserName,
 			["client_secret"] = Credential.Password,
 			["grant_type"] = "client_credentials",
 			["scope"] = string.Join(' ', scopes is not null && scopes.Length > 0 ? scopes : DefaultScopes)
 		});
 
-		using var httpClient = CreateHttpClient();
-		using var response = await httpClient.PostAsync("auth/v1/token", httpContent, cancellationToken);
-		return accessToken = (await response.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<AccessToken>(cancellationToken))!;
+		using var client = CreateHttpClient();
+		using var response = await client.PostAsync("auth/v1/token", content, cancellationToken);
+		await EnsureSuccessStatusCode(response, cancellationToken);
+		return accessToken = (await response.Content.ReadFromJsonAsync<AccessToken>(cancellationToken))!;
 	}
 
 	/// <summary>
@@ -115,11 +116,12 @@ public class Client(NetworkCredential credential) {
 	/// <param name="requestUri">The URI the request is sent to.</param>
 	/// <param name="query">Any query information to include in the specified request URI.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The server response.</returns>
+	/// <returns>The response from the HTTP server.</returns>
 	internal async Task<HttpResponseMessage> DeleteAsync(string requestUri, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-		using var httpClient = CreateHttpClient();
-		return (await httpClient.DeleteAsync($"{requestUri}?{CreateQueryString(query)}", cancellationToken: cancellationToken)).EnsureSuccessStatusCode();
+		using var client = CreateHttpClient();
+		var response = await client.DeleteAsync($"{requestUri}?{CreateQueryString(query)}", cancellationToken);
+		return await EnsureSuccessStatusCode(response, cancellationToken);
 	}
 
 	/// <summary>
@@ -132,8 +134,10 @@ public class Client(NetworkCredential credential) {
 	/// <returns>The deserialized response body.</returns>
 	internal async Task<T> GetAsync<T>(string requestUri, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-		using var httpClient = CreateHttpClient();
-		return (await httpClient.GetFromJsonAsync<T>($"{requestUri}?{CreateQueryString(query)}", cancellationToken: cancellationToken))!;
+		using var client = CreateHttpClient();
+		using var response = await client.GetAsync($"{requestUri}?{CreateQueryString(query)}", cancellationToken);
+		await EnsureSuccessStatusCode(response, cancellationToken);
+		return (await response.Content.ReadFromJsonAsync<T>(cancellationToken))!;
 	}
 
 	/// <summary>
@@ -144,11 +148,12 @@ public class Client(NetworkCredential credential) {
 	/// <param name="value">The request body.</param>
 	/// <param name="query">Any query information to include in the specified request URI.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The server response.</returns>
+	/// <returns>The response from the HTTP server.</returns>
 	internal async Task<HttpResponseMessage> PatchAsync<T>(string requestUri, T value, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-		using var httpClient = CreateHttpClient();
-		return (await httpClient.PatchAsJsonAsync($"{requestUri}?{CreateQueryString(query)}", value, cancellationToken: cancellationToken)).EnsureSuccessStatusCode();
+		using var client = CreateHttpClient();
+		var response = await client.PatchAsJsonAsync($"{requestUri}?{CreateQueryString(query)}", value, cancellationToken);
+		return await EnsureSuccessStatusCode(response, cancellationToken);
 	}
 
 	/// <summary>
@@ -159,11 +164,12 @@ public class Client(NetworkCredential credential) {
 	/// <param name="value">The request body.</param>
 	/// <param name="query">Any query information to include in the specified request URI.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The server response.</returns>
+	/// <returns>The response from the HTTP server.</returns>
 	internal async Task<HttpResponseMessage> PostAsync<T>(string requestUri, T value, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-		using var httpClient = CreateHttpClient();
-		return (await httpClient.PostAsJsonAsync($"{requestUri}?{CreateQueryString(query)}", value, cancellationToken: cancellationToken)).EnsureSuccessStatusCode();
+		using var client = CreateHttpClient();
+		var response = await client.PostAsJsonAsync($"{requestUri}?{CreateQueryString(query)}", value, cancellationToken);
+		return await EnsureSuccessStatusCode(response, cancellationToken);
 	}
 
 	/// <summary>
@@ -174,11 +180,31 @@ public class Client(NetworkCredential credential) {
 	/// <param name="value">The request body.</param>
 	/// <param name="query">Any query information to include in the specified request URI.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The server response.</returns>
+	/// <returns>The response from the HTTP server.</returns>
 	internal async Task<HttpResponseMessage> PutAsync<T>(string requestUri, T value, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-		using var httpClient = CreateHttpClient();
-		return (await httpClient.PutAsJsonAsync($"{requestUri}?{CreateQueryString(query)}", value, cancellationToken: cancellationToken)).EnsureSuccessStatusCode();
+		using var client = CreateHttpClient();
+		var response = await client.PutAsJsonAsync($"{requestUri}?{CreateQueryString(query)}", value, cancellationToken);
+		return await EnsureSuccessStatusCode(response, cancellationToken);
+	}
+
+	/// <summary>
+	/// Throws an exception if the <see cref="HttpResponseMessage.IsSuccessStatusCode"/> property for the HTTP response is <see langword="false"/>.
+	/// </summary>
+	/// <param name="response">The response from the HTTP server.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>The HTTP response message if the call is successful.</returns>
+	/// <exception cref="HttpResponseException">The HTTP response is unsuccessful.</exception>
+	private static async Task<HttpResponseMessage> EnsureSuccessStatusCode(HttpResponseMessage response, CancellationToken cancellationToken = default) {
+		if (response.IsSuccessStatusCode) return response;
+
+		ProblemDetails? problemDetails;
+		try { problemDetails = await response.Content.ReadFromJsonAsync<ProblemDetails>(cancellationToken); }
+		catch { problemDetails = null; }
+
+		var statusCode = (int) response.StatusCode;
+		var reasonPhrase = string.IsNullOrWhiteSpace(response.ReasonPhrase) ? $"{statusCode}" : $"{statusCode} {response.ReasonPhrase}";
+		throw new HttpResponseException($"Response status code does not indicate success: {reasonPhrase}", response, problemDetails);
 	}
 
 	/// <summary>
