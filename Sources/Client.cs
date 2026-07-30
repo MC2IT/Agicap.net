@@ -105,8 +105,7 @@ public class Client(NetworkCredential credential) {
 
 		using var httpClient = CreateHttpClient();
 		using var response = await httpClient.PostAsync("auth/v1/token", httpContent, cancellationToken);
-		response.EnsureSuccessStatusCode();
-		return accessToken = (await response.Content.ReadFromJsonAsync<AccessToken>(cancellationToken))!;
+		return accessToken = (await response.EnsureSuccessStatusCode().Content.ReadFromJsonAsync<AccessToken>(cancellationToken))!;
 	}
 
 	/// <summary>
