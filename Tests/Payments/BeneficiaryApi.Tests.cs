@@ -26,16 +26,17 @@ public sealed class BeneficiaryApiTests(TestContext testContext) {
 		await api.CreateAsync(beneficiary, testContext.CancellationToken);
 		AreNotEqual(Guid.Empty, beneficiary.Id);
 
-		// TODO It should throw an exception if the beneficiary already exists.
-		// try {
-		// 	await api.CreateAsync(beneficiary, testContext.CancellationToken);
-		// 	Fail("The exception was not thrown as planned.");
-		// }
-		// catch (HttpResponseException e) {
-		// 	AreEqual(HttpStatusCode.Conflict, e.StatusCode);
-		// 	IsNotNull(e.ProblemDetails);
-		// 	MatchesRegex("beneficiary.*MC2IT.*exist", e.ProblemDetails.Title);
-		// }
+		// It should throw an exception if the beneficiary already exists.
+		try {
+			await api.CreateAsync(beneficiary, testContext.CancellationToken);
+			Fail("The exception was not thrown as planned.");
+		}
+		catch (HttpResponseException e) {
+			Console.WriteLine("YES !!!!!");
+			AreEqual(HttpStatusCode.Conflict, e.StatusCode);
+			IsNotNull(e.ProblemDetails);
+			MatchesRegex("beneficiary.*MC2IT.*exists", e.ProblemDetails.Title);
+		}
 
 		// It should update the specified beneficiary.
 		beneficiary.PostalAddress.Number = "29";
