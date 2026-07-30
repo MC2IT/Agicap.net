@@ -15,6 +15,11 @@ public class BeneficiaryApi(Client client, int entityId) {
 	private readonly string requestUri = $"payments/v2/entities/{entityId}/Beneficiaries";
 
 	/// <summary>
+	/// The API client for the beneficiary synchronization.
+	/// </summary>
+	public BeneficiarySynchronizationApi Synchronization => new(client, entityId);
+
+	/// <summary>
 	/// Creates a new beneficiary.
 	/// </summary>
 	/// <param name="beneficiary">The beneficiary to create.</param>
