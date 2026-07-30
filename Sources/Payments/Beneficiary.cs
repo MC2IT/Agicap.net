@@ -8,13 +8,19 @@ using System.Text.Json.Serialization;
 public class Beneficiary: IEquatable<Beneficiary> {
 
 	/// <summary>
+	/// The bank account number (IBAN/BBAN/Other).
+	/// </summary>
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? AccountNumber => BankAccount?.Identifier;
+
+	/// <summary>
 	/// The bank account of the beneficiary.
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public BankAccount? BankAccount { get; set => field = value is null || value.IsEmpty ? null : value; }
 
 	/// <summary>
-	/// The legal entity identifier (LEI).
+	/// The legal registration identifier (e.g. LEI, SIRET, company number...).
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public string? CompanyLegalIdentifier { get; set; }

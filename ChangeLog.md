@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [0.5.0](https://github.com/MC2IT/Agicap.net/compare/v0.4.0...v0.5.0)
+- Added the `Payments.SynchronizedBeneficiary` class.
+
 ## Version [0.4.0](https://github.com/MC2IT/Agicap.net/compare/v0.3.0...v0.4.0)
 - Added the `HttpResponseException` class.
 - Added support for returning a `ProblemDetails` instance when an API call fails. 

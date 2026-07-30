@@ -8,19 +8,19 @@ using System.Text.Json.Serialization;
 public class BankAccount: IEquatable<BankAccount> {
 
 	/// <summary>
-	/// The name of the bank the account is located.
+	/// The name of the bank where the bank account is located.
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public string? BankName { get; set; }
 
 	/// <summary>
-	/// The bank identifier code of the bank where the account is located.
+	/// The bank identifier code (BIC) of the bank where the bank account is located.
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public string? Bic { get; set; }
 
 	/// <summary>
-	/// The ISO 3166 alpha-2 code of the country of the bank where the account is located.
+	/// The ISO 3166 alpha-2 code of the country where the bank account is located.
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public string? Country { get; set; }
@@ -43,7 +43,7 @@ public class BankAccount: IEquatable<BankAccount> {
 		string.IsNullOrWhiteSpace(LocalClearingCode);
 
 	/// <summary>
-	/// The bank identifier code of the intermediary bank processing the payments.
+	/// The bank identifier code (BIC) of the intermediary bank processing the payments.
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public string? IntermediaryBankBic { get; set; }
