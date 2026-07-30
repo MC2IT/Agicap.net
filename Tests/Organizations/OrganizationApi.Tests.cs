@@ -16,7 +16,7 @@ public sealed class OrganizationApiTests(TestContext testContext) {
 	public async Task ReadAll() {
 		var list = await api.ReadAllAsync(cancellationToken: testContext.CancellationToken);
 		HasCount(1, list.Items);
-		AreEqual(list.Items.Count, list.Pagination.TotalItemsCount);
+		AreEqual(list.Items.Count, list.Pagination?.TotalItemsCount);
 
 		var organization = list.Items.Single();
 		AreEqual(Fixtures.OrganizationId, organization.Id);

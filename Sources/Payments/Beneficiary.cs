@@ -8,12 +8,6 @@ using System.Text.Json.Serialization;
 public class Beneficiary: IEquatable<Beneficiary> {
 
 	/// <summary>
-	/// The bank account number (IBAN/BBAN/Other).
-	/// </summary>
-	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public string? AccountNumber => BankAccount?.Identifier;
-
-	/// <summary>
 	/// The bank account of the beneficiary.
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
