@@ -1,6 +1,8 @@
 # Changelog
 
 ## Version [0.4.0](https://github.com/MC2IT/Agicap.net/compare/v0.3.0...v0.4.0)
+- Added the `HttpResponseException` class.
+- Added support for returning a `ProblemDetails` instance when an API call fails. 
 
 ## Version [0.3.0](https://github.com/MC2IT/Agicap.net/compare/v0.2.0...v0.3.0)
 - Added the `Client.DefaultScopes` property.

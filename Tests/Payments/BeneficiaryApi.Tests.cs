@@ -32,10 +32,8 @@ public sealed class BeneficiaryApiTests(TestContext testContext) {
 			Fail("The exception was not thrown as planned.");
 		}
 		catch (HttpResponseException e) {
-			Console.WriteLine("YES !!!!!");
 			AreEqual(HttpStatusCode.Conflict, e.StatusCode);
-			IsNotNull(e.ProblemDetails);
-			MatchesRegex("beneficiary.*MC2IT.*exists", e.ProblemDetails.Title);
+			MatchesRegex("beneficiary.*MC2IT.*exists", e.ProblemDetails?.Title);
 		}
 
 		// It should update the specified beneficiary.
