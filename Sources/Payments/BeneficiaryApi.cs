@@ -1,5 +1,7 @@
 namespace Mc2it.Agicap.Payments;
 
+using System.Net.Http.Json;
+
 /// <summary>
 /// Manages the beneficiaries of the entity with the specified identifier.
 /// </summary>
@@ -17,7 +19,8 @@ public class BeneficiaryApi(Client client, int entityId) {
 	/// </summary>
 	/// <param name="beneficiary">The beneficiary to create.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	public void Create(Beneficiary beneficiary, CancellationToken cancellationToken = default) =>
+	/// <returns>The identifier of the newly created beneficiary.</returns
+	public Guid Create(Beneficiary beneficiary, CancellationToken cancellationToken = default) =>
 		CreateAsync(beneficiary, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
@@ -25,9 +28,19 @@ public class BeneficiaryApi(Client client, int entityId) {
 	/// </summary>
 	/// <param name="beneficiary">The beneficiary to create.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns></returns>
-	public async Task CreateAsync(Beneficiary beneficiary, CancellationToken cancellationToken = default) =>
-		await client.PostAsync(requestUri, beneficiary, cancellationToken: cancellationToken);
+	/// <returns>The identifier of the newly created beneficiary.</returns
+	public async Task<Guid> CreateAsync(Beneficiary beneficiary, CancellationToken cancellationToken = default) {
+		using var response = await client.PostAsync(requestUri, beneficiary, cancellationToken: cancellationToken);
+		return beneficiary.Id = await response.Content.ReadFromJsonAsync<Guid>(cancellationToken);
+	}
+
+	/// <summary>
+	/// Deletes the beneficiary with the specified identifier.
+	/// </summary>
+	/// <param name="beneficiary">The beneficiary to delete.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	public void Delete(Beneficiary beneficiary, CancellationToken cancellationToken = default) =>
+		DeleteAsync(beneficiary.Id, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
 	/// Deletes the beneficiary with the specified identifier.
@@ -36,6 +49,15 @@ public class BeneficiaryApi(Client client, int entityId) {
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	public void Delete(Guid beneficiaryId, CancellationToken cancellationToken = default) =>
 		DeleteAsync(beneficiaryId, cancellationToken).GetAwaiter().GetResult();
+
+	/// <summary>
+	/// Deletes the beneficiary with the specified identifier.
+	/// </summary>
+	/// <param name="beneficiary">The beneficiary to delete.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>Completes when the beneficiary has been deleted.</returns>
+	public async Task DeleteAsync(Beneficiary beneficiary, CancellationToken cancellationToken = default) =>
+		await DeleteAsync(beneficiary.Id, cancellationToken);
 
 	/// <summary>
 	/// Deletes the beneficiary with the specified identifier.
@@ -90,6 +112,7 @@ public class BeneficiaryApi(Client client, int entityId) {
 	/// </summary>
 	/// <param name="beneficiary">The beneficiary to update.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>Completes when the beneficiary has been updated.</returns>
 	public async Task UpdateAsync(Beneficiary beneficiary, CancellationToken cancellationToken = default) =>
-		await client.PutAsync(requestUri, beneficiary, cancellationToken: cancellationToken);
+		await client.PutAsync($"{requestUri}/{beneficiary.Id}", beneficiary, cancellationToken: cancellationToken);
 }
