@@ -16,7 +16,7 @@ public sealed class EntityApiTests(TestContext testContext) {
 	public async Task ReadAll() {
 		var list = await api.ReadAllAsync(cancellationToken: testContext.CancellationToken);
 		IsGreaterThanOrEqualTo(1, list.Items.Count);
-		AreEqual(list.Items.Count, list.Pagination?.TotalItemsCount);
+		AreEqual(list.Items.Count, list.Pagination.TotalItemsCount);
 
 		var entity = list.Items.Single(item => item.Id == Fixtures.EntityId);
 		AreEqual("FR", entity.Country);

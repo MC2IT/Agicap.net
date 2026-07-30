@@ -24,7 +24,6 @@ public sealed class PaginatedListTests {
 		AreEqual("Company #2", organization.Name);
 
 		var pagination = list.Pagination;
-		IsNotNull(pagination);
 		AreEqual(2, pagination.CurrentPageItemsCount);
 		AreEqual(1, pagination.CurrentPageNumber);
 		AreEqual(1, pagination.PagesCount);

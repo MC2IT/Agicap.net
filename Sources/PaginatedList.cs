@@ -1,7 +1,7 @@
 namespace Mc2it.Agicap;
 
 /// <summary>
-/// A list with information relevant to the pagination of its items.
+/// Represents a strongly typed list of objects, with information relevant to the pagination of its items.
 /// </summary>
 /// <typeparam name="T">The type of items in the list.</typeparam>
 public sealed class PaginatedList<T> {
