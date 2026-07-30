@@ -15,7 +15,7 @@ public sealed class BeneficiaryApiTests(TestContext testContext) {
 	private readonly BeneficiaryApi api = Fixtures.CreateClient().Payments.Beneficiaries(Fixtures.EntityId);
 
 	[TestMethod]
-	public async Task CreateUpdateDelete() {
+	public async Task Create() {
 		var beneficiary = new Beneficiary {
 			Name = "MC2IT Service Développement",
 			PostalAddress = new() { City = "Fabrègues", Country = "FR", StreetName = "Rue Gine" }
