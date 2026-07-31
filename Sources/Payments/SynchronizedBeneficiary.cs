@@ -5,7 +5,8 @@ using System.Text.Json.Serialization;
 /// <summary>
 /// Represents a beneficiary from a synchronization request.
 /// </summary>
-public class SynchronizedBeneficiary {
+/// <param name="erpId">The identifier of the beneficiary in the ERP software.</param>
+public class SynchronizedBeneficiary(string erpId) {
 
 	/// <summary>
 	/// The bank account number (IBAN/BBAN/Other).
@@ -40,7 +41,7 @@ public class SynchronizedBeneficiary {
 	/// <summary>
 	/// The identifier of the beneficiary in the ERP software.
 	/// </summary>
-	public string ErpId { get; set; } = "";
+	public string ErpId => erpId;
 
 	/// <summary>
 	/// The bank identifier code (BIC) of the intermediary bank processing the payments.
@@ -70,4 +71,21 @@ public class SynchronizedBeneficiary {
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public IList<string>? SupplierErpIds { get; set; }
+
+	/// <summary>
+	/// Creates a new synchronized beneficiary from the specified <see cref="Beneficiary"/>.
+	/// </summary>
+	/// <param name="erpId">The identifier of the beneficiary in the ERP software.</param>
+	/// <param name="beneficiary">The beneficiary providing the properties of the instance to create.</param>
+	public SynchronizedBeneficiary(string erpId, Beneficiary beneficiary): this(erpId) {
+		AccountNumber = beneficiary.BankAccount?.Identifier;
+		BankCountry = beneficiary.BankAccount?.Country;
+		BankIdentifier = beneficiary.BankAccount?.Bic;
+		BankName = beneficiary.BankAccount?.BankName;
+		CompanyLegalId = beneficiary.CompanyLegalIdentifier;
+		IntermediaryBankBic = beneficiary.BankAccount?.IntermediaryBankBic;
+		LocalClearingCode = beneficiary.BankAccount?.LocalClearingCode;
+		Name = beneficiary.Name;
+		PostalAddress = beneficiary.PostalAddress;
+	}
 }
