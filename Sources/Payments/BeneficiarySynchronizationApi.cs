@@ -1,5 +1,7 @@
 namespace Mc2it.Agicap.Payments;
 
+using System.Net.Http.Json;
+
 /// <summary>
 /// Manages the sychronization of beneficiaries of the entity with the specified identifier.
 /// </summary>
@@ -17,7 +19,8 @@ public class BeneficiarySynchronizationApi(Client client, int entityId) {
 	/// </summary>
 	/// <param name="beneficiaries">The beneficiaries to synchronize.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	public void Create(IEnumerable<Beneficiary> beneficiaries, CancellationToken cancellationToken = default) =>
+	/// <returns>The identifier of the newly started synchronization.</returns>
+	public Guid Create(IEnumerable<Beneficiary> beneficiaries, CancellationToken cancellationToken = default) =>
 		CreateAsync(beneficiaries, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
@@ -25,8 +28,11 @@ public class BeneficiarySynchronizationApi(Client client, int entityId) {
 	/// </summary>
 	/// <param name="beneficiaries">The beneficiaries to synchronize.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	public async Task CreateAsync(IEnumerable<Beneficiary> beneficiaries, CancellationToken cancellationToken = default) =>
-		await client.PostAsync(requestUri, new NestedList<Beneficiary> { Items = [.. beneficiaries] }, cancellationToken: cancellationToken);
+	/// <returns>The identifier of the newly started synchronization.</returns>
+	public async Task<Guid> CreateAsync(IEnumerable<Beneficiary> beneficiaries, CancellationToken cancellationToken = default) {
+		using var response = await client.PostAsync(requestUri, new NestedList<Beneficiary> { Items = [.. beneficiaries] }, cancellationToken: cancellationToken);
+		return (await response.Content.ReadFromJsonAsync<SynchronizationIdentifier>(cancellationToken))!.SyncId;
+	}
 
 	/// <summary>
 	/// Fetches the synchronization report with the specified identifier.
