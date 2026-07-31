@@ -37,18 +37,18 @@ public class BeneficiarySynchronizationApi(Client client, int entityId) {
 	/// <summary>
 	/// Fetches the synchronization report with the specified identifier.
 	/// </summary>
-	/// <param name="synchronizationId">The identifier of the synchronization report.</param>
+	/// <param name="syncId">The identifier of the synchronization report.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The synchronization report with the specified identifier.</returns>
-	public BeneficiarySynchronization Read(Guid synchronizationId, CancellationToken cancellationToken = default) =>
-		ReadAsync(synchronizationId, cancellationToken).GetAwaiter().GetResult();
+	public BeneficiarySynchronization Read(Guid syncId, CancellationToken cancellationToken = default) =>
+		ReadAsync(syncId, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
 	/// Fetches the synchronization report with the specified identifier.
 	/// </summary>
-	/// <param name="synchronizationId">The identifier of the synchronization report.</param>
+	/// <param name="syncId">The identifier of the synchronization report.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The synchronization report with the specified identifier.</returns>
-	public async Task<BeneficiarySynchronization> ReadAsync(Guid synchronizationId, CancellationToken cancellationToken = default) =>
-		await client.GetAsync<BeneficiarySynchronization>($"{requestUri}/{synchronizationId}", cancellationToken: cancellationToken);
+	public async Task<BeneficiarySynchronization> ReadAsync(Guid syncId, CancellationToken cancellationToken = default) =>
+		await client.GetAsync<BeneficiarySynchronization>($"{requestUri}/{syncId}", cancellationToken: cancellationToken);
 }
