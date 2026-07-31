@@ -17,7 +17,6 @@ public class BeneficiarySynchronizationApi(Client client, int entityId) {
 	/// </summary>
 	/// <param name="beneficiaries">The beneficiaries to synchronize.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The identifier of the newly created beneficiary.</returns
 	public void Create(IEnumerable<Beneficiary> beneficiaries, CancellationToken cancellationToken = default) =>
 		CreateAsync(beneficiaries, cancellationToken).GetAwaiter().GetResult();
 
@@ -26,7 +25,6 @@ public class BeneficiarySynchronizationApi(Client client, int entityId) {
 	/// </summary>
 	/// <param name="beneficiaries">The beneficiaries to synchronize.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The identifier of the newly created beneficiary.</returns
 	public async Task CreateAsync(IEnumerable<Beneficiary> beneficiaries, CancellationToken cancellationToken = default) =>
 		await client.PostAsync(requestUri, new NestedList<Beneficiary> { Items = [.. beneficiaries] }, cancellationToken: cancellationToken);
 

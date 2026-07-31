@@ -24,7 +24,7 @@ public class BeneficiaryApi(Client client, int entityId) {
 	/// </summary>
 	/// <param name="beneficiary">The beneficiary to create.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The identifier of the newly created beneficiary.</returns
+	/// <returns>The identifier of the newly created beneficiary.</returns>
 	public Guid Create(Beneficiary beneficiary, CancellationToken cancellationToken = default) =>
 		CreateAsync(beneficiary, cancellationToken).GetAwaiter().GetResult();
 
@@ -33,7 +33,7 @@ public class BeneficiaryApi(Client client, int entityId) {
 	/// </summary>
 	/// <param name="beneficiary">The beneficiary to create.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The identifier of the newly created beneficiary.</returns
+	/// <returns>The identifier of the newly created beneficiary.</returns>
 	public async Task<Guid> CreateAsync(Beneficiary beneficiary, CancellationToken cancellationToken = default) {
 		using var response = await client.PostAsync(requestUri, beneficiary, cancellationToken: cancellationToken);
 		return beneficiary.Id = await response.Content.ReadFromJsonAsync<Guid>(cancellationToken);
