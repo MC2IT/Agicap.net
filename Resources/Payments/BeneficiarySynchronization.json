@@ -1,7 +1,14 @@
 {
-	"createdAt": "2026-07-31T14:32:19.546981+00:00",
-	"errors": [],
-	"finishedAt": "2026-07-31T14:32:20.161026+00:00",
-	"status": "Completed",
-	"syncId": "e8424ef2-5048-4cf3-998c-ed9b344feb49"
+	"createdAt": "2026-08-03T08:21:47.346206+00:00",
+	"finishedAt": "2026-08-03T08:21:47.978435+00:00",
+	"status": "CompletedWithErrors",
+	"syncId": "3c648676-e07e-4aca-8e63-ce0802221b57",
+	"errors": [
+		{
+			"errorCode": "IncompletePostalAddress",
+			"errorMessage": "The synchronization failed for field 'postalAddress': Postal address is incomplete: streetName, city and country are required.",
+			"rawData": "{\"Name\": \"MC2IT Service Développement\", \"ErpId\": \"MC2IT-DEVELOPMENT\", \"BankName\": null, \"BankCountry\": null, \"AccountNumber\": null, \"PostalAddress\": {\"City\": null, \"State\": null, \"Number\": null, \"Country\": \"ZZZZ\", \"ZipCode\": null, \"StreetName\": null}, \"BankIdentifier\": null, \"CompanyLegalId\": null, \"SupplierErpIds\": null, \"LocalClearingCode\": null, \"IntermediaryBankIdentifier\": null}",
+			"rowIndex": 0
+		}
+	]
 }
