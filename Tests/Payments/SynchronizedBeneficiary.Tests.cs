@@ -24,7 +24,13 @@ public sealed class SynchronizedBeneficiaryTests {
 
 	[TestMethod]
 	public void ToJson() {
-		var synchronizedBeneficiary = new SynchronizedBeneficiary("MC2IT-DEVELOPMENT") { Name = "My Company", PostalAddress = new(), SupplierErpIds = ["FOO", "BAR"] };
+		var synchronizedBeneficiary = new SynchronizedBeneficiary {
+			ErpId = "MC2IT-DEVELOPMENT",
+			Name = "My Company",
+			PostalAddress = new(),
+			SupplierErpIds = ["FOO", "BAR"]
+		};
+
 		var json = JsonSerializer.Serialize(synchronizedBeneficiary, JsonSerializerOptions.Web);
 		Contains("\"name\":\"My Company\"", json);
 		Contains("\"supplierErpIds\":[\"FOO\",\"BAR\"]", json);
