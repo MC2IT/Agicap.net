@@ -25,6 +25,7 @@ public sealed class SynchronizedBeneficiaryTests {
 	[TestMethod]
 	public void ToJson() {
 		var synchronizedBeneficiary = new SynchronizedBeneficiary {
+			BankAccount = new() { BankName = "My Bank" },
 			ErpId = "MC2IT-DEVELOPMENT",
 			Name = "My Company",
 			PostalAddress = new(),
@@ -32,8 +33,11 @@ public sealed class SynchronizedBeneficiaryTests {
 		};
 
 		var json = JsonSerializer.Serialize(synchronizedBeneficiary, JsonSerializerOptions.Web);
+		Contains("\"bankName\":\"My Bank\"", json);
+		Contains("\"erpId\":\"MC2IT-DEVELOPMENT\"", json);
 		Contains("\"name\":\"My Company\"", json);
 		Contains("\"supplierErpIds\":[\"FOO\",\"BAR\"]", json);
+		DoesNotContain("\"accountNumber\"", json);
 		DoesNotContain("\"postalAddress\"", json);
 	}
 }

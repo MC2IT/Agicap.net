@@ -14,6 +14,34 @@ public class SynchronizedBeneficiary() {
 	public string? AccountNumber { get; set; }
 
 	/// <summary>
+	/// The bank account of the beneficiary.
+	/// </summary>
+	[JsonIgnore]
+	public BankAccount? BankAccount {
+		get {
+			var bankAccount = new BankAccount {
+				BankName = BankName, Country = BankCountry,
+				Bic = BankIdentifier, Identifier = AccountNumber,
+				IntermediaryBankBic = IntermediaryBankBic, LocalClearingCode = LocalClearingCode
+			};
+
+			return bankAccount.IsEmpty ? null : bankAccount;
+		}
+		set {
+			if (value is null || value.IsEmpty)
+				AccountNumber = BankCountry = BankIdentifier = BankName = IntermediaryBankBic = LocalClearingCode = null;
+			else {
+				AccountNumber = value.Identifier;
+				BankCountry = value.Country;
+				BankIdentifier = value.Bic;
+				BankName = value.BankName;
+				IntermediaryBankBic = value.IntermediaryBankBic;
+				LocalClearingCode = value.LocalClearingCode;
+			}
+		}
+	}
+
+	/// <summary>
 	/// The ISO 3166 alpha-2 code of the country where the bank account is located.
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -77,14 +105,9 @@ public class SynchronizedBeneficiary() {
 	/// <param name="erpId">The identifier of the beneficiary in the ERP software.</param>
 	/// <param name="beneficiary">The beneficiary providing the properties of the instance to create.</param>
 	public SynchronizedBeneficiary(string erpId, Beneficiary beneficiary): this() {
-		AccountNumber = beneficiary.BankAccount?.Identifier;
-		BankCountry = beneficiary.BankAccount?.Country;
-		BankIdentifier = beneficiary.BankAccount?.Bic;
-		BankName = beneficiary.BankAccount?.BankName;
+		BankAccount = beneficiary.BankAccount;
 		CompanyLegalId = beneficiary.CompanyLegalIdentifier;
 		ErpId = erpId;
-		IntermediaryBankBic = beneficiary.BankAccount?.IntermediaryBankBic;
-		LocalClearingCode = beneficiary.BankAccount?.LocalClearingCode;
 		Name = beneficiary.Name;
 		PostalAddress = beneficiary.PostalAddress;
 	}
