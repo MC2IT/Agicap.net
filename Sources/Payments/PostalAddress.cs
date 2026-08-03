@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 /// <summary>
 /// The postal address of a beneficiary.
 /// </summary>
-public class PostalAddress: IEquatable<PostalAddress> {
+public class PostalAddress {
 
 	/// <summary>
 	/// The name of the city.
@@ -50,48 +50,4 @@ public class PostalAddress: IEquatable<PostalAddress> {
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public string? ZipCode { get; set; }
-
-	/// <summary>
-	/// Determines whether the two specified objects are equal.
-	/// </summary>
-	/// <param name="object1">The first object.</param>
-	/// <param name="object2">The second object.</param>
-	/// <returns><see langword="true"/> if <paramref name="object1"/> equals <paramref name="object2"/>, otherwise <see langword="false"/>.</returns>
-	public static bool operator ==(PostalAddress? object1, PostalAddress? object2) =>
-		ReferenceEquals(object1, object2) || (object1?.Equals(object2) ?? false);
-
-	/// <summary>
-	/// Determines whether the two specified objects are not equal.
-	/// </summary>
-	/// <param name="object1">The first object.</param>
-	/// <param name="object2">The second object.</param>
-	/// <returns><see langword="true"/> if <paramref name="object1"/> does not equal <paramref name="object2"/>, otherwise <see langword="false"/>.</returns>
-	public static bool operator !=(PostalAddress? object1, PostalAddress? object2) => !(object1 == object2);
-
-	/// <summary>
-	/// Determines whether the specified object is equal to this object.
-	/// </summary>
-	/// <param name="other">An object to compare with this object.</param>
-	/// <returns><see langword="true"/> if the specified object is equal to this object, otherwise <see langword="false"/>.</returns>
-	public override bool Equals(object? other) => Equals(other as PostalAddress);
-
-	/// <summary>
-	/// Determines whether the specified object is equal to this object.
-	/// </summary>
-	/// <param name="other">An object to compare with this object.</param>
-	/// <returns><see langword="true"/> if the specified object is equal to this object, otherwise <see langword="false"/>.</returns>
-	public bool Equals(PostalAddress? other) => other is not null &&
-		City == other.City &&
-		Country == other.Country &&
-		Number == other.Number &&
-		State == other.State &&
-		StreetName == other.StreetName &&
-		ZipCode == other.ZipCode;
-
-	/// <summary>
-	/// Gets the hash code for this object.
-	/// </summary>
-	/// <returns>The hash code for this object.</returns>
-	public override int GetHashCode() =>
-		HashCode.Combine(City, Country, Number, State, StreetName, ZipCode);
 }
