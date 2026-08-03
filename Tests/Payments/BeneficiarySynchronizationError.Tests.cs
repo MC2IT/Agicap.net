@@ -11,12 +11,12 @@ public sealed class BeneficiarySynchronizationErrorTests {
 	[TestMethod]
 	public void FromJson() {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Payments/BeneficiarySynchronizationError.json"));
-		var synchronizationError = JsonSerializer.Deserialize<BeneficiarySynchronizationError>(json, JsonSerializerOptions.Web)!;
-		AreEqual(BeneficiarySynchronizationErrorCode.IncompletePostalAddress, synchronizationError.ErrorCode);
-		StartsWith("The synchronization failed", synchronizationError.ErrorMessage);
-		AreEqual(0, synchronizationError.RowIndex);
+		var error = JsonSerializer.Deserialize<BeneficiarySynchronizationError>(json, JsonSerializerOptions.Web)!;
+		AreEqual(BeneficiarySynchronizationErrorCode.IncompletePostalAddress, error.ErrorCode);
+		StartsWith("The synchronization failed", error.ErrorMessage);
+		AreEqual(0, error.RowIndex);
 
-		var beneficiary = synchronizationError.Beneficiary;
+		var beneficiary = error.Beneficiary;
 		IsNotNull(beneficiary);
 		AreEqual("MC2IT-DEVELOPMENT", beneficiary.ErpId);
 		AreEqual("MC2IT Service Développement", beneficiary.Name);
