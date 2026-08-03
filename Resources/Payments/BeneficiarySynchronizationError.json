@@ -1,0 +1,6 @@
+{
+	"errorCode": "IncompletePostalAddress",
+	"errorMessage": "The synchronization failed for field 'postalAddress': Postal address is incomplete: streetName, city and country are required.",
+	"rawData": "{\"Name\": \"MC2IT Service Développement\", \"ErpId\": \"MC2IT-DEVELOPMENT\", \"BankName\": null, \"BankCountry\": null, \"AccountNumber\": null, \"PostalAddress\": {\"City\": null, \"State\": null, \"Number\": null, \"Country\": \"ZZZZ\", \"ZipCode\": null, \"StreetName\": null}, \"BankIdentifier\": null, \"CompanyLegalId\": null, \"SupplierErpIds\": null, \"LocalClearingCode\": null, \"IntermediaryBankIdentifier\": null}",
+	"rowIndex": 0
+}
