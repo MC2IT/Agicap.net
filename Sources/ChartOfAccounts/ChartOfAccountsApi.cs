@@ -1,9 +1,24 @@
 namespace Mc2it.Agicap.ChartOfAccounts;
 
 /// <summary>
-/// Provides access to the "ChartOfAccounts" API.
+/// Manages the chart of accounts.
 /// </summary>
 /// <param name="client">The Agicap API client.</param>
 public class ChartOfAccountsApi(Client client) {
-	// TODO
+
+	/// <summary>
+	/// Gets a new API client for the accounting accounts of the entity with the specified identifier.
+	/// </summary>
+	/// <param name="entityId">The entity identifier.</param>
+	/// <returns>The API client for the accounting accounts of the specified entity.</returns>
+	/// <exception cref="NotImplementedException">This API is not implemented.</exception>
+	public object AccountingAccounts(int entityId) => throw new NotImplementedException();
+
+	/// <summary>
+	/// Gets a new API client for the third-parties of the entity with the specified identifier.
+	/// </summary>
+	/// <param name="entityId">The entity identifier.</param>
+	/// <returns>The API client for the third-parties of the specified entity.</returns>
+	/// <exception cref="NotImplementedException">This API is not implemented.</exception>
+	public object ThirdParties(int entityId) => throw new NotImplementedException();
 }

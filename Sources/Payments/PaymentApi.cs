@@ -12,4 +12,12 @@ public class PaymentApi(Client client) {
 	/// <param name="entityId">The entity identifier.</param>
 	/// <returns>The API client for the beneficiaries of the specified entity.</returns>
 	public BeneficiaryApi Beneficiaries(int entityId) => new(client, entityId);
+
+	/// <summary>
+	/// Gets a new API client for the payment files of the entity with the specified identifier.
+	/// </summary>
+	/// <param name="entityId">The entity identifier.</param>
+	/// <returns>The API client for the payment files of the specified entity.</returns>
+	/// <exception cref="NotImplementedException">This API is not implemented.</exception>
+	public object PaymentFiles(int entityId) => throw new NotImplementedException();
 }
