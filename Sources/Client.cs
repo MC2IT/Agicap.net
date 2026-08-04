@@ -103,7 +103,7 @@ public class Client(NetworkCredential credential) {
 			["scope"] = string.Join(' ', scopes is not null && scopes.Length > 0 ? scopes : DefaultScopes)
 		});
 
-		using var client = CreateHttpClient();
+		using var client = NewHttpClient();
 		using var response = await client.PostAsync("auth/v1/token", content, cancellationToken);
 		await EnsureSuccessStatusCode(response, cancellationToken);
 		return accessToken = (await response.Content.ReadFromJsonAsync<AccessToken>(cancellationToken))!;
@@ -119,8 +119,8 @@ public class Client(NetworkCredential credential) {
 	/// <returns>The response from the HTTP server.</returns>
 	internal async Task<HttpResponseMessage> DeleteAsync(string requestUri, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-		using var client = CreateHttpClient();
-		var response = await client.DeleteAsync($"{requestUri}?{CreateQueryString(query)}", cancellationToken);
+		using var client = NewHttpClient();
+		var response = await client.DeleteAsync($"{requestUri}?{NewQueryString(query)}", cancellationToken);
 		return await EnsureSuccessStatusCode(response, cancellationToken);
 	}
 
@@ -134,8 +134,8 @@ public class Client(NetworkCredential credential) {
 	/// <returns>The deserialized response body.</returns>
 	internal async Task<T> GetAsync<T>(string requestUri, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-		using var client = CreateHttpClient();
-		using var response = await client.GetAsync($"{requestUri}?{CreateQueryString(query)}", cancellationToken);
+		using var client = NewHttpClient();
+		using var response = await client.GetAsync($"{requestUri}?{NewQueryString(query)}", cancellationToken);
 		await EnsureSuccessStatusCode(response, cancellationToken);
 		return (await response.Content.ReadFromJsonAsync<T>(cancellationToken))!;
 	}
@@ -151,8 +151,8 @@ public class Client(NetworkCredential credential) {
 	/// <returns>The response from the HTTP server.</returns>
 	internal async Task<HttpResponseMessage> PatchAsync<T>(string requestUri, T value, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-		using var client = CreateHttpClient();
-		var response = await client.PatchAsJsonAsync($"{requestUri}?{CreateQueryString(query)}", value, cancellationToken);
+		using var client = NewHttpClient();
+		var response = await client.PatchAsJsonAsync($"{requestUri}?{NewQueryString(query)}", value, cancellationToken);
 		return await EnsureSuccessStatusCode(response, cancellationToken);
 	}
 
@@ -167,8 +167,8 @@ public class Client(NetworkCredential credential) {
 	/// <returns>The response from the HTTP server.</returns>
 	internal async Task<HttpResponseMessage> PostAsync<T>(string requestUri, T value, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-		using var client = CreateHttpClient();
-		var response = await client.PostAsJsonAsync($"{requestUri}?{CreateQueryString(query)}", value, cancellationToken);
+		using var client = NewHttpClient();
+		var response = await client.PostAsJsonAsync($"{requestUri}?{NewQueryString(query)}", value, cancellationToken);
 		return await EnsureSuccessStatusCode(response, cancellationToken);
 	}
 
@@ -183,8 +183,8 @@ public class Client(NetworkCredential credential) {
 	/// <returns>The response from the HTTP server.</returns>
 	internal async Task<HttpResponseMessage> PutAsync<T>(string requestUri, T value, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-		using var client = CreateHttpClient();
-		var response = await client.PutAsJsonAsync($"{requestUri}?{CreateQueryString(query)}", value, cancellationToken);
+		using var client = NewHttpClient();
+		var response = await client.PutAsJsonAsync($"{requestUri}?{NewQueryString(query)}", value, cancellationToken);
 		return await EnsureSuccessStatusCode(response, cancellationToken);
 	}
 
@@ -211,7 +211,7 @@ public class Client(NetworkCredential credential) {
 	/// Creates a new HTTP client with default settings.
 	/// </summary>
 	/// <returns>The newly created HTTP client.</returns>
-	private HttpClient CreateHttpClient() {
+	private HttpClient NewHttpClient() {
 		var httpClient = new HttpClient { BaseAddress = BaseUrl, Timeout = TimeSpan.FromMinutes(1) };
 		httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent);
 		if (IsAuthenticated) httpClient.DefaultRequestHeaders.Authorization = new("Bearer", accessToken.Value);
@@ -223,7 +223,7 @@ public class Client(NetworkCredential credential) {
 	/// </summary>
 	/// <param name="parameters">The query parameters whose elements are copied to the collection.</param>
 	/// <returns>The newly created query string collection.</returns>
-	private static NameValueCollection CreateQueryString(IDictionary<string, object?>? parameters = null) {
+	private static NameValueCollection NewQueryString(IDictionary<string, object?>? parameters = null) {
 		var queryString = HttpUtility.ParseQueryString("");
 		if (parameters is not null)
 			foreach (var parameter in parameters)
