@@ -17,7 +17,7 @@ public sealed class BeneficiaryApiTests(TestContext testContext) {
 	[TestMethod]
 	public async Task Create() {
 		var beneficiary = new Beneficiary {
-			Name = "MC2IT Service Développement",
+			Name = "MC2IT Continuous integration",
 			PostalAddress = new() { City = "Fabrègues", Country = "FR", StreetName = "Rue Gine" }
 		};
 

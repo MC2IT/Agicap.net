@@ -16,7 +16,7 @@ public sealed class BeneficiarySynchronizationApiTests(TestContext testContext) 
 	public async Task Create() {
 		var beneficiary = new SynchronizedBeneficiary {
 			ErpId = "MC2IT-DEVELOPMENT",
-			Name = "MC2IT Service Développement",
+			Name = "MC2IT Development Department",
 			PostalAddress = new() { City = "Fabrègues", Country = "FR", StreetName = "Rue Gine" }
 		};
 

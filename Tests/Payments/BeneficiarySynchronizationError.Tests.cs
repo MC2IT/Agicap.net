@@ -19,7 +19,7 @@ public sealed class BeneficiarySynchronizationErrorTests {
 		var beneficiary = error.Beneficiary;
 		IsNotNull(beneficiary);
 		AreEqual("MC2IT-DEVELOPMENT", beneficiary.ErpId);
-		AreEqual("MC2IT Service Développement", beneficiary.Name);
+		AreEqual("MC2IT Development Department", beneficiary.Name);
 		AreEqual("ZZZZ", beneficiary.PostalAddress?.Country);
 	}
 }
