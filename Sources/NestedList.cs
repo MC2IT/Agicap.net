@@ -4,10 +4,10 @@ namespace Mc2it.Agicap;
 /// Represents a strongly typed list of objects.
 /// </summary>
 /// <typeparam name="T">The type of items in the list.</typeparam>
-public sealed class NestedList<T> {
+public class NestedList<T> {
 
 	/// <summary>
 	/// The list items.
 	/// </summary>
-	public IList<T> Items { get; init; } = [];
+	public IList<T> Items { get; set; } = [];
 }
