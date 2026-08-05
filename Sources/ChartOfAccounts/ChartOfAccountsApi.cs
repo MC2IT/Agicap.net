@@ -12,7 +12,7 @@ public class ChartOfAccountsApi(Client client) {
 	/// <param name="entityId">The entity identifier.</param>
 	/// <returns>The API client for the accounting accounts of the specified entity.</returns>
 	/// <exception cref="NotImplementedException">This API is not implemented.</exception>
-	public object AccountingAccounts(int entityId) => throw new NotImplementedException();
+	public AccountingAccountApi AccountingAccounts(int entityId) => new(client, entityId);
 
 	/// <summary>
 	/// Gets a new API client for the third-parties of the entity with the specified identifier.
@@ -20,5 +20,5 @@ public class ChartOfAccountsApi(Client client) {
 	/// <param name="entityId">The entity identifier.</param>
 	/// <returns>The API client for the third-parties of the specified entity.</returns>
 	/// <exception cref="NotImplementedException">This API is not implemented.</exception>
-	public object ThirdParties(int entityId) => throw new NotImplementedException();
+	public ThirdPartyApi ThirdParties(int entityId) => new(client, entityId);
 }
