@@ -30,7 +30,7 @@ public class BeneficiarySynchronizationApi(Client client, int entityId) {
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The identifier of the newly started synchronization.</returns>
 	public async Task<Guid> CreateAsync(IEnumerable<SynchronizedBeneficiary> beneficiaries, CancellationToken cancellationToken = default) {
-		using var response = await client.PostAsync(requestUri, new NestedList<SynchronizedBeneficiary> { Items = [.. beneficiaries] }, cancellationToken: cancellationToken);
+		using var response = await client.PostAsync(requestUri, new { Items = beneficiaries }, cancellationToken: cancellationToken);
 		return (await response.Content.ReadFromJsonAsync<SynchronizationIdentifier>(cancellationToken))!.SyncId;
 	}
 
