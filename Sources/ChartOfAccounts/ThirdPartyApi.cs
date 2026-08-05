@@ -1,5 +1,7 @@
 namespace Mc2it.Agicap.ChartOfAccounts;
 
+using System.Net.Http.Json;
+
 /// <summary>
 /// Manages the third-parties of the chart of accounts.
 /// </summary>
@@ -16,24 +18,23 @@ public class ThirdPartyApi(Client client, int entityId) {
 	/// Creates new third-parties.
 	/// </summary>
 	/// <param name="thirdParties">The third-parties to create.</param>
-	/// <param name="importId">The identifier to assign to the operation.</param>
+	/// <param name="importId">The identifier to assign to the import.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The identifier of the newly created beneficiary.</returns>
-	// public Guid Create(IEnumerable<ThirdParty> thirdParties, Guid? importId = null, CancellationToken cancellationToken = default) =>
-	// 	CreateAsync(thirdParties, importId, cancellationToken).GetAwaiter().GetResult();
+	/// <returns>Metrics about the import of third-parties.</returns>
+	public ImportResponse Create(IEnumerable<ThirdParty> thirdParties, Guid? importId = null, CancellationToken cancellationToken = default) =>
+		CreateAsync(thirdParties, importId, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
 	/// Creates new third-parties.
 	/// </summary>
 	/// <param name="thirdParties">The third-parties to create.</param>
-	/// <param name="importId">The identifier to assign to the operation.</param>
+	/// <param name="importId">The identifier to assign to the import.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The identifier of the newly created beneficiary.</returns>
-	// public async Task<Guid> CreateAsync(IEnumerable<ThirdParty> thirdParties, Guid? importId = null, CancellationToken cancellationToken = default) {
-	// 	importId ??= Guid.NewGuid();
-	// 	using var response = await client.PostAsync($"{requestUri}/import/{importId}", thirdParties, cancellationToken: cancellationToken);
-	// 	return thirdParties.Id = await response.Content.ReadFromJsonAsync<Guid>(cancellationToken);
-	// }
+	/// <returns>Metrics about the import of third-parties.</returns>
+	public async Task<ImportResponse> CreateAsync(IEnumerable<ThirdParty> thirdParties, Guid? importId = null, CancellationToken cancellationToken = default) {
+		using var response = await client.PostAsync($"{requestUri}/import/{importId ?? Guid.NewGuid()}", new { ThirdParties = thirdParties }, cancellationToken: cancellationToken);
+		return (await response.Content.ReadFromJsonAsync<ImportResponse>(cancellationToken))!;
+	}
 
 	/// <summary>
 	/// Deletes the third-parties with the specified codes.

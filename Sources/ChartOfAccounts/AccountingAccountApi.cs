@@ -1,5 +1,7 @@
 namespace Mc2it.Agicap.ChartOfAccounts;
 
+using System.Net.Http.Json;
+
 /// <summary>
 /// Manages the accounting accounts of the chart of accounts.
 /// </summary>
@@ -16,24 +18,23 @@ public class AccountingAccountApi(Client client, int entityId) {
 	/// Creates new accounting accounts.
 	/// </summary>
 	/// <param name="accountingAccounts">The accounting accounts to create.</param>
-	/// <param name="importId">The identifier to assign to the operation.</param>
+	/// <param name="importId">The identifier to assign to the import.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The identifier of the newly created beneficiary.</returns>
-	// public Guid Create(IEnumerable<AccountingAccount> accountingAccounts, Guid? importId = null, CancellationToken cancellationToken = default) =>
-	// 	CreateAsync(accountingAccounts, importId, cancellationToken).GetAwaiter().GetResult();
+	/// <returns>Metrics about the import of accounting accounts.</returns>
+	public ImportResponse Create(IEnumerable<AccountingAccount> accountingAccounts, Guid? importId = null, CancellationToken cancellationToken = default) =>
+		CreateAsync(accountingAccounts, importId, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
 	/// Creates new accounting accounts.
 	/// </summary>
 	/// <param name="accountingAccounts">The accounting accounts to create.</param>
-	/// <param name="importId">The identifier to assign to the operation.</param>
+	/// <param name="importId">The identifier to assign to the import.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The identifier of the newly created beneficiary.</returns>
-	// public async Task<Guid> CreateAsync(IEnumerable<AccountingAccount> accountingAccounts, Guid? importId = null, CancellationToken cancellationToken = default) {
-	// 	importId ??= Guid.NewGuid();
-	// 	using var response = await client.PostAsync($"{requestUri}/import/{importId}", accountingAccounts, cancellationToken: cancellationToken);
-	// 	return accountingAccounts.Id = await response.Content.ReadFromJsonAsync<Guid>(cancellationToken);
-	// }
+	/// <returns>Metrics about the import of accounting accounts.</returns>
+	public async Task<ImportResponse> CreateAsync(IEnumerable<AccountingAccount> accountingAccounts, Guid? importId = null, CancellationToken cancellationToken = default) {
+		using var response = await client.PostAsync($"{requestUri}/import/{importId ?? Guid.NewGuid()}", new { AccountingAccounts = accountingAccounts }, cancellationToken: cancellationToken);
+		return (await response.Content.ReadFromJsonAsync<ImportResponse>(cancellationToken))!;
+	}
 
 	/// <summary>
 	/// Deletes the accounting accounts with the specified numbers.
