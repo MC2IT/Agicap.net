@@ -18,8 +18,8 @@ public class ThirdPartyApi(Client client, int entityId) {
 	/// <param name="thirdParties">The third-parties to create.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The identifier of the newly created beneficiary.</returns>
-	// public Guid Create(IEnumerable<ThirdParty> thirdParties, CancellationToken cancellationToken = default) =>
-	// 	CreateAsync(thirdParties, cancellationToken).GetAwaiter().GetResult();
+	// public Guid Create(IEnumerable<ThirdParty> thirdParties, Guid? importId = null, CancellationToken cancellationToken = default) =>
+	// 	CreateAsync(thirdParties, importId, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
 	/// Creates new third-parties.
@@ -27,8 +27,9 @@ public class ThirdPartyApi(Client client, int entityId) {
 	/// <param name="thirdParties">The third-parties to create.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The identifier of the newly created beneficiary.</returns>
-	// public async Task<Guid> CreateAsync(IEnumerable<ThirdParty> thirdParties, CancellationToken cancellationToken = default) {
-	// 	using var response = await client.PostAsync(requestUri, thirdParties, cancellationToken: cancellationToken);
+	// public async Task<Guid> CreateAsync(IEnumerable<ThirdParty> thirdParties, Guid? importId = null, CancellationToken cancellationToken = default) {
+	// 	importId ??= Guid.NewGuid();
+	// 	using var response = await client.PostAsync($"{requestUri}/import/{importId}", thirdParties, cancellationToken: cancellationToken);
 	// 	return thirdParties.Id = await response.Content.ReadFromJsonAsync<Guid>(cancellationToken);
 	// }
 
@@ -47,5 +48,5 @@ public class ThirdPartyApi(Client client, int entityId) {
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>Completes when the beneficiary has been deleted.</returns>
 	public async Task DeleteAsync(IEnumerable<string> thirdPartyCodes, CancellationToken cancellationToken = default) =>
-		await client.PostAsync($"{requestUri}/delete", new ThirdPartyList { ThirdPartyCodes = [.. thirdPartyCodes] }, cancellationToken: cancellationToken);
+		await client.PostAsync($"{requestUri}/delete", new { ThirdPartyCodes = thirdPartyCodes }, cancellationToken: cancellationToken);
 }
