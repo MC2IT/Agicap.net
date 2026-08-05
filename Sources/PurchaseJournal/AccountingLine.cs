@@ -65,7 +65,7 @@ public class AccountingLine {
 	/// <summary>
 	/// The identifier of the line item for invoice accounting purchase typology. Empty for lines of type `SupplierAccount`.
 	/// </summary>
-	public Guid LineItemId { get; set; } = Guid.Empty;
+	public Guid LineItemId { get; set; }
 
 	/// <summary>
 	/// The tax key of vat account if Account Type is `VatAccount else null. Empty for lines of type `VatAccount`.

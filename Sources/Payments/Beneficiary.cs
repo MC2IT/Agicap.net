@@ -23,7 +23,7 @@ public class Beneficiary {
 	/// The beneficiary identifier.
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-	public Guid Id { get; set; } = Guid.Empty;
+	public Guid Id { get; set; }
 
 	/// <summary>
 	/// The name of the beneficiary.

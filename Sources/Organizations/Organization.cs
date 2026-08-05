@@ -8,7 +8,7 @@ public class Organization {
 	/// <summary>
 	/// The organization identifier.
 	/// </summary>
-	public Guid Id { get; set; } = Guid.Empty;
+	public Guid Id { get; set; }
 
 	/// <summary>
 	/// The organization name.
