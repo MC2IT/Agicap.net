@@ -202,9 +202,8 @@ public class Client(NetworkCredential credential) {
 		try { problemDetails = await response.Content.ReadFromJsonAsync<ProblemDetails>(cancellationToken); }
 		catch { problemDetails = null; }
 
-		var statusCode = (int) response.StatusCode;
-		var reasonPhrase = string.IsNullOrWhiteSpace(response.ReasonPhrase) ? $"{statusCode}" : $"{statusCode} {response.ReasonPhrase}";
-		throw new HttpResponseException($"Response status code does not indicate success: {reasonPhrase}", response, problemDetails);
+		var reasonPhrase = string.IsNullOrWhiteSpace(problemDetails?.Title) ? response.ReasonPhrase : problemDetails.Title;
+		throw new HttpResponseException($"{(int) response.StatusCode} {reasonPhrase}".TrimEnd(), response, problemDetails);
 	}
 
 	/// <summary>
