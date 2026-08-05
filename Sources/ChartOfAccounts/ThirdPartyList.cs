@@ -3,7 +3,7 @@ namespace Mc2it.Agicap.ChartOfAccounts;
 /// <summary>
 /// Represents a list of third-party codes.
 /// </summary>
-public class ThirdPartyList {
+internal class ThirdPartyList {
 
 	/// <summary>
 	/// The list items.

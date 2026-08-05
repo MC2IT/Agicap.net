@@ -3,7 +3,7 @@ namespace Mc2it.Agicap.ChartOfAccounts;
 /// <summary>
 /// Represents a list of accounting account numbers.
 /// </summary>
-public class AccountingAccountList {
+internal class AccountingAccountList {
 
 	/// <summary>
 	/// The list items.
