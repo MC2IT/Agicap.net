@@ -1,11 +1,11 @@
 namespace Mc2it.Agicap.ChartOfAccounts;
 
-using System.Collections;
+using System.Text.Json.Serialization;
 
 /// <summary>
 /// Represents an accounting account.
 /// </summary>
-public class AccountingAccount: IEquatable<AccountingAccount> {
+public class AccountingAccount {
 
 	/// <summary>
 	/// The accounting account name.
@@ -20,78 +20,24 @@ public class AccountingAccount: IEquatable<AccountingAccount> {
 	/// <summary>
 	/// The accounting account type.
 	/// </summary>
-	public AccountingAccountType AccountingAccountType = AccountingAccountType.Other;
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public AccountingAccountType? AccountingAccountType { get; set; }
 
 	/// <summary>
 	/// An optional ERP-specific external identifier.
 	/// </summary>
-	public string ExternalId { get; set; } = "";
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? ExternalId { get; set; }
 
 	/// <summary>
 	/// The tax key.
 	/// </summary>
-	public string TaxKey { get; set; } = "";
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? TaxKey { get; set; }
 
 	/// <summary>
 	/// The VAT rate.
 	/// </summary>
-	public double VatRate { get; set; }
-
-	/// <summary>
-	/// Determines whether the two specified objects are equal.
-	/// </summary>
-	/// <param name="object1">The first object.</param>
-	/// <param name="object2">The second object.</param>
-	/// <returns><see langword="true"/> if <paramref name="object1"/> equals <paramref name="object2"/>, otherwise <see langword="false"/>.</returns>
-	public static bool operator ==(AccountingAccount? object1, AccountingAccount? object2) =>
-		ReferenceEquals(object1, object2) || (object1?.Equals(object2) ?? false);
-
-	/// <summary>
-	/// Determines whether the two specified objects are not equal.
-	/// </summary>
-	/// <param name="object1">The first object.</param>
-	/// <param name="object2">The second object.</param>
-	/// <returns><see langword="true"/> if <paramref name="object1"/> does not equal <paramref name="object2"/>, otherwise <see langword="false"/>.</returns>
-	public static bool operator !=(AccountingAccount? object1, AccountingAccount? object2) => !(object1 == object2);
-
-	/// <summary>
-	/// Converts the specified accounting account to a hash table.
-	/// </summary>
-	/// <param name="accountingAccount">The accounting account to convert.</param>
-	/// <returns>The hash table corresponding to the specified accounting account.</returns>
-	public static explicit operator Hashtable(AccountingAccount accountingAccount) => new() {
-		["accountingAccountName"] = accountingAccount.AccountingAccountName,
-		["accountingAccountNumber"] = accountingAccount.AccountingAccountNumber,
-		["accountingAccountType"] = accountingAccount.AccountingAccountType.ToString(),
-		["externalId"] = string.IsNullOrWhiteSpace(accountingAccount.ExternalId) ? null : accountingAccount.ExternalId,
-		["taxKey"] = string.IsNullOrWhiteSpace(accountingAccount.TaxKey) ? null : accountingAccount.TaxKey,
-		["vatRate"] = accountingAccount.VatRate > 0 || accountingAccount.AccountingAccountType == AccountingAccountType.Vat ? accountingAccount.VatRate : null
-	};
-
-	/// <summary>
-	/// Determines whether the specified object is equal to this object.
-	/// </summary>
-	/// <param name="other">An object to compare with this object.</param>
-	/// <returns><see langword="true"/> if the specified object is equal to this object, otherwise <see langword="false"/>.</returns>
-	public override bool Equals(object? other) => Equals(other as AccountingAccount);
-
-	/// <summary>
-	/// Determines whether the specified object is equal to this object.
-	/// </summary>
-	/// <param name="other">An object to compare with this object.</param>
-	/// <returns><see langword="true"/> if the specified object is equal to this object, otherwise <see langword="false"/>.</returns>
-	public bool Equals(AccountingAccount? other) => other is not null &&
-		AccountingAccountName == other.AccountingAccountName &&
-		AccountingAccountNumber == other.AccountingAccountNumber &&
-		AccountingAccountType == other.AccountingAccountType &&
-		ExternalId == other.ExternalId &&
-		TaxKey == other.TaxKey &&
-		Math.Abs(VatRate - other.VatRate) < 0.000001;
-
-	/// <summary>
-	/// Gets the hash code for this object.
-	/// </summary>
-	/// <returns>The hash code for this object.</returns>
-	public override int GetHashCode() =>
-		HashCode.Combine(AccountingAccountName, AccountingAccountNumber, AccountingAccountType, ExternalId, TaxKey, VatRate);
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public double? VatRate { get; set; }
 }
