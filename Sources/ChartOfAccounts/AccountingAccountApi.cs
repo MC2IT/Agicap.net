@@ -16,7 +16,7 @@ public class AccountingAccountApi(Client client, int entityId) {
 	/// Creates new accounting accounts.
 	/// </summary>
 	/// <param name="accountingAccounts">The accounting accounts to create.</param>
-	/// <param name="importId"></param>
+	/// <param name="importId">The identifier to assign to the operation.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The identifier of the newly created beneficiary.</returns>
 	// public Guid Create(IEnumerable<AccountingAccount> accountingAccounts, Guid? importId = null, CancellationToken cancellationToken = default) =>
@@ -26,6 +26,7 @@ public class AccountingAccountApi(Client client, int entityId) {
 	/// Creates new accounting accounts.
 	/// </summary>
 	/// <param name="accountingAccounts">The accounting accounts to create.</param>
+	/// <param name="importId">The identifier to assign to the operation.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The identifier of the newly created beneficiary.</returns>
 	// public async Task<Guid> CreateAsync(IEnumerable<AccountingAccount> accountingAccounts, Guid? importId = null, CancellationToken cancellationToken = default) {
