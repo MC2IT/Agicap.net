@@ -37,12 +37,29 @@ public class ThirdPartyApi(Client client, int entityId) {
 	}
 
 	/// <summary>
+	/// Deletes the specified third-parties.
+	/// </summary>
+	/// <param name="thirdParties">The codes of third-parties to delete.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	public void Delete(IEnumerable<ThirdParty> thirdParties, CancellationToken cancellationToken = default) =>
+		DeleteAsync(thirdParties.Select(thirdParty => thirdParty.ThirdPartyCode), cancellationToken).GetAwaiter().GetResult();
+
+	/// <summary>
 	/// Deletes the third-parties with the specified codes.
 	/// </summary>
 	/// <param name="thirdPartyCodes">The codes of third-parties to delete.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	public void Delete(IEnumerable<string> thirdPartyCodes, CancellationToken cancellationToken = default) =>
 		DeleteAsync(thirdPartyCodes, cancellationToken).GetAwaiter().GetResult();
+
+	/// <summary>
+	/// Deletes the specified third-parties.
+	/// </summary>
+	/// <param name="thirdParties">The codes of third-parties to delete.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>Completes when the beneficiary has been deleted.</returns>
+	public async Task DeleteAsync(IEnumerable<ThirdParty> thirdParties, CancellationToken cancellationToken = default) =>
+		await DeleteAsync(thirdParties.Select(thirdParty => thirdParty.ThirdPartyCode), cancellationToken);
 
 	/// <summary>
 	/// Deletes the third-parties with the specified codes.

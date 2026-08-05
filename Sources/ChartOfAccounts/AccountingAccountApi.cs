@@ -37,12 +37,29 @@ public class AccountingAccountApi(Client client, int entityId) {
 	}
 
 	/// <summary>
+	/// Deletes the specified accounting accounts.
+	/// </summary>
+	/// <param name="accountingAccounts">The numbers of accounting accounts to delete.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	public void Delete(IEnumerable<AccountingAccount> accountingAccounts, CancellationToken cancellationToken = default) =>
+		DeleteAsync(accountingAccounts.Select(accountingAccount => accountingAccount.AccountingAccountNumber), cancellationToken).GetAwaiter().GetResult();
+
+	/// <summary>
 	/// Deletes the accounting accounts with the specified numbers.
 	/// </summary>
 	/// <param name="accountingAccountNumbers">The numbers of accounting accounts to delete.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	public void Delete(IEnumerable<string> accountingAccountNumbers, CancellationToken cancellationToken = default) =>
 		DeleteAsync(accountingAccountNumbers, cancellationToken).GetAwaiter().GetResult();
+
+	/// <summary>
+	/// Deletes the specified accounting accounts.
+	/// </summary>
+	/// <param name="accountingAccounts">The numbers of accounting accounts to delete.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>Completes when the beneficiary has been deleted.</returns>
+	public async Task DeleteAsync(IEnumerable<AccountingAccount> accountingAccounts, CancellationToken cancellationToken = default) =>
+		await DeleteAsync(accountingAccounts.Select(accountingAccount => accountingAccount.AccountingAccountNumber), cancellationToken);
 
 	/// <summary>
 	/// Deletes the accounting accounts with the specified numbers.

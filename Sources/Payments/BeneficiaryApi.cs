@@ -40,7 +40,7 @@ public class BeneficiaryApi(Client client, int entityId) {
 	}
 
 	/// <summary>
-	/// Deletes the beneficiary with the specified identifier.
+	/// Deletes the specified beneficiary.
 	/// </summary>
 	/// <param name="beneficiary">The beneficiary to delete.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
@@ -56,7 +56,7 @@ public class BeneficiaryApi(Client client, int entityId) {
 		DeleteAsync(beneficiaryId, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
-	/// Deletes the beneficiary with the specified identifier.
+	/// Deletes the specified beneficiary.
 	/// </summary>
 	/// <param name="beneficiary">The beneficiary to delete.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
