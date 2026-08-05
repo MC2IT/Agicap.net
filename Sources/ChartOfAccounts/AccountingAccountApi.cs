@@ -16,10 +16,11 @@ public class AccountingAccountApi(Client client, int entityId) {
 	/// Creates new accounting accounts.
 	/// </summary>
 	/// <param name="accountingAccounts">The accounting accounts to create.</param>
+	/// <param name="importId"></param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The identifier of the newly created beneficiary.</returns>
-	// public Guid Create(IEnumerable<AccountingAccount> accountingAccounts, CancellationToken cancellationToken = default) =>
-	// 	CreateAsync(accountingAccounts, cancellationToken).GetAwaiter().GetResult();
+	// public Guid Create(IEnumerable<AccountingAccount> accountingAccounts, Guid? importId = null, CancellationToken cancellationToken = default) =>
+	// 	CreateAsync(accountingAccounts, importId, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
 	/// Creates new accounting accounts.
@@ -27,8 +28,9 @@ public class AccountingAccountApi(Client client, int entityId) {
 	/// <param name="accountingAccounts">The accounting accounts to create.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The identifier of the newly created beneficiary.</returns>
-	// public async Task<Guid> CreateAsync(IEnumerable<AccountingAccount> accountingAccounts, CancellationToken cancellationToken = default) {
-	// 	using var response = await client.PostAsync(requestUri, accountingAccounts, cancellationToken: cancellationToken);
+	// public async Task<Guid> CreateAsync(IEnumerable<AccountingAccount> accountingAccounts, Guid? importId = null, CancellationToken cancellationToken = default) {
+	// 	importId ??= Guid.NewGuid();
+	// 	using var response = await client.PostAsync($"{requestUri}/import/{importId}", accountingAccounts, cancellationToken: cancellationToken);
 	// 	return accountingAccounts.Id = await response.Content.ReadFromJsonAsync<Guid>(cancellationToken);
 	// }
 
@@ -47,5 +49,5 @@ public class AccountingAccountApi(Client client, int entityId) {
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>Completes when the beneficiary has been deleted.</returns>
 	public async Task DeleteAsync(IEnumerable<string> accountingAccountNumbers, CancellationToken cancellationToken = default) =>
-		await client.PostAsync($"{requestUri}/delete", new AccountingAccountList { AccountingAccountNumbers = [.. accountingAccountNumbers] }, cancellationToken: cancellationToken);
+		await client.PostAsync($"{requestUri}/delete", new { AccountingAccountNumbers = accountingAccountNumbers }, cancellationToken: cancellationToken);
 }
