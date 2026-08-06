@@ -1,9 +1,9 @@
 # Changelog
 
 ## Version [0.6.0](https://github.com/MC2IT/Agicap.net/compare/v0.5.0...v0.6.0)
-- Added the `Payments.SynchronizedBeneficiary.BankAccount` property.
 - Removed the `NestedList` class.
-- Removed the `IEquatable` implementation from the `BankAccount`, `Beneficiary` and `PostalAddress` classes of the `Payments` namespace.
+- **Chart of accounts:** added the accounting account and third-party APIs.
+- **Payments:** added the `SynchronizedBeneficiary.BankAccount` property, removed the `IEquatable` implementation from the `BankAccount`, `Beneficiary` and `PostalAddress` classes.
 
 ## Version [0.5.0](https://github.com/MC2IT/Agicap.net/compare/v0.4.0...v0.5.0)
 - Added the `NestedList` class.
@@ -19,8 +19,8 @@
 - **Payments:** added the beneficiary API, with the exception of `sync` endpoints.
 
 ## Version [0.2.0](https://github.com/MC2IT/Agicap.net/compare/v0.1.0...v0.2.0)
-- Added the `Authentication.Scopes.All` property.
-- Added the `Payments.Beneficiary.CompanyLegalIdentifier` property.
+- **Authentication:** added the `Scopes.All` property.
+- **Payments:** added the `Beneficiary.CompanyLegalIdentifier` property.
 
 ## Version 0.1.0
 - Initial release.
