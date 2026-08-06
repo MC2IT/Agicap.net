@@ -93,17 +93,17 @@ public class Counterpart {
 	public string TaxKey { get; set; } = "";
 
 	/// <summary>
-	/// The third party code.
+	/// The third-party code.
 	/// </summary>
 	public string ThirdPartyCode { get; set; } = "";
 
 	/// <summary>
-	/// An optional ERP-specific external identifier for the third party.
+	/// An optional ERP-specific external identifier for the third-party.
 	/// </summary>
 	public string ThirdPartyExternalId { get; set; } = "";
 
 	/// <summary>
-	/// The third party name.
+	/// The third-party name.
 	/// </summary>
 	public string ThirdPartyName { get; set; } = "";
 }
