@@ -23,7 +23,7 @@ public class BeneficiarySynchronization {
 	/// <summary>
 	/// The status of the synchronization.
 	/// </summary>
-	public BeneficiarySynchronizationStatus Status { get; set; }
+	public BeneficiarySynchronizationStatus Status { get; set; } = BeneficiarySynchronizationStatus.Running;
 
 	/// <summary>
 	/// The identifier of the synchronization.
