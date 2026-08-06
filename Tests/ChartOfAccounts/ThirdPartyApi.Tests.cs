@@ -16,9 +16,9 @@ public sealed class ThirdPartyApiTests(TestContext testContext) {
 	public async Task CreateUpdateDelete() {
 		var thirdParties = new List<ThirdParty> {
 			new() {
-				AccountingAccountNumber = "40100000",
+				AccountingAccountNumber = "41100000",
 				ThirdPartyCode = "MC2IT-DEVELOPMENT",
-				ThirdPartyName = $"MC2IT Development Department {Guid.CreateVersion7()}"
+				ThirdPartyName = $"MC2IT Development Department {Guid.NewGuid()}"
 			}
 		};
 

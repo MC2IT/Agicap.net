@@ -16,7 +16,7 @@ public sealed class AccountingAccountApiTests(TestContext testContext) {
 	public async Task CreateUpdateDelete() {
 		var accountingAccounts = new List<AccountingAccount> {
 			new() {
-				AccountingAccountName = $"MC2IT Development Department {Guid.CreateVersion7()}",
+				AccountingAccountName = $"MC2IT Development Department {Guid.NewGuid()}",
 				AccountingAccountNumber = "99999999",
 				AccountingAccountType = AccountingAccountType.Other
 			}
