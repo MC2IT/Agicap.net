@@ -32,7 +32,8 @@ public class ThirdPartyApi(Client client, int entityId) {
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>Metrics about the import of third-parties.</returns>
 	public async Task<ImportResponse> CreateAsync(IEnumerable<ThirdParty> thirdParties, Guid? importId = null, CancellationToken cancellationToken = default) {
-		using var response = await client.PostAsync($"{requestUri}/import/{importId ?? Guid.NewGuid()}", new { ThirdParties = thirdParties }, cancellationToken: cancellationToken);
+		importId ??= Guid.CreateVersion7();
+		using var response = await client.PostAsync($"{requestUri}/import/{importId}", new { ThirdParties = thirdParties }, cancellationToken: cancellationToken);
 		return (await response.Content.ReadFromJsonAsync<ImportResponse>(cancellationToken))!;
 	}
 

@@ -32,7 +32,8 @@ public class AccountingAccountApi(Client client, int entityId) {
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>Metrics about the import of accounting accounts.</returns>
 	public async Task<ImportResponse> CreateAsync(IEnumerable<AccountingAccount> accountingAccounts, Guid? importId = null, CancellationToken cancellationToken = default) {
-		using var response = await client.PostAsync($"{requestUri}/import/{importId ?? Guid.NewGuid()}", new { AccountingAccounts = accountingAccounts }, cancellationToken: cancellationToken);
+		importId ??= Guid.CreateVersion7();
+		using var response = await client.PostAsync($"{requestUri}/import/{importId}", new { AccountingAccounts = accountingAccounts }, cancellationToken: cancellationToken);
 		return (await response.Content.ReadFromJsonAsync<ImportResponse>(cancellationToken))!;
 	}
 
