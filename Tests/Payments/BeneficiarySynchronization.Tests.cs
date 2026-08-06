@@ -10,7 +10,7 @@ public sealed class BeneficiarySynchronizationTests {
 
 	[TestMethod]
 	public void FromJson() {
-		var date = new DateTime(2026, 8, 3, 0, 0, 0, DateTimeKind.Utc);
+		var date = new DateTime(2026, 8, 3, 8, 21, 47, DateTimeKind.Utc).Date;
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Payments/BeneficiarySynchronization.json"));
 		var synchronization = JsonSerializer.Deserialize<BeneficiarySynchronization>(json, JsonSerializerOptions.Web)!;
 		AreEqual(date, synchronization.CreatedAt.Date);

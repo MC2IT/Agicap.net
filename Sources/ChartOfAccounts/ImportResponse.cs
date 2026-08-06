@@ -23,7 +23,7 @@ public class ImportResponse {
 	/// <summary>
 	/// The status of the import.
 	/// </summary>
-	public ImportStatus ImportStatus = ImportStatus.Started;
+	public ImportStatus ImportStatus { get; set; } = ImportStatus.Started;
 
 	/// <summary>
 	/// The summary of what was imported when the import is finished.
