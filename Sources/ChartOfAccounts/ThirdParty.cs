@@ -19,12 +19,12 @@ public class ThirdParty {
 	public string? ExternalId { get; set; }
 
 	/// <summary>
-	/// The code of the third-party.
+	/// The code of this third-party.
 	/// </summary>
 	public string ThirdPartyCode { get; set; } = "";
 
 	/// <summary>
-	/// The name of the third-party.
+	/// The name of this third-party.
 	/// </summary>
 	public string ThirdPartyName { get; set; } = "";
 }
