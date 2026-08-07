@@ -1,32 +1,33 @@
-namespace Mc2it.Agicap.Payments;
+namespace Mc2it.Agicap.Suppliers;
 
 using System.Text.Json.Serialization;
 
 /// <summary>
-/// The postal address of a beneficiary.
+/// The legal address of a supplier.
 /// </summary>
-public class PostalAddress {
+public class LegalAddress {
 
 	/// <summary>
 	/// The name of the city.
 	/// </summary>
-	public string City { get; set; } = "";
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? City { get; set; }
 
 	/// <summary>
-	/// The ISO 3166 alpha-2 code of the country in which the beneficiary is located.
+	/// The ISO 3166 alpha-2 code of the country in which the supplier is located.
 	/// </summary>
 	public string Country { get; set; } = "";
 
 	/// <summary>
-	/// Value indicating whether this postal address is empty.
+	/// Value indicating whether this legal address is empty.
 	/// </summary>
 	public bool IsEmpty =>
 		string.IsNullOrWhiteSpace(City) &&
 		string.IsNullOrWhiteSpace(Country) &&
 		string.IsNullOrWhiteSpace(Number) &&
+		string.IsNullOrWhiteSpace(PostalCode) &&
 		string.IsNullOrWhiteSpace(State) &&
-		string.IsNullOrWhiteSpace(StreetName) &&
-		string.IsNullOrWhiteSpace(ZipCode);
+		string.IsNullOrWhiteSpace(StreetName);
 
 	/// <summary>
 	/// The address number.
@@ -35,7 +36,13 @@ public class PostalAddress {
 	public string? Number { get; set; }
 
 	/// <summary>
-	/// The state in which the beneficiary is located.
+	/// The postal code of the supplier location.
+	/// </summary>
+	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+	public string? PostalCode { get; set; }
+
+	/// <summary>
+	/// The state in which the supplier is located.
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public string? State { get; set; }
@@ -43,11 +50,6 @@ public class PostalAddress {
 	/// <summary>
 	/// The street name.
 	/// </summary>
-	public string StreetName { get; set; } = "";
-
-	/// <summary>
-	/// The postal code of the beneficiary location.
-	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public string? ZipCode { get; set; }
+	public string? StreetName { get; set; }
 }
