@@ -1,4 +1,4 @@
-namespace Mc2it.Agicap.Payments;
+namespace Mc2it.Agicap;
 
 /// <summary>
 /// Represents the identifier of a beneficiary synchronization.
