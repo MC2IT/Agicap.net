@@ -1,7 +1,7 @@
 # Changelog
 
 ## Version [0.7.0](https://github.com/MC2IT/Agicap.net/compare/v0.6.0...v0.7.0)
-- **Suppliers:** added the `Contact` and `LegalAddress` classes.
+- **Suppliers:** added the `Contact`, `LegalAddress` and `Supplier` classes.
 
 ## Version [0.6.0](https://github.com/MC2IT/Agicap.net/compare/v0.5.0...v0.6.0)
 - Removed the `NestedList` class.
