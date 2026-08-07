@@ -20,6 +20,7 @@ public sealed class SynchronizedBeneficiaryTests {
 		AreEqual("MC2IT-DEVELOPMENT", synchronizedBeneficiary.ErpId);
 		AreEqual("My Company", synchronizedBeneficiary.Name);
 		AreEqual("FR", synchronizedBeneficiary.PostalAddress?.Country);
+		IsNull(synchronizedBeneficiary.SupplierErpIds);
 	}
 
 	[TestMethod]
