@@ -8,11 +8,10 @@ public class NotImportedEntryError {
 	/// <summary>
 	/// A message describing the error.
 	/// </summary>
-	[ValidateNotNull()]
-	[string] $ErrorMessage = ""
+	public string? ErrorMessage { get; set; }
 
 	/// <summary>
 	/// The error type.
 	/// </summary>
-	[string] $ErrorType = "OTHER"
+	public string ErrorType { get; set; } = "OTHER";
 }

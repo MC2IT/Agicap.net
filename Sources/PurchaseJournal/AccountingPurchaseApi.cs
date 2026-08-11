@@ -20,19 +20,19 @@ public class AccountingPurchaseApi(Client client, int entityId) {
 	/// <param name="pageSize">The number of elements per page.</param>
 	/// <param name="include">An opt-in enrichment selector.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The list of entries in the purchase journal.</returns>
+	/// <returns>The entries of the purchase journal.</returns>
 	public PaginatedList<PurchaseJournalEntry> ReadAll(DateTime? lastSynchronizationDate, int? pageNumber = null, int? pageSize = null, string? include = null, CancellationToken cancellationToken = default) =>
 		ReadAllAsync(lastSynchronizationDate, pageNumber, pageSize, include, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
-	/// Fetches the list of entries in the purchase journal.
+	/// Fetches the entries of the purchase journal.
 	/// </summary>
 	/// <param name="lastSynchronizationDate">The date of the last synchronization.</param>
 	/// <param name="pageNumber">The page number.</param>
 	/// <param name="pageSize">The number of elements per page.</param>
 	/// <param name="include">An opt-in enrichment selector.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The list of entries in the purchase journal.</returns>
+	/// <returns>The entries of the purchase journal.</returns>
 	public async Task<PaginatedList<PurchaseJournalEntry>> ReadAllAsync(DateTime? lastSynchronizationDate, int? pageNumber = null, int? pageSize = null, string? include = null, CancellationToken cancellationToken = default) {
 		var queryString = new Dictionary<string, object?> {
 			["Include"] = include,
