@@ -63,19 +63,20 @@ public class AccountingLine {
 	public decimal Debit { get; set; }
 
 	/// <summary>
-	/// The identifier of the line item for invoice accounting purchase typology. Empty for lines of type `SupplierAccount`.
+	/// The identifier of the line item for invoice accounting purchase typology.
+	/// <see langword="null"/> for lines of type <see cref="AccountingLineAccountType.SupplierAccount"/>.
 	/// </summary>
-	public Guid LineItemId { get; set; }
+	public Guid? LineItemId { get; set; }
 
 	/// <summary>
-	/// The tax key of vat account if Account Type is `VatAccount else null. Empty for lines of type `VatAccount`.
+	/// The tax key of VAT account if the <see cref="AccountType"/> is <see cref="AccountingLineAccountType.VatAccount"/>.
 	/// </summary>
-	public string TaxKey { get; set; } = "";
+	public string? TaxKey { get; set; }
 
 	/// <summary>
 	/// The label for the supplier account.
 	/// </summary>
-	public string ThirdPartyAccount { get; set; } = "";
+	public string? ThirdPartyAccount { get; set; }
 
 	/// <summary>
 	/// The string "G" for "General".
@@ -83,7 +84,8 @@ public class AccountingLine {
 	public string Type { get; set; } = "G";
 
 	/// <summary>
-	/// The name of the VAT account (or of the reverse charge for reverse-charge entries). Empty for lines of type `SupplierAccount`.
+	/// The name of the VAT account (or of the reverse charge for reverse-charge entries).
+	/// <see langword="null"/> for lines of type <see cref="AccountingLineAccountType.SupplierAccount"/>.
 	/// </summary>
-	public string VatAccountName { get; set; } = "";
+	public string? VatAccountName { get; set; }
 }
