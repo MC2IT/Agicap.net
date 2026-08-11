@@ -5,7 +5,7 @@ using Mc2it.Agicap.Payments;
 /// <summary>
 /// Represents an entry of the Agicap purchase journal.
 /// </summary>
-public class PurchaseJournal {
+public class PurchaseJournalEntry {
 
 	/// <summary>
 	/// The accounting lines for each account to be recorded.
