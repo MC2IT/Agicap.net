@@ -19,7 +19,7 @@ public class ChartOfAccountsApi(Client client) {
 	/// <param name="entityId">The entity identifier.</param>
 	/// <returns>The API client for the analytical plan of the specified entity.</returns>
 	/// <exception cref="NotImplementedException">This API is not implemented.</exception>
-	public object AnalyticalPlan(int entityId) => throw new NotImplementedException();
+	public object AnalyticalPlan(int entityId) => throw new NotImplementedException("TODO");
 
 	/// <summary>
 	/// Gets a new API client for the third-parties of the entity with the specified identifier.

@@ -8,7 +8,7 @@ using Mc2it.Agicap.Payments;
 public class PurchaseJournal {
 
 	/// <summary>
-	/// The purchase journals.
+	/// The accounting lines for each account to be recorded.
 	/// </summary>
 	public IList<AccountingLine> AccountingLines { get; set; } = [];
 
@@ -28,6 +28,11 @@ public class PurchaseJournal {
 	public DateTime? DueDate { get; set; }
 
 	/// <summary>
+	/// The enriched invoice data.
+	/// </summary>
+	public object? InvoiceInformation => throw new NotImplementedException("TODO");
+
+	/// <summary>
 	/// The reference number of the document.
 	/// </summary>
 	public string InvoiceOrReceiptNumber { get; set; } = "";
@@ -45,7 +50,7 @@ public class PurchaseJournal {
 	/// <summary>
 	/// The extension of the original file.
 	/// </summary>
-	public string OriginalFileExtension { get; set; } = "";
+	public string? OriginalFileExtension { get; set; }
 
 	/// <summary>
 	/// The URL of the original file.
@@ -55,7 +60,7 @@ public class PurchaseJournal {
 	/// <summary>
 	/// The payment method.
 	/// </summary>
-	public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.None;
+	public PaymentMethod? PaymentMethod { get; set; }
 
 	/// <summary>
 	/// The date when the service occurred.
