@@ -1,0 +1,32 @@
+namespace Mc2it.Agicap.Suppliers;
+
+/// <summary>
+/// Represents a supplier synchronization report.
+/// </summary>
+public class SupplierSynchronization {
+
+	/// <summary>
+	/// The date and time the synchronization was started.
+	/// </summary>
+	public DateTime CreatedAt { get; set; }
+
+	/// <summary>
+	/// The list of synchronization errors.
+	/// </summary>
+	public IList<SupplierSynchronizationError> Errors { get; set; } = [];
+
+	/// <summary>
+	/// The date and time the synchronization finished.
+	/// </summary>
+	public DateTime? FinishedAt { get; set; }
+
+	/// <summary>
+	/// The status of the synchronization.
+	/// </summary>
+	public SupplierSynchronizationStatus Status { get; set; } = SupplierSynchronizationStatus.Running;
+
+	/// <summary>
+	/// The identifier of the synchronization.
+	/// </summary>
+	public Guid SyncId { get; set; }
+}
