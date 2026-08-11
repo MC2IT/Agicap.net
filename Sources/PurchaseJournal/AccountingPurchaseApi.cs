@@ -11,4 +11,32 @@ public class AccountingPurchaseApi(Client client, int entityId) {
 	/// The relative URI of the API endpoint.
 	/// </summary>
 	private readonly string requestUri = $"purchase-journal/v1/entities/{entityId}/accounting-purchases";
+
+	/// <summary>
+	/// Fetches the entity list.
+	/// </summary>
+	/// <param name="pageNumber">The page number.</param>
+	/// <param name="pageSize">The number of elements per page.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>The entity list.</returns>
+	public PaginatedList<PurchaseJournalEntry> ReadAll(DateTime? lastSynchronizationDate, int? pageNumber = null, int? pageSize = null, string? include = null, CancellationToken cancellationToken = default) =>
+		ReadAllAsync(lastSynchronizationDate, pageNumber, pageSize, include, cancellationToken).GetAwaiter().GetResult();
+
+	/// <summary>
+	/// Fetches the entity list.
+	/// </summary>
+	/// <param name="pageNumber">The page number.</param>
+	/// <param name="pageSize">The number of elements per page.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>The entity list.</returns>
+	public async Task<PaginatedList<PurchaseJournalEntry>> ReadAllAsync(DateTime? lastSynchronizationDate, int? pageNumber = null, int? pageSize = null, string? include = null, CancellationToken cancellationToken = default) {
+		var queryString = new Dictionary<string, object?> {
+			["include"] = include,
+			["LastSynchronizationDate"] = lastSynchronizationDate,
+			["PageNumber"] = pageNumber,
+			["PageSize"] = pageSize
+		};
+
+		return await client.GetAsync<PaginatedList<PurchaseJournalEntry>>(requestUri, queryString, cancellationToken);
+	}
 }
