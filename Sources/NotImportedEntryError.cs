@@ -13,5 +13,5 @@ public class NotImportedEntryError {
 	/// <summary>
 	/// The error type.
 	/// </summary>
-	public string ErrorType { get; set; } = "OTHER";
+	public string ErrorType { get; set; } = NotImportedEntryErrorTypes.Other;
 }
