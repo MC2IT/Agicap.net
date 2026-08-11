@@ -36,7 +36,7 @@ public class AccountingPurchaseApi(Client client, int entityId) {
 	public async Task<PaginatedList<PurchaseJournalEntry>> ReadAllAsync(DateTime? lastSynchronizationDate, int? pageNumber = null, int? pageSize = null, string? include = null, CancellationToken cancellationToken = default) {
 		var queryString = new Dictionary<string, object?> {
 			["include"] = include,
-			["LastSynchronizationDate"] = lastSynchronizationDate,
+			["LastSynchronizationDate"] = lastSynchronizationDate?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"),
 			["PageNumber"] = pageNumber,
 			["PageSize"] = pageSize
 		};
