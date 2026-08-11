@@ -13,7 +13,24 @@ public class AccountingPurchaseApi(Client client, int entityId) {
 	private readonly string requestUri = $"purchase-journal/v1/entities/{entityId}/accounting-purchases";
 
 	/// <summary>
-	/// Fetches the list of entries in the purchase journal.
+	/// Reports errors on exported purchase journal entries.
+	/// </summary>
+	/// <param name="entriesNotImported">The purchase journal entries to mark as not imported.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	public void MarkAsNotImported(IEnumerable<NotImportedEntry> entriesNotImported, CancellationToken cancellationToken = default) =>
+		MarkAsNotImportedAsync(entriesNotImported, cancellationToken).GetAwaiter().GetResult();
+
+	/// <summary>
+	/// Reports errors on exported purchase journal entries.
+	/// </summary>
+	/// <param name="entriesNotImported">The purchase journal entries to mark as not imported.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>Completes when the purchase journal entries have been submitted.</returns>
+	public async Task MarkAsNotImportedAsync(IEnumerable<NotImportedEntry> entriesNotImported, CancellationToken cancellationToken = default) =>
+		await client.PostAsync($"{requestUri}/exported/mark-as-not-imported", new { EntriesNotImported = entriesNotImported }, cancellationToken: cancellationToken);
+
+	/// <summary>
+	/// Fetches the entries of the purchase journal.
 	/// </summary>
 	/// <param name="lastSynchronizationDate">The date of the last synchronization.</param>
 	/// <param name="pageNumber">The page number.</param>
