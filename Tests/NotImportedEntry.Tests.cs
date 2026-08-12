@@ -19,5 +19,6 @@ public sealed class NotImportedEntryTests {
 		var json = JsonSerializer.Serialize(notImportedEntry, JsonSerializerOptions.Web);
 		Contains($"\"entryAgicapUniqueId\":\"{guid}\"", json);
 		Contains("\"errors\":[{", json);
+		Contains("\"errorType\":\"UNKNOWN_VAT_ACCOUNT\"", json);
 	}
 }
