@@ -38,7 +38,7 @@ public class AccountingPurchaseApi(Client client, int entityId) {
 	/// <param name="include">An opt-in enrichment selector.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The entries of the purchase journal.</returns>
-	public PaginatedList<PurchaseJournalEntry> ReadAll(DateTime? lastSynchronizationDate, int? pageNumber = null, int? pageSize = null, string? include = null, CancellationToken cancellationToken = default) =>
+	public PaginatedList<PurchaseJournalEntry> ReadAll(DateTime? lastSynchronizationDate = null, int? pageNumber = null, int? pageSize = null, string? include = null, CancellationToken cancellationToken = default) =>
 		ReadAllAsync(lastSynchronizationDate, pageNumber, pageSize, include, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
@@ -50,7 +50,7 @@ public class AccountingPurchaseApi(Client client, int entityId) {
 	/// <param name="include">An opt-in enrichment selector.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The entries of the purchase journal.</returns>
-	public async Task<PaginatedList<PurchaseJournalEntry>> ReadAllAsync(DateTime? lastSynchronizationDate, int? pageNumber = null, int? pageSize = null, string? include = null, CancellationToken cancellationToken = default) {
+	public async Task<PaginatedList<PurchaseJournalEntry>> ReadAllAsync(DateTime? lastSynchronizationDate = null, int? pageNumber = null, int? pageSize = null, string? include = null, CancellationToken cancellationToken = default) {
 		var queryString = new Dictionary<string, object?> {
 			["Include"] = include,
 			["LastSynchronizationDate"] = lastSynchronizationDate?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"),

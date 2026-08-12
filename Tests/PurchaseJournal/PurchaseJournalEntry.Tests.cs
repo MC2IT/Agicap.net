@@ -15,6 +15,7 @@ public sealed class PurchaseJournalEntryTests {
 		var purchaseJournalEntry = JsonSerializer.Deserialize<PurchaseJournalEntry>(json, JsonSerializerOptions.Web)!;
 
 		HasCount(3, purchaseJournalEntry.AccountingLines);
+		AreEqual(0, purchaseJournalEntry.AccountingLines.Sum(accountingLine => accountingLine.Credit - accountingLine.Debit));
 		AreEqual(new Guid("d3b07384-d9a3-4e5d-8c7c-8f9f1c2b3a4b"), purchaseJournalEntry.AgicapUniqueId);
 		AreEqual(DateTime.Parse("2024-12-16T00:00:00", CultureInfo.InvariantCulture), purchaseJournalEntry.BillingDate);
 		AreEqual(DateTime.Parse("2024-12-16", CultureInfo.InvariantCulture), purchaseJournalEntry.DueDate);

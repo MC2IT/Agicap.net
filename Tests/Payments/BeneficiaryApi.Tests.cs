@@ -45,6 +45,9 @@ public sealed class BeneficiaryApiTests(TestContext testContext) {
 		await api.DeleteAsync(beneficiary, testContext.CancellationToken);
 	}
 
+	[TestMethod, Ignore("This test requires an Agicap development environment.")]
+	public async Task DeleteAll() => Inconclusive();
+
 	[TestMethod]
 	public async Task ReadAll() {
 		var list = await api.ReadAllAsync(cancellationToken: testContext.CancellationToken);
