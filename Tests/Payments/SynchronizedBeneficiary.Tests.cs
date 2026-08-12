@@ -12,6 +12,7 @@ public sealed class SynchronizedBeneficiaryTests {
 	public void FromBeneficiary() {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Payments/Beneficiary.json"));
 		var synchronizedBeneficiary = new SynchronizedBeneficiary("MC2IT-DEVELOPMENT", JsonSerializer.Deserialize<Beneficiary>(json, JsonSerializerOptions.Web)!);
+
 		AreEqual("FR7630006000011234567890189", synchronizedBeneficiary.AccountNumber);
 		AreEqual("FR", synchronizedBeneficiary.BankCountry);
 		AreEqual("BNPAFRPPXXX", synchronizedBeneficiary.BankIdentifier);

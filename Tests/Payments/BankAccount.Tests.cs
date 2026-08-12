@@ -18,6 +18,7 @@ public sealed class BankAccountTests {
 	public void FromJson() {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Payments/BankAccount.json"));
 		var bankAccount = JsonSerializer.Deserialize<BankAccount>(json, JsonSerializerOptions.Web)!;
+
 		AreEqual("My Bank", bankAccount.BankName);
 		AreEqual("BNPAFRPPXXX", bankAccount.Bic);
 		AreEqual("FR", bankAccount.Country);

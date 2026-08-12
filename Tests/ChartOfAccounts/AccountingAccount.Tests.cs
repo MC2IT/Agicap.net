@@ -12,6 +12,7 @@ public sealed class AccountingAccountTests {
 	public void FromJson() {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/ChartOfAccounts/AccountingAccount.json"));
 		var accountingAccount = JsonSerializer.Deserialize<AccountingAccount>(json, JsonSerializerOptions.Web)!;
+
 		AreEqual("MC2IT Development Department", accountingAccount.AccountingAccountName);
 		AreEqual("99999999", accountingAccount.AccountingAccountNumber);
 		AreEqual(AccountingAccountType.Other, accountingAccount.AccountingAccountType);

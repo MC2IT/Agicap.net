@@ -12,6 +12,7 @@ public sealed class PaginationTests {
 	public void FromJson() {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Pagination.json"));
 		var pagination = JsonSerializer.Deserialize<Pagination>(json, JsonSerializerOptions.Web)!;
+
 		AreEqual(18, pagination.CurrentPageItemsCount);
 		AreEqual(2, pagination.CurrentPageNumber);
 		IsFalse(pagination.HasNextPage);

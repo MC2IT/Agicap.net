@@ -12,6 +12,7 @@ public sealed class AccessTokenTests {
 	public void FromJson() {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Authentication/AccessToken.json"));
 		var accessToken = JsonSerializer.Deserialize<AccessToken>(json, JsonSerializerOptions.Web)!;
+
 		IsFalse(accessToken.HasExpired);
 		AreSequenceEqual([Scopes.PublicApi, Scopes.ImportPaymentFiles, Scopes.ManagePaymentBeneficiaries], accessToken.Scopes);
 		AreEqual("OAuth", accessToken.Type);

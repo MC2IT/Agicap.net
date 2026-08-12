@@ -12,6 +12,7 @@ public sealed class ProblemDetailsTests {
 	public void FromJson() {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/ProblemDetails.json"));
 		var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(json, JsonSerializerOptions.Web)!;
+
 		AreEqual("The request body is invalid and not meeting business rules.", problemDetails.Detail);
 		HasCount(2, problemDetails.Extensions);
 		AreEqual(422, problemDetails.Status);

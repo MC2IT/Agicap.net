@@ -1,0 +1,131 @@
+{
+	"accountingLines": [
+		{
+			"accountingCurrency": "EUR",
+			"accountNumber": "401012",
+			"accountType": "SupplierAccount",
+			"additionalAnalyticalCodes": {},
+			"analyticalCodes": {},
+			"conversionRate": 0.8,
+			"convertedCreditAmount": 96,
+			"convertedDebitAmount": 0,
+			"credit": 120,
+			"currency": "USD",
+			"debit": 0,
+			"lineItemId": null,
+			"taxKey": null,
+			"thirdPartyAccount": "OVH",
+			"type": "G",
+			"vatAccountName": null
+		},
+		{
+			"accountingCurrency": "EUR",
+			"accountNumber": "6263",
+			"accountType": "ExpenseAccount",
+			"additionalAnalyticalCodes": {},
+			"analyticalCodes": {"BusinessScope": "R&D", "PurchaseType": "Cloud servers"},
+			"conversionRate": 0.8,
+			"convertedCreditAmount": 0,
+			"convertedDebitAmount": 80,
+			"credit": 0,
+			"currency": "USD",
+			"debit": 100,
+			"lineItemId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+			"taxKey": null,
+			"thirdPartyAccount": null,
+			"type": "G",
+			"vatAccountName": "VAT 20%"
+		},
+		{
+			"accountingCurrency": "EUR",
+			"accountNumber": "44566",
+			"accountType": "VatAccount",
+			"additionalAnalyticalCodes": {},
+			"analyticalCodes": {},
+			"conversionRate": 0.8,
+			"convertedCreditAmount": 0,
+			"convertedDebitAmount": 16,
+			"credit": 0,
+			"currency": "USD",
+			"debit": 20,
+			"lineItemId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+			"taxKey": "9",
+			"thirdPartyAccount": null,
+			"type": "G",
+			"vatAccountName": "VAT 20%"
+		}
+	],
+	"agicapUniqueId": "d3b07384-d9a3-4e5d-8c7c-8f9f1c2b3a4b",
+	"billingDate": "2024-12-16T00:00:00",
+	"dueDate": "2024-12-16",
+	"invoiceInformation": {
+		"costCenter": "IT",
+		"currency": "USD",
+		"lineItems": [
+			{
+				"articleName": "Cloud server XL",
+				"articleReference": "SRV-XL",
+				"lineItemId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+				"linkedPurchaseOrderLine": {
+					"articleName": "Cloud server XL",
+					"articleReference": "SRV-XL",
+					"billedQuantity": 1,
+					"deliveredQuantity": 1,
+					"linkedDeliveryNotesLines": [
+						{"deliveryNoteLineItemErpExternalId": "ERP-DNL-001", "deliveryNoteNumber": "BL-001"},
+						{"deliveryNoteLineItemErpExternalId": "ERP-DNL-002", "deliveryNoteNumber": "BL-002"}
+					],
+					"orderedQuantity": 1,
+					"purchaseOrderErpExternalId": "ERP-PO-001",
+					"purchaseOrderId": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+					"purchaseOrderLineItemErpExternalId": "ERP-LINE-001",
+					"purchaseOrderLineItemId": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+					"totalAmountExcludingTaxes": 100,
+					"unitAmountExcludingTaxes": 100
+				},
+				"quantity": 1,
+				"totalAmountExcludingTaxes": 100,
+				"unitAmountExcludingTaxes": 100
+			}
+		],
+		"linkedPurchaseOrders": [
+			{
+				"amountExcludingTaxes": 100,
+				"amountIncludingTaxes": 120,
+				"associatedAmountExcludingTaxes": 100,
+				"currency": "USD",
+				"deliveries": [{"date": "2024-12-20", "number": "DN-001"}],
+				"deliveryDate": "2024-12-20",
+				"deliveryStatus": "Delivered",
+				"expectedPaymentDate": "2024-12-31",
+				"number": "PO-2024-001",
+				"purchaseOrderErpExternalId": "ERP-PO-001",
+				"purchaseOrderId": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+				"status": "Received",
+				"supplier": {"id": null, "name": "OVH"},
+				"title": "Cloud servers Q4"
+			}
+		],
+		"natures": ["Cloud"],
+		"originalAmountExcludingTaxes": 100,
+		"originalAmountIncludingTaxes": 120,
+		"reference": "INV-2024-12-OVH",
+		"status": "Paid",
+		"supplier": {"id": null, "name": "OVH"}
+	},
+	"invoiceOrReceiptNumber": "20241216",
+	"note": "OVH invoice for december",
+	"orderNumbers": ["20241216"],
+	"originalFileExtension": "pdf",
+	"originalFileUrl": "https://agicap.com/invoice1.pdf",
+	"paymentMethod": "DebitCard",
+	"performanceDate": "2024-12-16T00:00:00",
+	"prepaidExpenseEndDate": "2024-12-16",
+	"prepaidExpenseStartDate": "2024-12-16",
+	"supplierErpExternalId": "ERP-OVH-001",
+	"supplierOrMerchant": "OVH",
+	"taxKey": null,
+	"title": "Invoice OVH December 2024",
+	"typology": "OwedInvoice",
+	"uniqueId": "78dwxxd5"
+}

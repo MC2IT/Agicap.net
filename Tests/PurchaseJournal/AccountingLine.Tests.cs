@@ -12,6 +12,7 @@ public sealed class AccountingLineTests {
 	public void FromJson() {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/PurchaseJournal/AccountingLine.json"));
 		var accountingLine = JsonSerializer.Deserialize<AccountingLine>(json, JsonSerializerOptions.Web)!;
+
 		AreEqual("EUR", accountingLine.AccountingCurrency);
 		AreEqual("6263", accountingLine.AccountNumber);
 		AreEqual(AccountingLineAccountType.ExpenseAccount, accountingLine.AccountType);

@@ -13,6 +13,7 @@ public sealed class BeneficiarySynchronizationTests {
 		var date = new DateTime(2026, 8, 3, 8, 21, 47, DateTimeKind.Utc).Date;
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Payments/BeneficiarySynchronization.json"));
 		var synchronization = JsonSerializer.Deserialize<BeneficiarySynchronization>(json, JsonSerializerOptions.Web)!;
+
 		AreEqual(date, synchronization.CreatedAt.Date);
 		HasCount(1, synchronization.Errors);
 		AreEqual(date, synchronization.FinishedAt?.Date);

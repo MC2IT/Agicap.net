@@ -18,6 +18,7 @@ public sealed class LegalAddressTests {
 	public void FromJson() {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Suppliers/LegalAddress.json"));
 		var postalAddress = JsonSerializer.Deserialize<LegalAddress>(json, JsonSerializerOptions.Web)!;
+
 		AreEqual("Paris", postalAddress.City);
 		AreEqual("FR", postalAddress.Country);
 		IsNull(postalAddress.Number);

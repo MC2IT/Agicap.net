@@ -1,9 +1,9 @@
-namespace Mc2it.Agicap.Payments;
+namespace Mc2it.Agicap.PurchaseJournal;
 
 using System.Text.Json.Serialization;
 
 /// <summary>
-/// Defines the type of an accounting account.
+/// Defines the payment method of a purchase journal entry.
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter<PaymentMethod>))]
 public enum PaymentMethod {

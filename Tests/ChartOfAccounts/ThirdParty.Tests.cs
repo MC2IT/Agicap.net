@@ -12,6 +12,7 @@ public sealed class ThirdPartyTests {
 	public void FromJson() {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/ChartOfAccounts/ThirdParty.json"));
 		var thirdParty = JsonSerializer.Deserialize<ThirdParty>(json, JsonSerializerOptions.Web)!;
+
 		AreEqual("41100000", thirdParty.AccountingAccountNumber);
 		IsNull(thirdParty.ExternalId);
 		AreEqual("MC2IT-DEVELOPMENT", thirdParty.ThirdPartyCode);

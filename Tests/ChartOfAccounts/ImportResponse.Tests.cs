@@ -12,6 +12,7 @@ public sealed class ImportResponseTests {
 	public void FromJson() {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/ChartOfAccounts/ImportResponse.json"));
 		var importResponse = JsonSerializer.Deserialize<ImportResponse>(json, JsonSerializerOptions.Web)!;
+
 		IsNull(importResponse.FailureReason);
 		AreEqual(new DateTime(2026, 8, 6, 8, 35, 21, DateTimeKind.Utc).Date, importResponse.ImportDate.Date);
 		AreNotEqual(Guid.Empty, importResponse.ImportId);

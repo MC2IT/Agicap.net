@@ -12,6 +12,7 @@ public sealed class BeneficiaryTests {
 	public void FromJson() {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Payments/Beneficiary.json"));
 		var beneficiary = JsonSerializer.Deserialize<Beneficiary>(json, JsonSerializerOptions.Web)!;
+
 		AreEqual("My Bank", beneficiary.BankAccount?.BankName);
 		AreEqual("BNPAFRPPXXX", beneficiary.BankAccount?.Bic);
 		AreEqual("FR7630006000011234567890189", beneficiary.BankAccount?.Identifier);
