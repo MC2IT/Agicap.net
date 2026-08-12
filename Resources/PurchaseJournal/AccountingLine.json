@@ -1,0 +1,18 @@
+{
+	"accountingCurrency": "EUR",
+	"accountNumber": "6263",
+	"accountType": "ExpenseAccount",
+	"additionalAnalyticalCodes": {},
+	"analyticalCodes": {"BusinessScope": "R&D", "PurchaseType": "Cloud servers"},
+	"conversionRate": 0.8,
+	"convertedCreditAmount": 0,
+	"convertedDebitAmount": 80,
+	"credit": 0,
+	"currency": "USD",
+	"debit": 100,
+	"lineItemId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+	"taxKey": null,
+	"thirdPartyAccount": null,
+	"type": "G",
+	"vatAccountName": "VAT 20%"
+}
