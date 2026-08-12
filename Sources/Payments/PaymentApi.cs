@@ -19,5 +19,5 @@ public class PaymentApi(Client client) {
 	/// <param name="entityId">The entity identifier.</param>
 	/// <returns>The API client for the payment files of the specified entity.</returns>
 	/// <exception cref="NotImplementedException">This API is not implemented.</exception>
-	public object PaymentFiles(int entityId) => throw new NotImplementedException("TODO");
+	public object PaymentFiles(int entityId) => throw new NotImplementedException();
 }

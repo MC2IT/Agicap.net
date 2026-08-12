@@ -28,7 +28,7 @@ public class PurchaseJournalEntry {
 	/// <summary>
 	/// The enriched invoice data.
 	/// </summary>
-	public object? InvoiceInformation => throw new NotImplementedException("TODO");
+	public object? InvoiceInformation => throw new NotImplementedException();
 
 	/// <summary>
 	/// The reference number of the document.
