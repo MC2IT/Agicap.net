@@ -11,7 +11,7 @@ public class NotImportedEntry {
 	public Guid EntryAgicapUniqueId { get; set; }
 
 	/// <summary>
-	/// The rrrors preventing the journal entry from being imported.
+	/// The errors preventing the journal entry from being imported.
 	/// </summary>
 	public IList<NotImportedEntryError> Errors { get; set; } = [];
 }
