@@ -1,7 +1,5 @@
 namespace Mc2it.Agicap.PurchaseJournal;
 
-using Mc2it.Agicap.Payments;
-
 /// <summary>
 /// Represents an entry of the Agicap purchase journal.
 /// </summary>
@@ -76,6 +74,12 @@ public class PurchaseJournalEntry {
 	/// The start date if time frame provided.
 	/// </summary>
 	public DateTime? PrepaidExpenseStartDate { get; set; }
+
+	/// <summary>
+	/// The ERP external identifier of the supplier.
+	/// <see langword="null"/> for anything other than an invoice or credit note, or when the supplier has no <see cref="Suppliers.Supplier.ErpId"/>.
+	/// </summary>
+	public string? SupplierErpExternalId { get; set; }
 
 	/// <summary>
 	/// The name of the supplier.
