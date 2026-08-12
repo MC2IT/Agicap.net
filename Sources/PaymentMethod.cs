@@ -1,4 +1,4 @@
-namespace Mc2it.Agicap.PurchaseJournal;
+namespace Mc2it.Agicap;
 
 using System.Text.Json.Serialization;
 
