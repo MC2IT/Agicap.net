@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [0.8.0](https://github.com/MC2IT/Agicap.net/compare/v0.7.0...v0.8.0)
+- Added the `Cursor` class.
+
 ## Version [0.7.0](https://github.com/MC2IT/Agicap.net/compare/v0.6.0...v0.7.0)
 - Added the `CursorPaginatedList` class.
 - **Purchase journal:** added the accounting purchase API.

@@ -1,4 +1,4 @@
-namespace Mc2it.Agicap;
+namespace Mc2it.Agicap.Suppliers;
 
 /// <summary>
 /// Represents a strongly typed list of objects, with a cursor allowing access to the next page of results.
@@ -7,12 +7,12 @@ namespace Mc2it.Agicap;
 public class CursorPaginatedList<T> {
 
 	/// <summary>
-	/// The cursor current state as returned after a query.
-	/// </summary>
-	public Cursor Cursor { get; set; } = new();
-
-	/// <summary>
 	/// The list items.
 	/// </summary>
 	public IList<T> Items { get; set; } = [];
+
+	/// <summary>
+	/// A cursor to pass back to fetch the next page, or <see langword="null"/> when the last page is reached.
+	/// </summary>
+	public string? NextCursor { get; set; }
 }
