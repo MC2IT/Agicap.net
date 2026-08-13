@@ -39,6 +39,23 @@ public class ExportApi(Client client, int entityId) {
 	}
 
 	/// <summary>
+	/// Notifies Agicap that the specified bank journal entries were successfully imported in the client accounting system.
+	/// </summary>
+	/// <param name="entriesImported">The bank journal entries to mark as imported.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	public void MarkAsImported(IEnumerable<ImportedEntry> entriesImported, CancellationToken cancellationToken = default) =>
+		MarkAsImportedAsync(entriesImported, cancellationToken).GetAwaiter().GetResult();
+
+	/// <summary>
+	/// Notifies Agicap that the specified bank journal entries were successfully imported in the client accounting system.
+	/// </summary>
+	/// <param name="entriesImported">The bank journal entries to mark as imported.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>Completes when the bank journal entries have been submitted.</returns>
+	public async Task MarkAsImportedAsync(IEnumerable<ImportedEntry> entriesImported, CancellationToken cancellationToken = default) =>
+		await client.PostAsync($"{requestUri}/exported-bank-journal-entries/mark-as-imported", new { EntriesImported = entriesImported }, cancellationToken: cancellationToken);
+
+	/// <summary>
 	/// Notifies Agicap that the specified bank journal entries were not correctly imported in the client accounting system.
 	/// </summary>
 	/// <param name="entriesNotImported">The bank journal entries to mark as not imported.</param>
