@@ -3,14 +3,14 @@ namespace Mc2it.Agicap.TreasuryBankJournal;
 using System.Text.Json;
 
 /// <summary>
-/// Tests the features of the <see cref="BankJournalExportRequest"/> class.
+/// Tests the features of the <see cref="ExportCounts"/> class.
 /// </summary>
 [TestClass]
-public sealed class BankJournalExportRequestTests {
+public sealed class ExportCountsTests {
 
 	[TestMethod]
 	public void ToJson() {
-		var exportRequest = new BankJournalExportRequest {
+		var exportRequest = new ExportCounts {
 			CurrentBankJournalEntriesCountInYear = 666,
 			CurrentBankJournalsCountInYear = 123
 		};
