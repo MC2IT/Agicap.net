@@ -40,7 +40,7 @@ public class AccountingAccountApi(Client client, int entityId) {
 	/// <summary>
 	/// Deletes the specified accounting accounts.
 	/// </summary>
-	/// <param name="accountingAccounts">The numbers of accounting accounts to delete.</param>
+	/// <param name="accountingAccounts">The accounting accounts to delete.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	public void Delete(IEnumerable<AccountingAccount> accountingAccounts, CancellationToken cancellationToken = default) =>
 		DeleteAsync(accountingAccounts.Select(accountingAccount => accountingAccount.AccountingAccountNumber), cancellationToken).GetAwaiter().GetResult();
@@ -56,7 +56,7 @@ public class AccountingAccountApi(Client client, int entityId) {
 	/// <summary>
 	/// Deletes the specified accounting accounts.
 	/// </summary>
-	/// <param name="accountingAccounts">The numbers of accounting accounts to delete.</param>
+	/// <param name="accountingAccounts">The accounting accounts to delete.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>Completes when the beneficiary has been deleted.</returns>
 	public async Task DeleteAsync(IEnumerable<AccountingAccount> accountingAccounts, CancellationToken cancellationToken = default) =>

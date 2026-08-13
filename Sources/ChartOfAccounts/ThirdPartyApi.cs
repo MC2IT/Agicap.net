@@ -40,7 +40,7 @@ public class ThirdPartyApi(Client client, int entityId) {
 	/// <summary>
 	/// Deletes the specified third-parties.
 	/// </summary>
-	/// <param name="thirdParties">The codes of third-parties to delete.</param>
+	/// <param name="thirdParties">The third-parties to delete.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	public void Delete(IEnumerable<ThirdParty> thirdParties, CancellationToken cancellationToken = default) =>
 		DeleteAsync(thirdParties.Select(thirdParty => thirdParty.ThirdPartyCode), cancellationToken).GetAwaiter().GetResult();
@@ -56,7 +56,7 @@ public class ThirdPartyApi(Client client, int entityId) {
 	/// <summary>
 	/// Deletes the specified third-parties.
 	/// </summary>
-	/// <param name="thirdParties">The codes of third-parties to delete.</param>
+	/// <param name="thirdParties">The third-parties to delete.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>Completes when the beneficiary has been deleted.</returns>
 	public async Task DeleteAsync(IEnumerable<ThirdParty> thirdParties, CancellationToken cancellationToken = default) =>

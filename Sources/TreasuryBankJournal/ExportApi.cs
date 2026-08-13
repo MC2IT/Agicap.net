@@ -43,8 +43,25 @@ public class ExportApi(Client client, int entityId) {
 	/// </summary>
 	/// <param name="entriesImported">The bank journal entries to mark as imported.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	public void MarkAsImported(IEnumerable<Guid> entriesImported, CancellationToken cancellationToken = default) =>
+		MarkAsImportedAsync(entriesImported.Select(guid => new ImportedEntry { EntryAgicapUniqueId = guid }), cancellationToken).GetAwaiter().GetResult();
+
+	/// <summary>
+	/// Notifies Agicap that the specified bank journal entries were successfully imported in the client accounting system.
+	/// </summary>
+	/// <param name="entriesImported">The bank journal entries to mark as imported.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	public void MarkAsImported(IEnumerable<ImportedEntry> entriesImported, CancellationToken cancellationToken = default) =>
 		MarkAsImportedAsync(entriesImported, cancellationToken).GetAwaiter().GetResult();
+
+	/// <summary>
+	/// Notifies Agicap that the specified bank journal entries were successfully imported in the client accounting system.
+	/// </summary>
+	/// <param name="entriesImported">The bank journal entries to mark as imported.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>Completes when the bank journal entries have been submitted.</returns>
+	public async Task MarkAsImportedAsync(IEnumerable<Guid> entriesImported, CancellationToken cancellationToken = default) =>
+		await MarkAsImportedAsync(entriesImported.Select(guid => new ImportedEntry { EntryAgicapUniqueId = guid }), cancellationToken);
 
 	/// <summary>
 	/// Notifies Agicap that the specified bank journal entries were successfully imported in the client accounting system.
