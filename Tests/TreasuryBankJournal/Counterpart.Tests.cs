@@ -18,6 +18,9 @@ public sealed class CounterpartTests {
 		AreEqual(CounterpartAccountingAccountType.SUPPLIER, counterpart.AccountingAccountType);
 		AreEqual("USD", counterpart.AccountingCurrency);
 		AreSequenceEqual(new Dictionary<string, string>() { ["Country"] = "FR", ["Project"] = "Marketing" }, counterpart.AnalyticalCodes);
+		IsNull(counterpart.CreditInAccountingCurrency);
+		IsNull(counterpart.CreditInOriginalCurrency);
+		HasCount(2, counterpart.CustomFields ?? []);
 		AreEqual(200_000, counterpart.DebitInAccountingCurrency);
 		AreEqual(300_000, counterpart.DebitInOriginalCurrency);
 		IsNotNull(counterpart.Document);
