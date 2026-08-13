@@ -15,13 +15,13 @@ public sealed class CursorPaginatedListTests {
 		var list = JsonSerializer.Deserialize<CursorPaginatedList<Organization>>(json, JsonSerializerOptions.Web)!;
 		HasCount(2, list.Items);
 
-		var organization = list.Items.First();
-		AreEqual(new Guid("3ebb0163-6ac8-449d-a34b-496244f380a1"), organization.Id);
-		AreEqual("Company #1", organization.Name);
+		var firstItem = list.Items.First();
+		AreEqual(new Guid("3ebb0163-6ac8-449d-a34b-496244f380a1"), firstItem.Id);
+		AreEqual("Company #1", firstItem.Name);
 
-		organization = list.Items.Last();
-		AreEqual(new Guid("866faf6e-19c3-4131-97da-c50ff9a92961"), organization.Id);
-		AreEqual("Company #2", organization.Name);
+		var lastItem = list.Items.Last();
+		AreEqual(new Guid("866faf6e-19c3-4131-97da-c50ff9a92961"), lastItem.Id);
+		AreEqual("Company #2", lastItem.Name);
 
 		var cursor = list.Cursor;
 		IsNull(cursor.After);
