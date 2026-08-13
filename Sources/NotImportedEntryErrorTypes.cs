@@ -1,7 +1,7 @@
 namespace Mc2it.Agicap;
 
 /// <summary>
-/// Describes an import error for a purchase journal entry.
+/// Provides the error types for a journal entry error.
 /// </summary>
 public static class NotImportedEntryErrorTypes {
 

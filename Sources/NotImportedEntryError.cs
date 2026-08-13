@@ -3,7 +3,7 @@ namespace Mc2it.Agicap;
 using System.Text.Json.Serialization;
 
 /// <summary>
-/// Describes an import error for a purchase journal entry.
+/// Describes an import error for a journal entry.
 /// </summary>
 public class NotImportedEntryError {
 
