@@ -11,6 +11,11 @@ public static class NotImportedEntryErrorTypes {
 	public const string Other = "OTHER";
 
 	/// <summary>
+	/// The accounting account is unknown.
+	/// </summary>
+	public const string UnknownAccountingAccount = "UNKNOWN_ACCOUNTING_ACCOUNT";
+
+	/// <summary>
 	/// The analytical code is unknown.
 	/// </summary>
 	public const string UnknownAnalyticalCode = "UNKNOWN_ANALYTICAL_CODE";
@@ -24,6 +29,11 @@ public static class NotImportedEntryErrorTypes {
 	/// The expense account is unknown.
 	/// </summary>
 	public const string UnknownExpenseAccount = "UNKNOWN_EXPENSE_ACCOUNT";
+
+	/// <summary>
+	/// The journal code is unknown.
+	/// </summary>
+	public const string UnknownJournalCode = "UNKNOWN_JOURNAL_CODE";
 
 	/// <summary>
 	/// The third-party is unknown.

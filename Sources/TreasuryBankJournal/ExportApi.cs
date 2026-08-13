@@ -12,7 +12,7 @@ public class ExportApi(Client client, int entityId) {
 	/// <summary>
 	/// The relative URI of the API endpoint.
 	/// </summary>
-	private readonly string requestUri = $"treasury-bank-journal/v1/entities/{entityId}/exports";
+	private readonly string requestUri = $"treasury-bank-journal/v1/entities/{entityId}";
 
 	/// <summary>
 	/// Exports all bank journal entries ready to be exported.
@@ -34,9 +34,26 @@ public class ExportApi(Client client, int entityId) {
 	public async Task<BankJournalExport> CreateAsync(Guid? exportId = null, BankJournalExportCounts? currentExportCounts = null, CancellationToken cancellationToken = default) {
 		exportId ??= Guid.CreateVersion7();
 		var content = currentExportCounts is null ? null : new { CurrentExportCounts = currentExportCounts };
-		using var response = await client.PostAsync($"{requestUri}/{exportId}", content, cancellationToken: cancellationToken);
+		using var response = await client.PostAsync($"{requestUri}/exports/{exportId}", content, cancellationToken: cancellationToken);
 		return (await response.Content.ReadFromJsonAsync<BankJournalExport>(cancellationToken))!;
 	}
+
+	/// <summary>
+	/// Notifies Agicap that the specified bank journal entries were not correctly imported in the client accounting system.
+	/// </summary>
+	/// <param name="entriesNotImported">The bank journal entries to mark as not imported.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	public void MarkAsNotImported(IEnumerable<NotImportedEntry> entriesNotImported, CancellationToken cancellationToken = default) =>
+		MarkAsNotImportedAsync(entriesNotImported, cancellationToken).GetAwaiter().GetResult();
+
+	/// <summary>
+	/// Notifies Agicap that the specified bank journal entries were not correctly imported in the client accounting system.
+	/// </summary>
+	/// <param name="entriesNotImported">The bank journal entries to mark as not imported.</param>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>Completes when the bank journal entries have been submitted.</returns>
+	public async Task MarkAsNotImportedAsync(IEnumerable<NotImportedEntry> entriesNotImported, CancellationToken cancellationToken = default) =>
+		await client.PostAsync($"{requestUri}/exported-bank-journal-entries/mark-as-not-imported", new { EntriesNotImported = entriesNotImported }, cancellationToken: cancellationToken);
 
 	/// <summary>
 	/// Fetches the bank journal export with the specified identifier.
@@ -54,7 +71,7 @@ public class ExportApi(Client client, int entityId) {
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The bank journal export with the specified identifier.</returns>
 	public async Task<BankJournalExport> ReadAsync(Guid exportId, CancellationToken cancellationToken = default) =>
-		await client.GetAsync<BankJournalExport>($"{requestUri}/{exportId}", cancellationToken: cancellationToken);
+		await client.GetAsync<BankJournalExport>($"{requestUri}/exports/{exportId}", cancellationToken: cancellationToken);
 
 	/// <summary>
 	/// Fetches a list of short summaries of bank journal entries from previous exports.
@@ -82,6 +99,6 @@ public class ExportApi(Client client, int entityId) {
 			["size"] = size
 		};
 
-		return await client.GetAsync<CursorPaginatedList<BankJournalExportSummary>>(requestUri, queryString, cancellationToken);
+		return await client.GetAsync<CursorPaginatedList<BankJournalExportSummary>>($"{requestUri}/exports", queryString, cancellationToken);
 	}
 }

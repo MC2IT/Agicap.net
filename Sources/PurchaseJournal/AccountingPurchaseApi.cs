@@ -13,7 +13,7 @@ public class AccountingPurchaseApi(Client client, int entityId) {
 	private readonly string requestUri = $"purchase-journal/v1/entities/{entityId}/accounting-purchases";
 
 	/// <summary>
-	/// Reports errors on exported purchase journal entries.
+	/// Notifies Agicap that the specified purchase journal entries were not correctly imported in the client accounting system.
 	/// </summary>
 	/// <param name="entriesNotImported">The purchase journal entries to mark as not imported.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
@@ -21,7 +21,7 @@ public class AccountingPurchaseApi(Client client, int entityId) {
 		MarkAsNotImportedAsync(entriesNotImported, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
-	/// Reports errors on exported purchase journal entries.
+	/// Notifies Agicap that the specified purchase journal entries were not correctly imported in the client accounting system.
 	/// </summary>
 	/// <param name="entriesNotImported">The purchase journal entries to mark as not imported.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
