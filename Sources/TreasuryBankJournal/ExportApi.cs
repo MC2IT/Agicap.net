@@ -17,7 +17,7 @@ public class ExportApi(Client client, int entityId) {
 	/// <summary>
 	/// Exports all bank journal entries ready to be exported.
 	/// </summary>
-	/// <param name="exportId">The identifier of the bank journal export.</param>
+	/// <param name="exportId">The identifier to assign to the export.</param>
 	/// <param name="currentExportCounts">Optional export parameters allowing to set where to start.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The identifier of the newly started synchronization.</returns>
@@ -27,7 +27,7 @@ public class ExportApi(Client client, int entityId) {
 	/// <summary>
 	/// Exports all bank journal entries ready to be exported.
 	/// </summary>
-	/// <param name="exportId">The identifier of the bank journal export.</param>
+	/// <param name="exportId">The identifier to assign to the export.</param>
 	/// <param name="currentExportCounts">Optional export parameters allowing to set where to start.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The identifier of the newly started synchronization.</returns>
@@ -92,7 +92,7 @@ public class ExportApi(Client client, int entityId) {
 	/// <summary>
 	/// Fetches the bank journal export with the specified identifier.
 	/// </summary>
-	/// <param name="exportId">The identifier of the bank journal export.</param>
+	/// <param name="exportId">The identifier to assign to the export.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The bank journal export with the specified identifier.</returns>
 	public BankJournalExport Read(Guid exportId, CancellationToken cancellationToken = default) =>
@@ -101,7 +101,7 @@ public class ExportApi(Client client, int entityId) {
 	/// <summary>
 	/// Fetches the bank journal export with the specified identifier.
 	/// </summary>
-	/// <param name="exportId">The identifier of the bank journal export.</param>
+	/// <param name="exportId">The identifier to assign to the export.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The bank journal export with the specified identifier.</returns>
 	public async Task<BankJournalExport> ReadAsync(Guid exportId, CancellationToken cancellationToken = default) =>
