@@ -14,7 +14,7 @@ public sealed class ImportResponseTests {
 		var importResponse = JsonSerializer.Deserialize<ImportResponse>(json, JsonSerializerOptions.Web)!;
 
 		IsNull(importResponse.FailureReason);
-		AreEqual(new DateTime(2026, 8, 6, 8, 35, 21, DateTimeKind.Utc).Date, importResponse.ImportDate.Date);
+		AreEqual(new DateTime(2026, 8, 6, 8, 35, 21, DateTimeKind.Utc), importResponse.ImportDate);
 		AreNotEqual(Guid.Empty, importResponse.ImportId);
 		AreEqual(ImportStatus.Done, importResponse.ImportStatus);
 		IsNotNull(importResponse.ImportSummary);
