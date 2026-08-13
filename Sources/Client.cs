@@ -24,7 +24,7 @@ public class Client(NetworkCredential credential) {
 	public Uri BaseUrl { get; set; } = new Uri("https://api.agicap.com/public/");
 
 	/// <summary>
-	/// Provides access to the "ChartOfAccounts" API.
+	/// Provides access to the chart of accounts.
 	/// </summary>
 	public ChartOfAccounts.ChartOfAccountsApi ChartOfAccounts => new(this);
 
@@ -44,22 +44,22 @@ public class Client(NetworkCredential credential) {
 	public bool IsAuthenticated => !accessToken.HasExpired;
 
 	/// <summary>
-	/// Provides access to the "Organizations" API.
+	/// Provides access to the organizations.
 	/// </summary>
 	public Organizations.OrganizationApi Organizations => new(this);
 
 	/// <summary>
-	/// Provides access to the "Payments" API.
+	/// Provides access to the payments.
 	/// </summary>
 	public Payments.PaymentApi Payments => new(this);
 
 	/// <summary>
-	/// Provides access to the "PurchaseJournal" API.
+	/// Provides access to the purchase journal.
 	/// </summary>
 	public PurchaseJournal.PurchaseJournalApi PurchaseJournal => new(this);
 
 	/// <summary>
-	/// Provides access to the "TreasuryBankJournal" API.
+	/// Provides access to the treasury bank journal.
 	/// </summary>
 	public TreasuryBankJournal.TreasuryBankJournalApi TreasuryBankJournal => new(this);
 
