@@ -15,6 +15,12 @@ public sealed class ExportApiTests(TestContext testContext) {
 	[TestMethod, Ignore("This test requires an Agicap development environment.")]
 	public void Create() => Inconclusive();
 
+	[TestMethod, Ignore("This test requires an Agicap development environment.")]
+	public void MarkAsImported() => Inconclusive();
+
+	[TestMethod, Ignore("This test requires an Agicap development environment.")]
+	public void MarkAsNotImported() => Inconclusive();
+
 	[TestMethod]
 	public async Task Read() {
 		var bankJournalExport = await api.ReadAsync(new Guid("575d62e4-e965-49fd-9a2d-b53bb1ad5434"), testContext.CancellationToken);
