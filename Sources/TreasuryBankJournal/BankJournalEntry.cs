@@ -80,12 +80,12 @@ public class BankJournalEntry {
 	/// <summary>
 	/// The index of the bank journal entry in the bank journal (starts at 1).
 	/// </summary>
-	public int IndexInExport { get; set; } = 1;
+	public int IndexInExport { get; set => field = Math.Max(1, value); } = 1;
 
 	/// <summary>
 	/// The index of the bank journal entry in the current year (starts at 1).
 	/// </summary>
-	public int IndexInYear { get; set; } = 1;
+	public int IndexInYear { get; set => field = Math.Max(1, value); } = 1;
 
 	/// <summary>
 	/// The journal code.
