@@ -13,7 +13,7 @@ public class Document {
 	/// <summary>
 	/// The document reference number.
 	/// </summary>
-	public string DocumentReference { get; set; } = "";
+	public string? DocumentReference { get; set; }
 
 	/// <summary>
 	/// The document type.
@@ -23,12 +23,12 @@ public class Document {
 	/// <summary>
 	/// The external identifier of the owning entity in the source system.
 	/// </summary>
-	public string ExternalEntityId { get; set; } = "";
+	public string? ExternalEntityId { get; set; }
 
 	/// <summary>
 	/// The document identifier from the source system.
 	/// </summary>
-	public string ExternalId { get; set; } = "";
+	public string? ExternalId { get; set; }
 
 	/// <summary>
 	/// The document due date.
