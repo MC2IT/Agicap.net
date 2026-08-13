@@ -59,17 +59,23 @@ public class ExportApi(Client client, int entityId) {
 	/// <summary>
 	/// Fetches a list of short summaries of bank journal entries from previous exports.
 	/// </summary>
+	/// <param name="size">The number of bank journal entries to fetch.</param>
+	/// <param name="after">The export start date.</param>
+	/// <param name="before">The export end date.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The export list.</returns>
-	public CursorPaginatedList<BankJournalExportSummary> ReadAll(int size = 100, DateTime? before = null, DateTime? after = null, CancellationToken cancellationToken = default) =>
-		ReadAllAsync(size, before, after, cancellationToken).GetAwaiter().GetResult();
+	public CursorPaginatedList<BankJournalExportSummary> ReadAll(int size = 100, DateTime? after = null, DateTime? before = null, CancellationToken cancellationToken = default) =>
+		ReadAllAsync(size, after, before, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
 	/// Fetches a list of short summaries of bank journal entries from previous exports.
 	/// </summary>
+	/// <param name="size">The number of bank journal entries to fetch.</param>
+	/// <param name="after">The export start date.</param>
+	/// <param name="before">The export end date.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The export list.</returns>
-	public async Task<CursorPaginatedList<BankJournalExportSummary>> ReadAllAsync(int size = 100, DateTime? before = null, DateTime? after = null, CancellationToken cancellationToken = default) {
+	public async Task<CursorPaginatedList<BankJournalExportSummary>> ReadAllAsync(int size = 100, DateTime? after = null, DateTime? before = null, CancellationToken cancellationToken = default) {
 		var queryString = new Dictionary<string, object?> {
 			["after"] = after?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"),
 			["before"] = before?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"),

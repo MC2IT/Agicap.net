@@ -18,7 +18,7 @@ public class BankJournalExportSummary {
 	/// <summary>
 	/// The index of the bank journal export in the <see cref="ExportYear"/> (starts at 1).
 	/// </summary>
-	public int ExportIndexInYear { get; set => field = Math.Max(1, value); }
+	public int ExportIndexInYear { get; set => field = Math.Max(1, value); } = 1;
 
 	/// <summary>
 	/// The year the export was done.
@@ -28,12 +28,12 @@ public class BankJournalExportSummary {
 	/// <summary>
 	/// The index in <see cref="ExportYear"/> of the first entry in the bank journal export (starts at 1).
 	/// </summary>
-	public int IndexInYearOfFirstEntryInBankJournal { get; set => field = Math.Max(1, value); }
+	public int IndexInYearOfFirstEntryInBankJournal { get; set => field = Math.Max(1, value); } = 1;
 
 	/// <summary>
 	/// The index in <see cref="ExportYear"/> of the last entry in the bank journal export (starts at 1).
 	/// </summary>
-	public int IndexInYearOfLastEntryInBankJournal { get; set => field = Math.Max(1, value); }
+	public int IndexInYearOfLastEntryInBankJournal { get; set => field = Math.Max(1, value); } = 1;
 
 	/// <summary>
 	/// The number of entries in the bank journal export.
