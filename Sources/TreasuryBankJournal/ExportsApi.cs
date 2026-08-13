@@ -6,5 +6,32 @@ namespace Mc2it.Agicap.TreasuryBankJournal;
 /// <param name="client">The Agicap API client.</param>
 /// <param name="entityId">The entity identifier.</param>
 public class ExportsApi(Client client, int entityId) {
-	// TODO
+
+	/// <summary>
+	/// The relative URI of the API endpoint.
+	/// </summary>
+	private readonly string requestUri = $"treasury-bank-journal/v1/entities/{entityId}/exports";
+
+	/// <summary>
+	/// Fetches a list of short summaries of bank journal entries from previous exports.
+	/// </summary>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>The export list.</returns>
+	public CursorPaginatedList<BankJournalExportSummary> ReadAll(int size = 100, DateTime? before = null, DateTime? after = null, CancellationToken cancellationToken = default) =>
+		ReadAllAsync(size, before, after, cancellationToken).GetAwaiter().GetResult();
+
+	/// <summary>
+	/// Fetches a list of short summaries of bank journal entries from previous exports.
+	/// </summary>
+	/// <param name="cancellationToken">The token to cancel the operation.</param>
+	/// <returns>The export list.</returns>
+	public async Task<CursorPaginatedList<BankJournalExportSummary>> ReadAllAsync(int size = 100, DateTime? before = null, DateTime? after = null, CancellationToken cancellationToken = default) {
+		var queryString = new Dictionary<string, object?> {
+			["after"] = after?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"),
+			["before"] = before?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"),
+			["size"] = size
+		};
+
+		return await client.GetAsync<CursorPaginatedList<BankJournalExportSummary>>(requestUri, queryString, cancellationToken);
+	}
 }
