@@ -11,5 +11,5 @@ public class TreasuryBankJournalApi(Client client) {
 	/// </summary>
 	/// <param name="entityId">The entity identifier.</param>
 	/// <returns>The API client for the exports of the specified entity.</returns>
-	public ExportsApi Exports(int entityId) => new(client, entityId);
+	public ExportApi Exports(int entityId) => new(client, entityId);
 }
