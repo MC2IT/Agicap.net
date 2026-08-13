@@ -21,7 +21,7 @@ public class ExportApi(Client client, int entityId) {
 	/// <param name="currentExportCounts">Optional export parameters allowing to set where to start.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The identifier of the newly started synchronization.</returns>
-	public BankJournalExport Create(Guid? exportId = null, ExportCounts? currentExportCounts = null, CancellationToken cancellationToken = default) =>
+	public BankJournalExport Create(Guid? exportId = null, BankJournalExportCounts? currentExportCounts = null, CancellationToken cancellationToken = default) =>
 		CreateAsync(exportId, currentExportCounts, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
@@ -31,7 +31,7 @@ public class ExportApi(Client client, int entityId) {
 	/// <param name="currentExportCounts">Optional export parameters allowing to set where to start.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The identifier of the newly started synchronization.</returns>
-	public async Task<BankJournalExport> CreateAsync(Guid? exportId = null, ExportCounts? currentExportCounts = null, CancellationToken cancellationToken = default) {
+	public async Task<BankJournalExport> CreateAsync(Guid? exportId = null, BankJournalExportCounts? currentExportCounts = null, CancellationToken cancellationToken = default) {
 		exportId ??= Guid.CreateVersion7();
 		var content = currentExportCounts is null ? null : new { CurrentExportCounts = currentExportCounts };
 		using var response = await client.PostAsync($"{requestUri}/{exportId}", content, cancellationToken: cancellationToken);

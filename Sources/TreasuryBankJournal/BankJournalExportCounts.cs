@@ -3,7 +3,7 @@ namespace Mc2it.Agicap.TreasuryBankJournal;
 /// <summary>
 /// Optional export parameters allowing to set where to start.
 /// </summary>
-public class ExportCounts {
+public class BankJournalExportCounts {
 
 	/// <summary>
 	/// The number of bank journal entries previously created (starts at 1).
