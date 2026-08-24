@@ -1,5 +1,7 @@
 namespace Mc2it.Agicap;
 
+using System.Text.Json.Serialization;
+
 /// <summary>
 /// Represents information relevant to the pagination of data items.
 /// </summary>
@@ -18,11 +20,13 @@ public class Pagination {
 	/// <summary>
 	/// Value indicating whether a next page exists.
 	/// </summary>
+	[JsonIgnore]
 	public bool HasNextPage => CurrentPageNumber < PagesCount;
 
 	/// <summary>
 	/// Value indicating whether a previous page exists.
 	/// </summary>
+	[JsonIgnore]
 	public bool HasPreviousPage => CurrentPageNumber > 1;
 
 	/// <summary>
