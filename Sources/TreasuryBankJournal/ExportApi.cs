@@ -36,7 +36,7 @@ public class ExportApi(Client client, int entityId) {
 		exportId ??= Guid.CreateVersion7();
 		var content = currentExportCounts is null ? null : new { CurrentExportCounts = currentExportCounts };
 		using var response = await client.PostAsync($"{requestUri}/exports/{exportId}", content, cancellationToken: cancellationToken);
-		return response.StatusCode == HttpStatusCode.NoContent ? null : (await response.Content.ReadFromJsonAsync<BankJournalExport>(cancellationToken))!;
+		return response.StatusCode == HttpStatusCode.NoContent ? null : await response.Content.ReadFromJsonAsync<BankJournalExport>(cancellationToken);
 	}
 
 	/// <summary>
