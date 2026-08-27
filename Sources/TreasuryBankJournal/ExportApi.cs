@@ -21,7 +21,7 @@ public class ExportApi(Client client, int entityId) {
 	/// <param name="exportId">The identifier to assign to the export.</param>
 	/// <param name="currentExportCounts">Optional export parameters allowing to set where to start.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The bank journal entries ready to be exported, or <see langword="null"/> if no entry is ready to be exported.</returns>
+	/// <returns>The bank journal entries ready to be exported, or <see langword="null"/> if there are no entries.</returns>
 	public BankJournalExport? Create(Guid? exportId = null, BankJournalExportCounts? currentExportCounts = null, CancellationToken cancellationToken = default) =>
 		CreateAsync(exportId, currentExportCounts, cancellationToken).GetAwaiter().GetResult();
 
@@ -31,7 +31,7 @@ public class ExportApi(Client client, int entityId) {
 	/// <param name="exportId">The identifier to assign to the export.</param>
 	/// <param name="currentExportCounts">Optional export parameters allowing to set where to start.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The bank journal entries ready to be exported, or <see langword="null"/> if no entry is ready to be exported.</returns>
+	/// <returns>The bank journal entries ready to be exported, or <see langword="null"/> if there are no entries.</returns>
 	public async Task<BankJournalExport?> CreateAsync(Guid? exportId = null, BankJournalExportCounts? currentExportCounts = null, CancellationToken cancellationToken = default) {
 		exportId ??= Guid.CreateVersion7();
 		var content = currentExportCounts is null ? null : new { CurrentExportCounts = currentExportCounts };
