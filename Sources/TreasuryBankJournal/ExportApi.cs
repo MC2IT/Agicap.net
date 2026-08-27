@@ -1,5 +1,6 @@
 namespace Mc2it.Agicap.TreasuryBankJournal;
 
+using System.Net;
 using System.Net.Http.Json;
 
 /// <summary>
@@ -20,8 +21,8 @@ public class ExportApi(Client client, int entityId) {
 	/// <param name="exportId">The identifier to assign to the export.</param>
 	/// <param name="currentExportCounts">Optional export parameters allowing to set where to start.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The identifier of the newly started synchronization.</returns>
-	public BankJournalExport Create(Guid? exportId = null, BankJournalExportCounts? currentExportCounts = null, CancellationToken cancellationToken = default) =>
+	/// <returns>The bank journal entries ready to be exported, or <see langword="null"/> if no entry is ready to be exported.</returns>
+	public BankJournalExport? Create(Guid? exportId = null, BankJournalExportCounts? currentExportCounts = null, CancellationToken cancellationToken = default) =>
 		CreateAsync(exportId, currentExportCounts, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
@@ -30,12 +31,12 @@ public class ExportApi(Client client, int entityId) {
 	/// <param name="exportId">The identifier to assign to the export.</param>
 	/// <param name="currentExportCounts">Optional export parameters allowing to set where to start.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The identifier of the newly started synchronization.</returns>
-	public async Task<BankJournalExport> CreateAsync(Guid? exportId = null, BankJournalExportCounts? currentExportCounts = null, CancellationToken cancellationToken = default) {
+	/// <returns>The bank journal entries ready to be exported, or <see langword="null"/> if no entry is ready to be exported.</returns>
+	public async Task<BankJournalExport?> CreateAsync(Guid? exportId = null, BankJournalExportCounts? currentExportCounts = null, CancellationToken cancellationToken = default) {
 		exportId ??= Guid.CreateVersion7();
 		var content = currentExportCounts is null ? null : new { CurrentExportCounts = currentExportCounts };
 		using var response = await client.PostAsync($"{requestUri}/exports/{exportId}", content, cancellationToken: cancellationToken);
-		return (await response.Content.ReadFromJsonAsync<BankJournalExport>(cancellationToken))!;
+		return response.StatusCode == HttpStatusCode.NoContent ? null : (await response.Content.ReadFromJsonAsync<BankJournalExport>(cancellationToken))!;
 	}
 
 	/// <summary>
