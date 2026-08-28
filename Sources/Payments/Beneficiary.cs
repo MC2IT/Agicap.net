@@ -48,3 +48,22 @@ public class Beneficiary {
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public ValidationStatus? ValidationStatus { get; set; }
 }
+
+/// <summary>
+/// Defines the uncertainty status of a beneficiary.
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter<UncertaintyStatus>))]
+public enum UncertaintyStatus {
+	Irrelevant,
+	NotUncertain,
+	Uncertain
+}
+
+/// <summary>
+/// Defines the validation status of a beneficiary.
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter<ValidationStatus>))]
+public enum ValidationStatus {
+	PendingValidation,
+	Validated
+}
