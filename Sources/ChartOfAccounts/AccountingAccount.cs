@@ -41,3 +41,17 @@ public class AccountingAccount {
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
 	public double? VatRate { get; set; }
 }
+
+/// <summary>
+/// Defines the type of an accounting account.
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter<AccountingAccountType>))]
+public enum AccountingAccountType {
+	Bank,
+	Client,
+	Expense,
+	Other,
+	Product,
+	Supplier,
+	Vat
+}

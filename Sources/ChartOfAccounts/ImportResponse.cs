@@ -1,5 +1,7 @@
 namespace Mc2it.Agicap.ChartOfAccounts;
 
+using System.Text.Json.Serialization;
+
 /// <summary>
 /// Provides metrics about the import of accounting accounts or third-parties.
 /// </summary>
@@ -29,4 +31,30 @@ public class ImportResponse {
 	/// The summary of what was imported when the import is finished.
 	/// </summary>
 	public ImportSummary? ImportSummary { get; set; }
+}
+
+/// <summary>
+/// Defines the status of an import of accounting accounts or third-parties.
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter<ImportStatus>))]
+public enum ImportStatus {
+	Started,
+	Failed,
+	Done
+}
+
+/// <summary>
+/// Provides the summary of an import of accounting accounts or third-parties.
+/// </summary>
+public class ImportSummary {
+
+	/// <summary>
+	/// The number of entities imported.
+	/// </summary>
+	public int ImportedCount { get; set; }
+
+	/// <summary>
+	/// The number of entities not imported.
+	/// </summary>
+	public int NotImportedCount { get; set; }
 }
