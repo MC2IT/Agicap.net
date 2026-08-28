@@ -1,6 +1,7 @@
 namespace Mc2it.Agicap.PurchaseJournal;
 
 using System.Globalization;
+using System.Text.Json.Serialization;
 
 /// <summary>
 /// Represents an accounting line of a purchase journal.
@@ -88,4 +89,14 @@ public class AccountingLine {
 	/// <see langword="null"/> for lines of type <see cref="AccountingLineAccountType.SupplierAccount"/>.
 	/// </summary>
 	public string? VatAccountName { get; set; }
+}
+
+/// <summary>
+/// Defines the account type of an accounting line
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter<AccountingLineAccountType>))]
+public enum AccountingLineAccountType {
+	ExpenseAccount,
+	SupplierAccount,
+	VatAccount
 }
