@@ -1,6 +1,7 @@
 ﻿namespace Mc2it.Agicap.TreasuryBankJournal;
 
 using System.Globalization;
+using System.Text.Json.Serialization;
 
 /// <summary>
 ///	Represents an entry of the Agicap treasury bank journal.
@@ -111,4 +112,21 @@ public class BankJournalEntry {
 	/// The journal entry type.
 	/// </summary>
 	public BankJournalEntryType Type { get; set; } = BankJournalEntryType.BANK;
+}
+
+/// <summary>
+///	Defines the type of a bank journal entry.
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter<BankJournalEntryType>))]
+public enum BankJournalEntryType {
+
+	/// <summary>
+	/// A bank journal entry.
+	/// </summary>
+	BANK,
+
+	/// <summary>
+	/// A cash-in-transit entry.
+	/// </summary>
+	CASH_IN_TRANSIT
 }

@@ -30,3 +30,60 @@ public class BankJournalExport {
 	/// </summary>
 	public int Year { get; set; }
 }
+
+/// <summary>
+/// Optional export parameters allowing to set where to start.
+/// </summary>
+public class BankJournalExportCounts {
+
+	/// <summary>
+	/// The number of bank journal entries previously created (starts at 1).
+	/// </summary>
+	public int CurrentBankJournalEntriesCountInYear { get; set => field = Math.Max(1, value); } = 1;
+
+	/// <summary>
+	/// The number of bank journal previously created (starts at 1).
+	/// </summary>
+	public int CurrentBankJournalsCountInYear { get; set => field = Math.Max(1, value); } = 1;
+}
+
+/// <summary>
+/// A bank journal export description.
+/// </summary>
+public class BankJournalExportSummary {
+
+	/// <summary>
+	/// The export date.
+	/// </summary>
+	public DateTime ExportDateUtc { get; set; }
+
+	/// <summary>
+	/// The unique ID of the export.
+	/// </summary>
+	public Guid ExportId { get; set; }
+
+	/// <summary>
+	/// The index of the bank journal export in the <see cref="ExportYear"/> (starts at 1).
+	/// </summary>
+	public int ExportIndexInYear { get; set => field = Math.Max(1, value); } = 1;
+
+	/// <summary>
+	/// The year the export was done.
+	/// </summary>
+	public int ExportYear { get; set; }
+
+	/// <summary>
+	/// The index in <see cref="ExportYear"/> of the first entry in the bank journal export (starts at 1).
+	/// </summary>
+	public int IndexInYearOfFirstEntryInBankJournal { get; set => field = Math.Max(1, value); } = 1;
+
+	/// <summary>
+	/// The index in <see cref="ExportYear"/> of the last entry in the bank journal export (starts at 1).
+	/// </summary>
+	public int IndexInYearOfLastEntryInBankJournal { get; set => field = Math.Max(1, value); } = 1;
+
+	/// <summary>
+	/// The number of entries in the bank journal export.
+	/// </summary>
+	public int NumberOfEntries { get; set; }
+}

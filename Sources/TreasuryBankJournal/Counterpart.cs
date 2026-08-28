@@ -1,6 +1,7 @@
 namespace Mc2it.Agicap.TreasuryBankJournal;
 
 using System.Globalization;
+using System.Text.Json.Serialization;
 
 /// <summary>
 ///	Represents a counterpart in an Agicap treasury bank journal.
@@ -106,4 +107,18 @@ public class Counterpart {
 	/// The third-party name.
 	/// </summary>
 	public string? ThirdPartyName { get; set; }
+}
+
+/// <summary>
+///	The accounting account type.
+/// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter<CounterpartAccountingAccountType>))]
+public enum CounterpartAccountingAccountType {
+	BANK,
+	CLIENT,
+	EXPENSE,
+	OTHER,
+	PRODUCT,
+	SUPPLIER,
+	VAT
 }
