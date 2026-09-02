@@ -21,6 +21,7 @@ public class LegalAddress {
 	/// <summary>
 	/// Value indicating whether this legal address is empty.
 	/// </summary>
+	[JsonIgnore]
 	public bool IsEmpty =>
 		string.IsNullOrWhiteSpace(City) &&
 		string.IsNullOrWhiteSpace(Country) &&

@@ -20,6 +20,7 @@ public class PostalAddress {
 	/// <summary>
 	/// Value indicating whether this postal address is empty.
 	/// </summary>
+	[JsonIgnore]
 	public bool IsEmpty =>
 		string.IsNullOrWhiteSpace(City) &&
 		string.IsNullOrWhiteSpace(Country) &&

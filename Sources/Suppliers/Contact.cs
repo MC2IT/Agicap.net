@@ -16,6 +16,7 @@ public class Contact {
 	/// <summary>
 	/// Value indicating whether this contact is empty.
 	/// </summary>
+	[JsonIgnore]
 	public bool IsEmpty =>
 		string.IsNullOrWhiteSpace(Email) &&
 		string.IsNullOrWhiteSpace(Name) &&

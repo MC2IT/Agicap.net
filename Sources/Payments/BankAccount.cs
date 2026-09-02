@@ -34,6 +34,7 @@ public class BankAccount {
 	/// <summary>
 	/// Value indicating whether this bank account is empty.
 	/// </summary>
+	[JsonIgnore]
 	public bool IsEmpty =>
 		string.IsNullOrWhiteSpace(BankName) &&
 		string.IsNullOrWhiteSpace(Bic) &&
