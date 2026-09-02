@@ -1,5 +1,8 @@
 # Changelog
 
+## Version [0.8.2](https://github.com/MC2IT/Agicap.net/compare/v0.8.1...v0.8.2)
+- Excluded the `IsEmpty` properties from the JSON serialization.
+
 ## Version [0.8.1](https://github.com/MC2IT/Agicap.net/compare/v0.8.0...v0.8.1)
 - Fixed the `TreasuryBankJournal.ExportApi.Create()` methods when the API returns no content.
 
