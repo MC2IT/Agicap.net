@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<Authors>MC2IT;CedX</Authors>
+		<Authors>MC2IT</Authors>
 		<IncludeSymbols>true</IncludeSymbols>
 		<PackageIcon>Icon.png</PackageIcon>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
