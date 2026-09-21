@@ -4,7 +4,7 @@ An [Agicap](https://agicap.com) API client library for [C#](https://learn.micros
 ## Quick start
 Install the latest version of **Agicap for .NET** with [NuGet](https://www.nuget.org) package manager:
 
-```shell
+```powershell
 dotnet package add Mc2it.Agicap
 ```
 
