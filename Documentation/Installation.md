@@ -23,6 +23,6 @@ dotnet package add Mc2it.Agicap
 ### 2. Import it
 Now in your [C#](https://learn.microsoft.com/en-us/dotnet/csharp) code, you can use:
 
-```cs
+```csharp
 using Mc2it.Agicap;
 ```
