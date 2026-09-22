@@ -29,8 +29,8 @@ public sealed class AccountingAccountApiTests(TestContext testContext) {
 			importResponse = await api.CreateAsync(accountingAccounts, importResponse.ImportId, testContext.CancellationToken);
 		}
 
-		AreEqual(ImportStatus.Done, importResponse.ImportStatus);
-		AreEqual(0, importResponse.ImportSummary?.NotImportedCount);
+		Assert.AreEqual(ImportStatus.Done, importResponse.ImportStatus);
+		Assert.AreEqual(0, importResponse.ImportSummary?.NotImportedCount);
 
 		// It should delete the specified accounting account.
 		await api.DeleteAsync(accountingAccounts, testContext.CancellationToken);

@@ -14,11 +14,11 @@ public sealed class BeneficiarySynchronizationTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Payments/BeneficiarySynchronization.json"));
 		var synchronization = JsonSerializer.Deserialize<BeneficiarySynchronization>(json, JsonSerializerOptions.Web)!;
 
-		AreEqual(date, synchronization.CreatedAt.Date);
-		HasCount(1, synchronization.Errors);
-		AreEqual(date, synchronization.FinishedAt?.Date);
-		AreEqual(BeneficiarySynchronizationStatus.CompletedWithErrors, synchronization.Status);
-		AreEqual(new Guid("3c648676-e07e-4aca-8e63-ce0802221b57"), synchronization.SyncId);
+		Assert.AreEqual(date, synchronization.CreatedAt.Date);
+		Assert.HasCount(1, synchronization.Errors);
+		Assert.AreEqual(date, synchronization.FinishedAt?.Date);
+		Assert.AreEqual(BeneficiarySynchronizationStatus.CompletedWithErrors, synchronization.Status);
+		Assert.AreEqual(new Guid("3c648676-e07e-4aca-8e63-ce0802221b57"), synchronization.SyncId);
 	}
 }
 
@@ -32,14 +32,14 @@ public sealed class BeneficiarySynchronizationErrorTests {
 	public void FromJson() {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Payments/BeneficiarySynchronizationError.json"));
 		var error = JsonSerializer.Deserialize<BeneficiarySynchronizationError>(json, JsonSerializerOptions.Web)!;
-		AreEqual(BeneficiarySynchronizationErrorCode.IncompletePostalAddress, error.ErrorCode);
-		StartsWith("The synchronization failed", error.ErrorMessage);
-		AreEqual(0, error.RowIndex);
+		Assert.AreEqual(BeneficiarySynchronizationErrorCode.IncompletePostalAddress, error.ErrorCode);
+		Assert.StartsWith("The synchronization failed", error.ErrorMessage);
+		Assert.AreEqual(0, error.RowIndex);
 
 		var beneficiary = error.Beneficiary;
-		IsNotNull(beneficiary);
-		AreEqual("MC2IT-DEVELOPMENT", beneficiary.ErpId);
-		AreEqual("MC2IT Development Department", beneficiary.Name);
-		AreEqual("ZZZZ", beneficiary.PostalAddress?.Country);
+		Assert.IsNotNull(beneficiary);
+		Assert.AreEqual("MC2IT-DEVELOPMENT", beneficiary.ErpId);
+		Assert.AreEqual("MC2IT Development Department", beneficiary.Name);
+		Assert.AreEqual("ZZZZ", beneficiary.PostalAddress?.Country);
 	}
 }

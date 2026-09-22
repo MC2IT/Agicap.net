@@ -13,25 +13,25 @@ public sealed class BeneficiaryTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Payments/Beneficiary.json"));
 		var beneficiary = JsonSerializer.Deserialize<Beneficiary>(json, JsonSerializerOptions.Web)!;
 
-		AreEqual("My Bank", beneficiary.BankAccount?.BankName);
-		AreEqual("BNPAFRPPXXX", beneficiary.BankAccount?.Bic);
-		AreEqual("FR7630006000011234567890189", beneficiary.BankAccount?.Identifier);
-		AreEqual("Paris", beneficiary.PostalAddress?.City);
-		AreEqual("FR", beneficiary.PostalAddress?.Country);
-		IsNull(beneficiary.CompanyLegalIdentifier);
-		AreEqual(new Guid("e4cd6d44-4d22-445f-909b-e55e59ad0436"), beneficiary.Id);
-		AreEqual("My Company", beneficiary.Name);
-		AreEqual(UncertaintyStatus.Uncertain, beneficiary.UncertaintyStatus);
-		IsNull(beneficiary.ValidationStatus);
+		Assert.AreEqual("My Bank", beneficiary.BankAccount?.BankName);
+		Assert.AreEqual("BNPAFRPPXXX", beneficiary.BankAccount?.Bic);
+		Assert.AreEqual("FR7630006000011234567890189", beneficiary.BankAccount?.Identifier);
+		Assert.AreEqual("Paris", beneficiary.PostalAddress?.City);
+		Assert.AreEqual("FR", beneficiary.PostalAddress?.Country);
+		Assert.IsNull(beneficiary.CompanyLegalIdentifier);
+		Assert.AreEqual(new Guid("e4cd6d44-4d22-445f-909b-e55e59ad0436"), beneficiary.Id);
+		Assert.AreEqual("My Company", beneficiary.Name);
+		Assert.AreEqual(UncertaintyStatus.Uncertain, beneficiary.UncertaintyStatus);
+		Assert.IsNull(beneficiary.ValidationStatus);
 	}
 
 	[TestMethod]
 	public void ToJson() {
 		var beneficiary = new Beneficiary { Name = "My Company", PostalAddress = new() };
 		var json = JsonSerializer.Serialize(beneficiary, JsonSerializerOptions.Web);
-		Contains("\"name\":\"My Company\"", json);
-		DoesNotContain("\"bankAccount\"", json);
-		DoesNotContain("\"id\"", json);
-		DoesNotContain("\"postalAddress\"", json);
+		Assert.Contains("\"name\":\"My Company\"", json);
+		Assert.DoesNotContain("\"bankAccount\"", json);
+		Assert.DoesNotContain("\"id\"", json);
+		Assert.DoesNotContain("\"postalAddress\"", json);
 	}
 }

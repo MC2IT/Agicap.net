@@ -12,6 +12,6 @@ public sealed class BadRequestTests {
 	public void FromJson() {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Authentication/BadRequest.json"));
 		var badRequest = JsonSerializer.Deserialize<BadRequest>(json, JsonSerializerOptions.Web)!;
-		AreEqual("An error occurred.", badRequest.Error);
+		Assert.AreEqual("An error occurred.", badRequest.Error);
 	}
 }

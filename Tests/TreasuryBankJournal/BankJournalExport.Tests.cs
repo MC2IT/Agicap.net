@@ -13,11 +13,11 @@ public sealed class BankJournalExportTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/TreasuryBankJournal/BankJournalExport.json"));
 		var bankJournalExport = JsonSerializer.Deserialize<BankJournalExport>(json, JsonSerializerOptions.Web)!;
 
-		AreEqual(1, bankJournalExport.BankJournalExportIndexInYear);
-		AreEqual("Contoso", bankJournalExport.EntityName);
-		HasCount(1, bankJournalExport.Entries);
-		AreEqual(new Guid("7397d1b5-d76d-43d2-a153-2bcff5e57455"), bankJournalExport.ExportId);
-		AreEqual(2024, bankJournalExport.Year);
+		Assert.AreEqual(1, bankJournalExport.BankJournalExportIndexInYear);
+		Assert.AreEqual("Contoso", bankJournalExport.EntityName);
+		Assert.HasCount(1, bankJournalExport.Entries);
+		Assert.AreEqual(new Guid("7397d1b5-d76d-43d2-a153-2bcff5e57455"), bankJournalExport.ExportId);
+		Assert.AreEqual(2024, bankJournalExport.Year);
 	}
 }
 
@@ -35,8 +35,8 @@ public sealed class BankJournalExportCountsTests {
 		};
 
 		var json = JsonSerializer.Serialize(exportCounts, JsonSerializerOptions.Web);
-		Contains("\"currentBankJournalEntriesCountInYear\":666", json);
-		Contains("\"currentBankJournalsCountInYear\":123", json);
+		Assert.Contains("\"currentBankJournalEntriesCountInYear\":666", json);
+		Assert.Contains("\"currentBankJournalsCountInYear\":123", json);
 	}
 }
 
@@ -51,12 +51,12 @@ public sealed class BankJournalExportSummaryTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/TreasuryBankJournal/BankJournalExportSummary.json"));
 		var exportSummary = JsonSerializer.Deserialize<BankJournalExportSummary>(json, JsonSerializerOptions.Web)!;
 
-		AreEqual(new DateTime(2026, 6, 25, 8, 14, 52, DateTimeKind.Utc), exportSummary.ExportDateUtc);
-		AreNotEqual(Guid.Empty, exportSummary.ExportId);
-		AreEqual(1, exportSummary.ExportIndexInYear);
-		AreEqual(2026, exportSummary.ExportYear);
-		AreEqual(1, exportSummary.IndexInYearOfFirstEntryInBankJournal);
-		AreEqual(5, exportSummary.IndexInYearOfLastEntryInBankJournal);
-		AreEqual(5, exportSummary.NumberOfEntries);
+		Assert.AreEqual(new DateTime(2026, 6, 25, 8, 14, 52, DateTimeKind.Utc), exportSummary.ExportDateUtc);
+		Assert.AreNotEqual(Guid.Empty, exportSummary.ExportId);
+		Assert.AreEqual(1, exportSummary.ExportIndexInYear);
+		Assert.AreEqual(2026, exportSummary.ExportYear);
+		Assert.AreEqual(1, exportSummary.IndexInYearOfFirstEntryInBankJournal);
+		Assert.AreEqual(5, exportSummary.IndexInYearOfLastEntryInBankJournal);
+		Assert.AreEqual(5, exportSummary.NumberOfEntries);
 	}
 }

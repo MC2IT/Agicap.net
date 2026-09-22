@@ -17,9 +17,9 @@ public sealed class NotImportedEntryTests {
 		};
 
 		var json = JsonSerializer.Serialize(notImportedEntry, JsonSerializerOptions.Web);
-		Contains($"\"entryAgicapUniqueId\":\"{guid}\"", json);
-		Contains("\"errors\":[{", json);
-		Contains("\"errorType\":\"UNKNOWN_VAT_ACCOUNT\"", json);
+		Assert.Contains($"\"entryAgicapUniqueId\":\"{guid}\"", json);
+		Assert.Contains("\"errors\":[{", json);
+		Assert.Contains("\"errorType\":\"UNKNOWN_VAT_ACCOUNT\"", json);
 	}
 }
 
@@ -33,7 +33,7 @@ public sealed class NotImportedEntryErrorTests {
 	public void ToJson() {
 		var notImportedEntryError = new NotImportedEntryError { ErrorType = NotImportedEntryErrorTypes.UnknownCurrency };
 		var json = JsonSerializer.Serialize(notImportedEntryError, JsonSerializerOptions.Web);
-		Contains("\"errorType\":\"UNKNOWN_CURRENCY\"", json);
-		DoesNotContain("\"errorMessage\"", json);
+		Assert.Contains("\"errorType\":\"UNKNOWN_CURRENCY\"", json);
+		Assert.DoesNotContain("\"errorMessage\"", json);
 	}
 }

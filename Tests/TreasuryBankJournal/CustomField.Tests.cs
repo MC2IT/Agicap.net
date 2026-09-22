@@ -13,7 +13,7 @@ public sealed class CustomFieldTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/TreasuryBankJournal/CustomField.json"));
 		var customField = JsonSerializer.Deserialize<CustomField>(json, JsonSerializerOptions.Web)!;
 
-		AreEqual("Company division", customField.Name);
-		AreEqual("Cars", customField.Value);
+		Assert.AreEqual("Company division", customField.Name);
+		Assert.AreEqual("Cars", customField.Value);
 	}
 }

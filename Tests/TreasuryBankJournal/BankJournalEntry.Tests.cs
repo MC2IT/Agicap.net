@@ -13,26 +13,26 @@ public sealed class BankJournalEntryTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/TreasuryBankJournal/BankJournalEntry.json"));
 		var bankJournalEntry = JsonSerializer.Deserialize<BankJournalEntry>(json, JsonSerializerOptions.Web)!;
 
-		IsNull(bankJournalEntry.AccountingAccountExternalId);
-		AreEqual("201.01000", bankJournalEntry.AccountingAccountNumber);
-		AreEqual("USD", bankJournalEntry.AccountingCurrency);
-		AreEqual(new Guid("f7f7ed5c-943c-4385-aa8d-145fd76b2fa1"), bankJournalEntry.AgicapUniqueId);
-		AreEqual("Cars bank account", bankJournalEntry.BankAccountName);
-		AreEqual("RIBA", bankJournalEntry.Causale);
-		HasCount(2, bankJournalEntry.Counterparts);
-		AreEqual(900_000, bankJournalEntry.CreditInAccountingCurrency);
-		AreEqual(1_000_000, bankJournalEntry.CreditInOriginalCurrency);
-		IsNull(bankJournalEntry.DebitInAccountingCurrency);
-		IsNull(bankJournalEntry.DebitInOriginalCurrency);
-		IsNull(bankJournalEntry.EntryMemo);
-		IsNull(bankJournalEntry.ExchangeRate);
-		AreEqual("0o00001l", bankJournalEntry.ExportEntryReference);
-		AreEqual(1, bankJournalEntry.IndexInExport);
-		AreEqual(57, bankJournalEntry.IndexInYear);
-		AreEqual("SG1", bankJournalEntry.JournalCode);
-		AreEqual("ACME Payment", bankJournalEntry.Name);
-		AreEqual("EUR", bankJournalEntry.OriginalCurrency);
-		AreEqual(new DateTime(2024, 12, 24), bankJournalEntry.PaymentDate);
-		AreEqual(BankJournalEntryType.BANK, bankJournalEntry.Type);
+		Assert.IsNull(bankJournalEntry.AccountingAccountExternalId);
+		Assert.AreEqual("201.01000", bankJournalEntry.AccountingAccountNumber);
+		Assert.AreEqual("USD", bankJournalEntry.AccountingCurrency);
+		Assert.AreEqual(new Guid("f7f7ed5c-943c-4385-aa8d-145fd76b2fa1"), bankJournalEntry.AgicapUniqueId);
+		Assert.AreEqual("Cars bank account", bankJournalEntry.BankAccountName);
+		Assert.AreEqual("RIBA", bankJournalEntry.Causale);
+		Assert.HasCount(2, bankJournalEntry.Counterparts);
+		Assert.AreEqual(900_000, bankJournalEntry.CreditInAccountingCurrency);
+		Assert.AreEqual(1_000_000, bankJournalEntry.CreditInOriginalCurrency);
+		Assert.IsNull(bankJournalEntry.DebitInAccountingCurrency);
+		Assert.IsNull(bankJournalEntry.DebitInOriginalCurrency);
+		Assert.IsNull(bankJournalEntry.EntryMemo);
+		Assert.IsNull(bankJournalEntry.ExchangeRate);
+		Assert.AreEqual("0o00001l", bankJournalEntry.ExportEntryReference);
+		Assert.AreEqual(1, bankJournalEntry.IndexInExport);
+		Assert.AreEqual(57, bankJournalEntry.IndexInYear);
+		Assert.AreEqual("SG1", bankJournalEntry.JournalCode);
+		Assert.AreEqual("ACME Payment", bankJournalEntry.Name);
+		Assert.AreEqual("EUR", bankJournalEntry.OriginalCurrency);
+		Assert.AreEqual(new DateTime(2024, 12, 24), bankJournalEntry.PaymentDate);
+		Assert.AreEqual(BankJournalEntryType.BANK, bankJournalEntry.Type);
 	}
 }

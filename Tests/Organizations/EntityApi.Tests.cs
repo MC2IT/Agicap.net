@@ -15,11 +15,11 @@ public sealed class EntityApiTests(TestContext testContext) {
 	[TestMethod]
 	public async Task ReadAll() {
 		var list = await api.ReadAllAsync(cancellationToken: testContext.CancellationToken);
-		IsGreaterThanOrEqualTo(1, list.Items.Count);
-		AreEqual(list.Items.Count, list.Pagination.TotalItemsCount);
+		Assert.IsGreaterThanOrEqualTo(1, list.Items.Count);
+		Assert.AreEqual(list.Items.Count, list.Pagination.TotalItemsCount);
 
 		var entity = list.Items.Single(item => item.Id == Fixtures.EntityId);
-		AreEqual("FR", entity.Country);
-		AreEqual("MC2IT", entity.Name);
+		Assert.AreEqual("FR", entity.Country);
+		Assert.AreEqual("MC2IT", entity.Name);
 	}
 }

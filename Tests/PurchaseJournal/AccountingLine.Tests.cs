@@ -13,21 +13,21 @@ public sealed class AccountingLineTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/PurchaseJournal/AccountingLine.json"));
 		var accountingLine = JsonSerializer.Deserialize<AccountingLine>(json, JsonSerializerOptions.Web)!;
 
-		AreEqual("EUR", accountingLine.AccountingCurrency);
-		AreEqual("6263", accountingLine.AccountNumber);
-		AreEqual(AccountingLineAccountType.ExpenseAccount, accountingLine.AccountType);
-		IsEmpty(accountingLine.AdditionalAnalyticalCodes);
-		AreSequenceEqual(new Dictionary<string, string>() { ["BusinessScope"] = "R&D", ["PurchaseType"] = "Cloud servers" }, accountingLine.AnalyticalCodes);
-		AreEqual(0.8, accountingLine.ConversionRate);
-		AreEqual(0, accountingLine.ConvertedCreditAmount);
-		AreEqual(80, accountingLine.ConvertedDebitAmount);
-		AreEqual(0, accountingLine.Credit);
-		AreEqual("USD", accountingLine.Currency);
-		AreEqual(100, accountingLine.Debit);
-		AreEqual(new Guid("a1b2c3d4-e5f6-7890-abcd-ef1234567890"), accountingLine.LineItemId);
-		IsNull(accountingLine.TaxKey);
-		IsNull(accountingLine.ThirdPartyAccount);
-		AreEqual("G", accountingLine.Type);
-		AreEqual("VAT 20%", accountingLine.VatAccountName);
+		Assert.AreEqual("EUR", accountingLine.AccountingCurrency);
+		Assert.AreEqual("6263", accountingLine.AccountNumber);
+		Assert.AreEqual(AccountingLineAccountType.ExpenseAccount, accountingLine.AccountType);
+		Assert.IsEmpty(accountingLine.AdditionalAnalyticalCodes);
+		Assert.AreSequenceEqual(new Dictionary<string, string>() { ["BusinessScope"] = "R&D", ["PurchaseType"] = "Cloud servers" }, accountingLine.AnalyticalCodes);
+		Assert.AreEqual(0.8, accountingLine.ConversionRate);
+		Assert.AreEqual(0, accountingLine.ConvertedCreditAmount);
+		Assert.AreEqual(80, accountingLine.ConvertedDebitAmount);
+		Assert.AreEqual(0, accountingLine.Credit);
+		Assert.AreEqual("USD", accountingLine.Currency);
+		Assert.AreEqual(100, accountingLine.Debit);
+		Assert.AreEqual(new Guid("a1b2c3d4-e5f6-7890-abcd-ef1234567890"), accountingLine.LineItemId);
+		Assert.IsNull(accountingLine.TaxKey);
+		Assert.IsNull(accountingLine.ThirdPartyAccount);
+		Assert.AreEqual("G", accountingLine.Type);
+		Assert.AreEqual("VAT 20%", accountingLine.VatAccountName);
 	}
 }

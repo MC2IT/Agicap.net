@@ -20,7 +20,7 @@ public sealed class BeneficiarySynchronizationApiTests(TestContext testContext) 
 			PostalAddress = new() { City = "Fabrègues", Country = "FR", StreetName = "Rue Gine" }
 		};
 
-		AreNotEqual(Guid.Empty, await api.CreateAsync([beneficiary], testContext.CancellationToken));
+		Assert.AreNotEqual(Guid.Empty, await api.CreateAsync([beneficiary], testContext.CancellationToken));
 	}
 
 	[TestMethod]
@@ -28,14 +28,14 @@ public sealed class BeneficiarySynchronizationApiTests(TestContext testContext) 
 		var syncId = new Guid("3c648676-e07e-4aca-8e63-ce0802221b57");
 
 		var synchronization = await api.ReadAsync(syncId, cancellationToken: testContext.CancellationToken);
-		AreEqual(new DateTime(2026, 8, 3, 0, 0, 0, DateTimeKind.Utc), synchronization.CreatedAt.Date);
-		HasCount(1, synchronization.Errors);
-		AreEqual(BeneficiarySynchronizationStatus.CompletedWithErrors, synchronization.Status);
-		AreEqual(syncId, synchronization.SyncId);
+		Assert.AreEqual(new DateTime(2026, 8, 3, 0, 0, 0, DateTimeKind.Utc), synchronization.CreatedAt.Date);
+		Assert.HasCount(1, synchronization.Errors);
+		Assert.AreEqual(BeneficiarySynchronizationStatus.CompletedWithErrors, synchronization.Status);
+		Assert.AreEqual(syncId, synchronization.SyncId);
 
 		var error = synchronization.Errors.First();
-		AreEqual(BeneficiarySynchronizationErrorCode.IncompletePostalAddress, error.ErrorCode);
-		StartsWith("The synchronization failed", error.ErrorMessage);
-		AreEqual(0, error.RowIndex);
+		Assert.AreEqual(BeneficiarySynchronizationErrorCode.IncompletePostalAddress, error.ErrorCode);
+		Assert.StartsWith("The synchronization failed", error.ErrorMessage);
+		Assert.AreEqual(0, error.RowIndex);
 	}
 }

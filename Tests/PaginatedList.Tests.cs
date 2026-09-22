@@ -14,13 +14,13 @@ public sealed class PaginationTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Pagination.json"));
 		var pagination = JsonSerializer.Deserialize<Pagination>(json, JsonSerializerOptions.Web)!;
 
-		AreEqual(18, pagination.CurrentPageItemsCount);
-		AreEqual(2, pagination.CurrentPageNumber);
-		IsFalse(pagination.HasNextPage);
-		IsTrue(pagination.HasPreviousPage);
-		AreEqual(2, pagination.PagesCount);
-		AreEqual(33, pagination.PageSize);
-		AreEqual(51, pagination.TotalItemsCount);
+		Assert.AreEqual(18, pagination.CurrentPageItemsCount);
+		Assert.AreEqual(2, pagination.CurrentPageNumber);
+		Assert.IsFalse(pagination.HasNextPage);
+		Assert.IsTrue(pagination.HasPreviousPage);
+		Assert.AreEqual(2, pagination.PagesCount);
+		Assert.AreEqual(33, pagination.PageSize);
+		Assert.AreEqual(51, pagination.TotalItemsCount);
 	}
 }
 
@@ -34,21 +34,21 @@ public sealed class PaginatedListTests {
 	public void FromJson() {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/PaginatedList.json"));
 		var list = JsonSerializer.Deserialize<PaginatedList<Organization>>(json, JsonSerializerOptions.Web)!;
-		HasCount(2, list.Items);
+		Assert.HasCount(2, list.Items);
 
 		var firstItem = list.Items.First();
-		AreEqual(new Guid("3ebb0163-6ac8-449d-a34b-496244f380a1"), firstItem.Id);
-		AreEqual("Company #1", firstItem.Name);
+		Assert.AreEqual(new Guid("3ebb0163-6ac8-449d-a34b-496244f380a1"), firstItem.Id);
+		Assert.AreEqual("Company #1", firstItem.Name);
 
 		var lastItem = list.Items.Last();
-		AreEqual(new Guid("866faf6e-19c3-4131-97da-c50ff9a92961"), lastItem.Id);
-		AreEqual("Company #2", lastItem.Name);
+		Assert.AreEqual(new Guid("866faf6e-19c3-4131-97da-c50ff9a92961"), lastItem.Id);
+		Assert.AreEqual("Company #2", lastItem.Name);
 
 		var pagination = list.Pagination;
-		AreEqual(2, pagination.CurrentPageItemsCount);
-		AreEqual(1, pagination.CurrentPageNumber);
-		AreEqual(1, pagination.PagesCount);
-		AreEqual(10, pagination.PageSize);
-		AreEqual(2, pagination.TotalItemsCount);
+		Assert.AreEqual(2, pagination.CurrentPageItemsCount);
+		Assert.AreEqual(1, pagination.CurrentPageNumber);
+		Assert.AreEqual(1, pagination.PagesCount);
+		Assert.AreEqual(10, pagination.PageSize);
+		Assert.AreEqual(2, pagination.TotalItemsCount);
 	}
 }

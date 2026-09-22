@@ -13,9 +13,9 @@ public sealed class AccessTokenTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Authentication/AccessToken.json"));
 		var accessToken = JsonSerializer.Deserialize<AccessToken>(json, JsonSerializerOptions.Web)!;
 
-		IsFalse(accessToken.HasExpired);
-		AreSequenceEqual([Scopes.PublicApi, Scopes.ImportPaymentFiles, Scopes.ManagePaymentBeneficiaries], accessToken.Scopes);
-		AreEqual("OAuth", accessToken.Type);
-		AreEqual("a1704b4b-7662-432e-a68e-77f414fb836c", accessToken.Value);
+		Assert.IsFalse(accessToken.HasExpired);
+		Assert.AreSequenceEqual([Scopes.PublicApi, Scopes.ImportPaymentFiles, Scopes.ManagePaymentBeneficiaries], accessToken.Scopes);
+		Assert.AreEqual("OAuth", accessToken.Type);
+		Assert.AreEqual("a1704b4b-7662-432e-a68e-77f414fb836c", accessToken.Value);
 	}
 }

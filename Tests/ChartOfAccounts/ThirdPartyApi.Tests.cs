@@ -29,8 +29,8 @@ public sealed class ThirdPartyApiTests(TestContext testContext) {
 			importResponse = await api.CreateAsync(thirdParties, importResponse.ImportId, testContext.CancellationToken);
 		}
 
-		AreEqual(ImportStatus.Done, importResponse.ImportStatus);
-		AreEqual(0, importResponse.ImportSummary?.NotImportedCount);
+		Assert.AreEqual(ImportStatus.Done, importResponse.ImportStatus);
+		Assert.AreEqual(0, importResponse.ImportSummary?.NotImportedCount);
 
 		// It should delete the specified third-party.
 		await api.DeleteAsync(thirdParties, testContext.CancellationToken);
