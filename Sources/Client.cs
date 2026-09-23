@@ -106,15 +106,14 @@ public class Client(NetworkCredential credential): IDisposable {
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The generated access token.</param>
 	public async Task<AccessToken> AuthenticateAsync(string[]? scopes = null, CancellationToken cancellationToken = default) {
-		using var content = new FormUrlEncodedContent(new Dictionary<string, string> {
+		using var request = NewHttpRequest(HttpMethod.Post, "auth/v1/token", content: new FormUrlEncodedContent(new Dictionary<string, string> {
 			["client_id"] = Credential.UserName,
 			["client_secret"] = Credential.Password,
 			["grant_type"] = "client_credentials",
 			["scope"] = string.Join(' ', scopes is not null && scopes.Length > 0 ? scopes : DefaultScopes)
-		});
+		}));
 
-		using var client = NewHttpClient();
-		using var response = await client.PostAsync("auth/v1/token", content, cancellationToken);
+		using var response = await httpClient.SendAsync(request, cancellationToken);
 		await EnsureSuccessStatusCode(response, cancellationToken);
 		return accessToken = (await response.Content.ReadFromJsonAsync<AccessToken>(cancellationToken))!;
 	}
@@ -129,8 +128,8 @@ public class Client(NetworkCredential credential): IDisposable {
 	/// <returns>The response from the HTTP server.</returns>
 	internal async Task<HttpResponseMessage> DeleteAsync(string requestUri, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-		using var client = NewHttpClient();
-		var response = await client.DeleteAsync($"{requestUri}?{NewQueryString(query)}", cancellationToken);
+		using var request = NewHttpRequest(HttpMethod.Delete, requestUri, query);
+		var response = await httpClient.SendAsync(request, cancellationToken);
 		return await EnsureSuccessStatusCode(response, cancellationToken);
 	}
 
@@ -152,8 +151,8 @@ public class Client(NetworkCredential credential): IDisposable {
 	/// <returns>The deserialized response body.</returns>
 	internal async Task<T> GetAsync<T>(string requestUri, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-		using var client = NewHttpClient();
-		using var response = await client.GetAsync($"{requestUri}?{NewQueryString(query)}", cancellationToken);
+		using var request = NewHttpRequest(HttpMethod.Get, requestUri, query);
+		using var response = await httpClient.SendAsync(request, cancellationToken);
 		await EnsureSuccessStatusCode(response, cancellationToken);
 		return (await response.Content.ReadFromJsonAsync<T>(cancellationToken))!;
 	}
@@ -169,8 +168,8 @@ public class Client(NetworkCredential credential): IDisposable {
 	/// <returns>The response from the HTTP server.</returns>
 	internal async Task<HttpResponseMessage> PatchAsync<T>(string requestUri, T value, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-		using var client = NewHttpClient();
-		var response = await client.PatchAsJsonAsync($"{requestUri}?{NewQueryString(query)}", value, cancellationToken);
+		using var request = NewHttpRequest(HttpMethod.Patch, requestUri, query, JsonContent.Create(value));
+		var response = await httpClient.SendAsync(request, cancellationToken);
 		return await EnsureSuccessStatusCode(response, cancellationToken);
 	}
 
@@ -185,8 +184,8 @@ public class Client(NetworkCredential credential): IDisposable {
 	/// <returns>The response from the HTTP server.</returns>
 	internal async Task<HttpResponseMessage> PostAsync<T>(string requestUri, T value, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-		using var client = NewHttpClient();
-		var response = await client.PostAsJsonAsync($"{requestUri}?{NewQueryString(query)}", value, cancellationToken);
+		using var request = NewHttpRequest(HttpMethod.Post, requestUri, query, JsonContent.Create(value));
+		var response = await httpClient.SendAsync(request, cancellationToken);
 		return await EnsureSuccessStatusCode(response, cancellationToken);
 	}
 
@@ -201,8 +200,8 @@ public class Client(NetworkCredential credential): IDisposable {
 	/// <returns>The response from the HTTP server.</returns>
 	internal async Task<HttpResponseMessage> PutAsync<T>(string requestUri, T value, IDictionary<string, object?>? query = null, CancellationToken cancellationToken = default) {
 		if (!IsAuthenticated) await AuthenticateAsync(cancellationToken: cancellationToken);
-		using var client = NewHttpClient();
-		var response = await client.PutAsJsonAsync($"{requestUri}?{NewQueryString(query)}", value, cancellationToken);
+		using var request = NewHttpRequest(HttpMethod.Put, requestUri, query, JsonContent.Create(value));
+		var response = await httpClient.SendAsync(request, cancellationToken);
 		return await EnsureSuccessStatusCode(response, cancellationToken);
 	}
 
@@ -235,14 +234,19 @@ public class Client(NetworkCredential credential): IDisposable {
 	}
 
 	/// <summary>
-	/// Creates a new HTTP client with default settings.
+	/// Creates a new HTTP request.
 	/// </summary>
-	/// <returns>The newly created HTTP client.</returns>
-	private HttpClient NewHttpClient() {
-		var httpClient = new HttpClient { BaseAddress = BaseUrl, Timeout = TimeSpan.FromMinutes(1) };
-		httpClient.DefaultRequestHeaders.Add("User-Agent", UserAgent);
-		if (IsAuthenticated) httpClient.DefaultRequestHeaders.Authorization = new("Bearer", accessToken.Value);
-		return httpClient;
+	/// <param name="method">The HTTP method.</param>
+	/// <param name="requestUri">The URI the request is sent to.</param>
+	/// <param name="query">Any query information to include in the specified request URI.</param>
+	/// <param name="content">The request body.</param>
+	/// <returns>The newly created HTTP request.</returns>
+	private HttpRequestMessage NewHttpRequest(HttpMethod method, string requestUri, IDictionary<string, object?>? query = null, HttpContent? content = null) {
+		var request = new HttpRequestMessage(method, new Uri(BaseUrl, $"{requestUri}?{NewQueryString(query)}"));
+		if (content is not null) request.Content = content;
+		if (IsAuthenticated) request.Headers.Authorization = new("Bearer", accessToken.Value);
+		request.Headers.Add("User-Agent", UserAgent);
+		return request;
 	}
 
 	/// <summary>
