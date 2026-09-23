@@ -1,5 +1,9 @@
 # Changelog
 
+## Version [0.9.0](https://github.com/MC2IT/Agicap.net/compare/v0.8.2...v0.9.0)
+- The `Client` class now implements the `IDisposable` interface.
+- Uses a single HTTP client instance to make all requests.
+
 ## Version [0.8.2](https://github.com/MC2IT/Agicap.net/compare/v0.8.1...v0.8.2)
 - Excluded the `IsEmpty` properties from the JSON serialization.
 
