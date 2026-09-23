@@ -11,7 +11,7 @@ using System.Web;
 /// Retrieves and manages Agicap data with HTTP requests.
 /// </summary>
 /// <param name="credential">The client identifier and secret.</param>
-public class Client(NetworkCredential credential) {
+public class Client(NetworkCredential credential): IDisposable {
 
 	/// <summary>
 	/// The assembly version.
@@ -74,6 +74,16 @@ public class Client(NetworkCredential credential) {
 	private AccessToken accessToken = new();
 
 	/// <summary>
+	/// Value indicating whether this object has been disposed.
+	/// </summary>
+	private bool disposed;
+
+	/// <summary>
+	/// The underlying HTTP client.
+	/// </summary>
+	private readonly HttpClient httpClient = new() { Timeout = TimeSpan.FromMinutes(1) };
+
+	/// <summary>
 	/// Creates a new client.
 	/// </summary>
 	/// <param name="clientId">The client identifier.</param>
@@ -122,6 +132,14 @@ public class Client(NetworkCredential credential) {
 		using var client = NewHttpClient();
 		var response = await client.DeleteAsync($"{requestUri}?{NewQueryString(query)}", cancellationToken);
 		return await EnsureSuccessStatusCode(response, cancellationToken);
+	}
+
+	/// <summary>
+	/// Releases any resources associated with this object.
+	/// </summary>
+	public void Dispose() {
+		Dispose(disposing: true);
+		GC.SuppressFinalize(this);
 	}
 
 	/// <summary>
@@ -186,6 +204,16 @@ public class Client(NetworkCredential credential) {
 		using var client = NewHttpClient();
 		var response = await client.PutAsJsonAsync($"{requestUri}?{NewQueryString(query)}", value, cancellationToken);
 		return await EnsureSuccessStatusCode(response, cancellationToken);
+	}
+
+	/// <summary>
+	/// Releases any resources associated with this object.
+	/// </summary>
+	/// <param name="disposing">Value indicating whether this object is currently being disposed.</param>
+	protected virtual void Dispose(bool disposing) {
+		if (disposed) return;
+		if (disposing) httpClient.Dispose();
+		disposed = true;
 	}
 
 	/// <summary>
