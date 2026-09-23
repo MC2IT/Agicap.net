@@ -16,12 +16,12 @@ public class Client(NetworkCredential credential): IDisposable {
 	/// <summary>
 	/// The assembly version.
 	/// </summary>
-	private static Version Version => typeof(Client).Assembly.GetName().Version!;
+	private static readonly Version Version = typeof(Client).Assembly.GetName().Version!;
 
 	/// <summary>
 	/// The base URL of the remote API endpoint.
 	/// </summary>
-	public Uri BaseUrl { get; set; } = new Uri("https://api.agicap.com/public/");
+	public Uri BaseUrl { get; set; } = new("https://api.agicap.com/public/");
 
 	/// <summary>
 	/// Provides access to the chart of accounts.
@@ -31,7 +31,7 @@ public class Client(NetworkCredential credential): IDisposable {
 	/// <summary>
 	/// The client identifier and secret.
 	/// </summary>
-	public NetworkCredential Credential => credential;
+	public NetworkCredential Credential { get; set; } = credential;
 
 	/// <summary>
 	/// The scopes to use by default when invoking the <see cref="AuthenticateAsync"/> method.
