@@ -1,5 +1,5 @@
 @{
-	ModuleVersion = "0.8.2"
+	ModuleVersion = "0.9.0"
 	PowerShellVersion = "7.6"
 
 	Author = "MC2IT <dev@mc2it.com>"
