@@ -1,5 +1,7 @@
 namespace Mc2it.Agicap.PurchaseJournal;
 
+using System.Globalization;
+
 /// <summary>
 /// Manages the accounting purchases of the purchase journal.
 /// </summary>
@@ -53,7 +55,7 @@ public class AccountingPurchaseApi(Client client, int entityId) {
 	public async Task<PaginatedList<PurchaseJournalEntry>> ReadAllAsync(DateTime? lastSynchronizationDate = null, int? pageNumber = null, int? pageSize = null, string? include = null, CancellationToken cancellationToken = default) {
 		var queryString = new Dictionary<string, object?> {
 			["Include"] = include,
-			["LastSynchronizationDate"] = lastSynchronizationDate?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"),
+			["LastSynchronizationDate"] = lastSynchronizationDate?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture),
 			["PageNumber"] = pageNumber,
 			["PageSize"] = pageSize
 		};

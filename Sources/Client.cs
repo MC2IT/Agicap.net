@@ -95,7 +95,7 @@ public class Client(NetworkCredential credential): IDisposable {
 	/// </summary>
 	/// <param name="scopes">The delegated permissions to consent to.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The generated access token.</param>
+	/// <returns>The generated access token.</returns>
 	public AccessToken Authenticate(string[]? scopes = null, CancellationToken cancellationToken = default) =>
 		AuthenticateAsync(scopes, cancellationToken).GetAwaiter().GetResult();
 
@@ -104,7 +104,7 @@ public class Client(NetworkCredential credential): IDisposable {
 	/// </summary>
 	/// <param name="scopes">The delegated permissions to consent to.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
-	/// <returns>The generated access token.</param>
+	/// <returns>The generated access token.</returns>
 	public async Task<AccessToken> AuthenticateAsync(string[]? scopes = null, CancellationToken cancellationToken = default) {
 		using var request = NewHttpRequest(HttpMethod.Post, "auth/v1/token", content: new FormUrlEncodedContent(new Dictionary<string, string> {
 			["client_id"] = Credential.UserName,

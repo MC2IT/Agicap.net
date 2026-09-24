@@ -1,5 +1,6 @@
 namespace Mc2it.Agicap.TreasuryBankJournal;
 
+using System.Globalization;
 using System.Net;
 using System.Net.Http.Json;
 
@@ -129,8 +130,8 @@ public class ExportApi(Client client, int entityId) {
 	/// <returns>The export list.</returns>
 	public async Task<CursorPaginatedList<BankJournalExportSummary>> ReadAllAsync(int size = 100, DateTime? after = null, DateTime? before = null, CancellationToken cancellationToken = default) {
 		var queryString = new Dictionary<string, object?> {
-			["after"] = after?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"),
-			["before"] = before?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"),
+			["after"] = after?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture),
+			["before"] = before?.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture),
 			["size"] = size
 		};
 
