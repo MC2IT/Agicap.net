@@ -121,7 +121,6 @@ public class Client(NetworkCredential credential): IDisposable {
 	/// <summary>
 	/// Sends a <c>DELETE</c> request to the specified URI.
 	/// </summary>
-	/// <typeparam name="T">The target type to deserialize to.</typeparam>
 	/// <param name="requestUri">The URI the request is sent to.</param>
 	/// <param name="query">Any query information to include in the specified request URI.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
