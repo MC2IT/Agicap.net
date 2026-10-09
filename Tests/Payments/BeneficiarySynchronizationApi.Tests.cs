@@ -5,7 +5,7 @@ namespace Mc2it.Agicap.Payments;
 /// </summary>
 /// <param name="testContext">The test context.</param>
 [TestClass, CICondition(ConditionMode.Exclude)]
-public sealed class BeneficiarySynchronizationApiTests(TestContext testContext) {
+public class BeneficiarySynchronizationApiTests(TestContext testContext) {
 
 	/// <summary>
 	/// The client used to query the Agicap API.

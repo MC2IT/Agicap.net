@@ -6,7 +6,7 @@ using System.Text.Json;
 /// Tests the features of the <see cref="CustomField"/> class.
 /// </summary>
 [TestClass]
-public sealed class CustomFieldTests {
+public class CustomFieldTests {
 
 	[TestMethod]
 	public void FromJson() {

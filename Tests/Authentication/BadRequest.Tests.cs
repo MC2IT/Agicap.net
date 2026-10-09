@@ -6,7 +6,7 @@ using System.Text.Json;
 /// Tests the features of the <see cref="BadRequest"/> class.
 /// </summary>
 [TestClass]
-public sealed class BadRequestTests {
+public class BadRequestTests {
 
 	[TestMethod]
 	public void FromJson() {

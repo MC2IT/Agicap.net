@@ -6,7 +6,7 @@ using System.Text.Json;
 /// Tests the features of the <see cref="BankAccount"/> class.
 /// </summary>
 [TestClass]
-public sealed class BankAccountTests {
+public class BankAccountTests {
 
 	[TestMethod]
 	public void IsEmpty() {

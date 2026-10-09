@@ -7,7 +7,7 @@ using System.Net;
 /// </summary>
 /// <param name="testContext">The test context.</param>
 [TestClass, CICondition(ConditionMode.Exclude)]
-public sealed class BeneficiaryApiTests(TestContext testContext) {
+public class BeneficiaryApiTests(TestContext testContext) {
 
 	/// <summary>
 	/// The client used to query the Agicap API.

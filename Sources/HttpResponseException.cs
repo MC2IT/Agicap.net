@@ -6,7 +6,7 @@ namespace Mc2it.Agicap;
 /// <param name="message">The message that describes the exception.</param>
 /// <param name="response">The response from the HTTP server.</param>
 /// <param name="problemDetails">Additional details about the error that caused the exception.</param>
-public sealed class HttpResponseException(string message, HttpResponseMessage response, ProblemDetails? problemDetails = null):
+public class HttpResponseException(string message, HttpResponseMessage response, ProblemDetails? problemDetails = null):
 	HttpRequestException(message, inner: null, response.StatusCode) {
 
 	/// <summary>

@@ -5,7 +5,7 @@ namespace Mc2it.Agicap;
 /// </summary>
 /// <param name="testContext">The test context.</param>
 [TestClass, CICondition(ConditionMode.Exclude)]
-public sealed class ClientTests(TestContext testContext) {
+public class ClientTests(TestContext testContext) {
 
 	[TestMethod]
 	public async Task Authenticate() {
@@ -23,6 +23,6 @@ public sealed class ClientTests(TestContext testContext) {
 
 		// It should throw an exception when the credentials are invalid.
 		client = new Client("FooBar", "BazQux");
-		await Assert.ThrowsAsync<HttpRequestException>(() => client.AuthenticateAsync(cancellationToken: testContext.CancellationToken));
+		await Should.ThrowAsync<HttpRequestException>(() => client.AuthenticateAsync(cancellationToken: testContext.CancellationToken));
 	}
 }

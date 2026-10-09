@@ -5,7 +5,7 @@ namespace Mc2it.Agicap.ChartOfAccounts;
 /// </summary>
 /// <param name="testContext">The test context.</param>
 [TestClass, CICondition(ConditionMode.Exclude)]
-public sealed class ThirdPartyApiTests(TestContext testContext) {
+public class ThirdPartyApiTests(TestContext testContext) {
 
 	/// <summary>
 	/// The client used to query the Agicap API.

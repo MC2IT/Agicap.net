@@ -6,7 +6,7 @@ using System.Text.Json;
 /// Tests the features of the <see cref="NotImportedEntry"/> class.
 /// </summary>
 [TestClass]
-public sealed class NotImportedEntryTests {
+public class NotImportedEntryTests {
 
 	[TestMethod]
 	public void ToJson() {
@@ -27,7 +27,7 @@ public sealed class NotImportedEntryTests {
 /// Tests the features of the <see cref="NotImportedEntryError"/> class.
 /// </summary>
 [TestClass]
-public sealed class NotImportedEntryErrorTests {
+public class NotImportedEntryErrorTests {
 
 	[TestMethod]
 	public void ToJson() {

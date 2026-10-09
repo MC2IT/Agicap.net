@@ -5,7 +5,7 @@ namespace Mc2it.Agicap.Organizations;
 /// </summary>
 /// <param name="testContext">The test context.</param>
 [TestClass, CICondition(ConditionMode.Exclude)]
-public sealed class OrganizationApiTests(TestContext testContext) {
+public class OrganizationApiTests(TestContext testContext) {
 
 	/// <summary>
 	/// The client used to query the Agicap API.

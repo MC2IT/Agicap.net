@@ -6,7 +6,7 @@ using System.Text.Json;
 /// Tests the features of the <see cref="BeneficiarySynchronization"/> class.
 /// </summary>
 [TestClass]
-public sealed class BeneficiarySynchronizationTests {
+public class BeneficiarySynchronizationTests {
 
 	[TestMethod]
 	public void FromJson() {
@@ -26,7 +26,7 @@ public sealed class BeneficiarySynchronizationTests {
 /// Tests the features of the <see cref="BeneficiarySynchronizationError"/> class.
 /// </summary>
 [TestClass]
-public sealed class BeneficiarySynchronizationErrorTests {
+public class BeneficiarySynchronizationErrorTests {
 
 	[TestMethod]
 	public void FromJson() {

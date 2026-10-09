@@ -7,7 +7,7 @@ using System.Text.Json;
 /// Tests the features of the <see cref="Cursor"/> class.
 /// </summary>
 [TestClass]
-public sealed class CursorTests {
+public class CursorTests {
 
 	[TestMethod]
 	public void FromJson() {
@@ -24,7 +24,7 @@ public sealed class CursorTests {
 /// Tests the features of the <see cref="CursorPaginatedList"/> class.
 /// </summary>
 [TestClass]
-public sealed class CursorPaginatedListTests {
+public class CursorPaginatedListTests {
 
 	[TestMethod]
 	public void FromJson() {

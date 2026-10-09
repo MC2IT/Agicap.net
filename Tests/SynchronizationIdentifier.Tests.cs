@@ -6,7 +6,7 @@ using System.Text.Json;
 /// Tests the features of the <see cref="SynchronizationIdentifier"/> class.
 /// </summary>
 [TestClass]
-public sealed class SynchronizationIdentifierTests {
+public class SynchronizationIdentifierTests {
 
 	[TestMethod]
 	public void FromJson() {

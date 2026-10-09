@@ -6,7 +6,7 @@ using System.Text.Json;
 /// Tests the features of the <see cref="ImportedEntry"/> class.
 /// </summary>
 [TestClass]
-public sealed class ImportedEntryTests {
+public class ImportedEntryTests {
 
 	[TestMethod]
 	public void ToJson() {

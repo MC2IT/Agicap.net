@@ -6,7 +6,7 @@ using System.Text.Json;
 /// Tests the features of the <see cref="SynchronizedBeneficiary"/> class.
 /// </summary>
 [TestClass]
-public sealed class SynchronizedBeneficiaryTests {
+public class SynchronizedBeneficiaryTests {
 
 	[TestMethod]
 	public void FromBeneficiary() {

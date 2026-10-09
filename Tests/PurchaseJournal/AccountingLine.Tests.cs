@@ -6,7 +6,7 @@ using System.Text.Json;
 /// Tests the features of the <see cref="AccountingLine"/> class.
 /// </summary>
 [TestClass]
-public sealed class AccountingLineTests {
+public class AccountingLineTests {
 
 	[TestMethod]
 	public void FromJson() {

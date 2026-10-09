@@ -7,7 +7,7 @@ using System.Text.Json;
 /// Tests the features of the <see cref="Pagination"/> class.
 /// </summary>
 [TestClass]
-public sealed class PaginationTests {
+public class PaginationTests {
 
 	[TestMethod]
 	public void FromJson() {
@@ -28,7 +28,7 @@ public sealed class PaginationTests {
 /// Tests the features of the <see cref="PaginatedList"/> class.
 /// </summary>
 [TestClass]
-public sealed class PaginatedListTests {
+public class PaginatedListTests {
 
 	[TestMethod]
 	public void FromJson() {

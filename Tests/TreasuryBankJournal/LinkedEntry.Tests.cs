@@ -6,7 +6,7 @@ using System.Text.Json;
 /// Tests the features of the <see cref="LinkedEntry"/> class.
 /// </summary>
 [TestClass]
-public sealed class LinkedEntryTests {
+public class LinkedEntryTests {
 
 	[TestMethod]
 	public void FromJson() {

@@ -6,7 +6,7 @@ using System.Text.Json;
 /// Tests the features of the <see cref="AccessToken"/> class.
 /// </summary>
 [TestClass]
-public sealed class AccessTokenTests {
+public class AccessTokenTests {
 
 	[TestMethod]
 	public void FromJson() {

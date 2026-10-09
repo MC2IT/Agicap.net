@@ -6,7 +6,7 @@ using System.Text.Json;
 /// Tests the features of the <see cref="BankJournalExport"/> class.
 /// </summary>
 [TestClass]
-public sealed class BankJournalExportTests {
+public class BankJournalExportTests {
 
 	[TestMethod]
 	public void FromJson() {
@@ -25,7 +25,7 @@ public sealed class BankJournalExportTests {
 /// Tests the features of the <see cref="BankJournalExportCounts"/> class.
 /// </summary>
 [TestClass]
-public sealed class BankJournalExportCountsTests {
+public class BankJournalExportCountsTests {
 
 	[TestMethod]
 	public void ToJson() {
@@ -44,7 +44,7 @@ public sealed class BankJournalExportCountsTests {
 /// Tests the features of the <see cref="BankJournalExportSummary"/> class.
 /// </summary>
 [TestClass]
-public sealed class BankJournalExportSummaryTests {
+public class BankJournalExportSummaryTests {
 
 	[TestMethod]
 	public void FromJson() {

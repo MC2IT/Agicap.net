@@ -6,7 +6,7 @@ using System.Text.Json;
 /// Tests the features of the <see cref="Counterpart"/> class.
 /// </summary>
 [TestClass]
-public sealed class CounterpartTests {
+public class CounterpartTests {
 
 	[TestMethod]
 	public void FromJson() {

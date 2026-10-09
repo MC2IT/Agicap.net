@@ -5,7 +5,7 @@ namespace Mc2it.Agicap.PurchaseJournal;
 /// </summary>
 /// <param name="testContext">The test context.</param>
 [TestClass, CICondition(ConditionMode.Exclude)]
-public sealed class AccountingPurchaseApiTests(TestContext testContext) {
+public class AccountingPurchaseApiTests(TestContext testContext) {
 
 	/// <summary>
 	/// The client used to query the Agicap API.

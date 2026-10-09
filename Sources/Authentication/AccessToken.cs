@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 /// <summary>
 ///	Represents an OAuth token and its metadata.
 /// </summary>
-public sealed class AccessToken {
+public class AccessToken {
 
 	/// <summary>
 	/// The number of seconds when this token will expire.
