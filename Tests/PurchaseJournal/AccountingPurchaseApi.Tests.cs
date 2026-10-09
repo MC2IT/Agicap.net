@@ -19,13 +19,13 @@ public class AccountingPurchaseApiTests(TestContext testContext) {
 	public async Task ReadAll() {
 		var lastSynchronizationDate = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 		var purchaseJournalEntries = (await api.ReadAllAsync(lastSynchronizationDate, pageSize: 2, cancellationToken: testContext.CancellationToken)).Items;
-		Assert.HasCount(2, purchaseJournalEntries);
+		purchaseJournalEntries.Count.ShouldBe(2);
 
 		foreach (var purchaseJournalEntry in purchaseJournalEntries) {
-			Assert.AreNotEqual(Guid.Empty, purchaseJournalEntry.AgicapUniqueId);
-			Assert.IsGreaterThanOrEqualTo(1, purchaseJournalEntry.AccountingLines.Count);
-			Assert.AreEqual(0, purchaseJournalEntry.AccountingLines.Sum(accountingLine => accountingLine.Credit - accountingLine.Debit));
-			Assert.IsTrue(purchaseJournalEntry.AccountingLines.All(accountingLine => accountingLine.Currency == "EUR"));
+			purchaseJournalEntry.AgicapUniqueId.ShouldNotBe(Guid.Empty);
+			purchaseJournalEntry.AccountingLines.Count.ShouldBeGreaterThanOrEqualTo(1);
+			purchaseJournalEntry.AccountingLines.Sum(accountingLine => accountingLine.Credit - accountingLine.Debit).ShouldBe(0);
+			purchaseJournalEntry.AccountingLines.All(accountingLine => accountingLine.Currency == "EUR").ShouldBeTrue();
 		}
 	}
 }

@@ -22,19 +22,14 @@ public class BeneficiaryApiTests(TestContext testContext) {
 		};
 
 		// It should create the specified beneficiary.
-		Assert.AreEqual(Guid.Empty, beneficiary.Id);
+		beneficiary.Id.ShouldBe(Guid.Empty);
 		await api.CreateAsync(beneficiary, testContext.CancellationToken);
-		Assert.AreNotEqual(Guid.Empty, beneficiary.Id);
+		beneficiary.Id.ShouldNotBe(Guid.Empty);
 
 		// It should throw an exception if the beneficiary already exists.
-		try {
-			await api.CreateAsync(beneficiary, testContext.CancellationToken);
-			Assert.Fail("The exception was not thrown as planned.");
-		}
-		catch (HttpResponseException e) {
-			Assert.AreEqual(HttpStatusCode.Conflict, e.StatusCode);
-			Assert.MatchesRegex("beneficiary.*MC2IT.*exists", e.ProblemDetails?.Title);
-		}
+		var exception = await Should.ThrowAsync<HttpResponseException>(() => api.CreateAsync(beneficiary, testContext.CancellationToken));
+		exception.StatusCode.ShouldBe(HttpStatusCode.Conflict);
+		exception.ProblemDetails?.Title?.ShouldMatch("beneficiary.*MC2IT.*exists");
 
 		// It should update the specified beneficiary.
 		beneficiary.PostalAddress.Number = "29";
@@ -51,11 +46,11 @@ public class BeneficiaryApiTests(TestContext testContext) {
 	[TestMethod]
 	public async Task ReadAll() {
 		var list = await api.ReadAllAsync(cancellationToken: testContext.CancellationToken);
-		Assert.IsGreaterThan(1, list.Count);
+		list.Count.ShouldBeGreaterThan(1);
 
 		var beneficiary = list.Single(item => item.Name.StartsWith("Agicap", StringComparison.InvariantCultureIgnoreCase));
-		Assert.IsNotNull(beneficiary.PostalAddress);
-		Assert.AreEqual("Lyon", beneficiary.PostalAddress.City, ignoreCase: true);
-		Assert.AreEqual("FR", beneficiary.PostalAddress.Country);
+		beneficiary.PostalAddress.ShouldNotBeNull();
+		beneficiary.PostalAddress.City.ShouldBe("Lyon", StringCompareShould.IgnoreCase);
+		beneficiary.PostalAddress.Country.ShouldBe("FR");
 	}
 }
