@@ -13,6 +13,6 @@ public class ImportedEntryTests {
 		var guid = Guid.NewGuid();
 		var notImportedEntry = new ImportedEntry { EntryAgicapUniqueId = guid };
 		var json = JsonSerializer.Serialize(notImportedEntry, JsonSerializerOptions.Web);
-		Assert.Contains($"\"entryAgicapUniqueId\":\"{guid}\"", json);
+		json.ShouldContain($"\"entryAgicapUniqueId\":\"{guid}\"");
 	}
 }

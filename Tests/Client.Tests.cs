@@ -11,15 +11,15 @@ public class ClientTests(TestContext testContext) {
 	public async Task Authenticate() {
 		// It should return a new access token.
 		var client = Fixtures.CreateClient();
-		Assert.IsFalse(client.IsAuthenticated);
+		client.IsAuthenticated.ShouldBeFalse();
 
 		var scopes = new[] { "agicap:public-api", "public-api:manage-payment-beneficiaries", "public-api:manage-suppliers" };
 		var accessToken = await client.AuthenticateAsync(scopes, testContext.CancellationToken);
-		Assert.IsTrue(client.IsAuthenticated);
-		Assert.IsFalse(accessToken.HasExpired);
-		Assert.AreSequenceEqual(scopes, accessToken.Scopes);
-		Assert.AreEqual("Bearer", accessToken.Type);
-		Assert.MatchesRegex(@"^[A-Z\d]{64,}", accessToken.Value);
+		client.IsAuthenticated.ShouldBeTrue();
+		accessToken.HasExpired.ShouldBeFalse();
+		accessToken.Scopes.ShouldBe(scopes);
+		accessToken.Type.ShouldBe("Bearer");
+		accessToken.Value.ShouldMatch(@"^[A-Z\d]{64,}");
 
 		// It should throw an exception when the credentials are invalid.
 		client = new Client("FooBar", "BazQux");

@@ -13,21 +13,21 @@ public class AccountingLineTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/PurchaseJournal/AccountingLine.json"));
 		var accountingLine = JsonSerializer.Deserialize<AccountingLine>(json, JsonSerializerOptions.Web)!;
 
-		Assert.AreEqual("EUR", accountingLine.AccountingCurrency);
-		Assert.AreEqual("6263", accountingLine.AccountNumber);
-		Assert.AreEqual(AccountingLineAccountType.ExpenseAccount, accountingLine.AccountType);
-		Assert.IsEmpty(accountingLine.AdditionalAnalyticalCodes);
-		Assert.AreSequenceEqual(new Dictionary<string, string>() { ["BusinessScope"] = "R&D", ["PurchaseType"] = "Cloud servers" }, accountingLine.AnalyticalCodes);
-		Assert.AreEqual(0.8, accountingLine.ConversionRate);
-		Assert.AreEqual(0, accountingLine.ConvertedCreditAmount);
-		Assert.AreEqual(80, accountingLine.ConvertedDebitAmount);
-		Assert.AreEqual(0, accountingLine.Credit);
-		Assert.AreEqual("USD", accountingLine.Currency);
-		Assert.AreEqual(100, accountingLine.Debit);
-		Assert.AreEqual(new Guid("a1b2c3d4-e5f6-7890-abcd-ef1234567890"), accountingLine.LineItemId);
-		Assert.IsNull(accountingLine.TaxKey);
-		Assert.IsNull(accountingLine.ThirdPartyAccount);
-		Assert.AreEqual("G", accountingLine.Type);
-		Assert.AreEqual("VAT 20%", accountingLine.VatAccountName);
+		accountingLine.AccountingCurrency.ShouldBe("EUR");
+		accountingLine.AccountNumber.ShouldBe("6263");
+		accountingLine.AccountType.ShouldBe(AccountingLineAccountType.ExpenseAccount);
+		accountingLine.AdditionalAnalyticalCodes.ShouldBeEmpty();
+		accountingLine.AnalyticalCodes.ShouldBe(new Dictionary<string, string>() { ["BusinessScope"] = "R&D", ["PurchaseType"] = "Cloud servers" });
+		accountingLine.ConversionRate.ShouldBe(0.8);
+		accountingLine.ConvertedCreditAmount.ShouldBe(0);
+		accountingLine.ConvertedDebitAmount.ShouldBe(80);
+		accountingLine.Credit.ShouldBe(0);
+		accountingLine.Currency.ShouldBe("USD");
+		accountingLine.Debit.ShouldBe(100);
+		accountingLine.LineItemId.ShouldBe(new Guid("a1b2c3d4-e5f6-7890-abcd-ef1234567890"));
+		accountingLine.TaxKey.ShouldBeNull();
+		accountingLine.ThirdPartyAccount.ShouldBeNull();
+		accountingLine.Type.ShouldBe("G");
+		accountingLine.VatAccountName.ShouldBe("VAT 20%");
 	}
 }

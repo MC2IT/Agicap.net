@@ -13,12 +13,12 @@ public class ImportResponseTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/ChartOfAccounts/ImportResponse.json"));
 		var importResponse = JsonSerializer.Deserialize<ImportResponse>(json, JsonSerializerOptions.Web)!;
 
-		Assert.IsNull(importResponse.FailureReason);
-		Assert.AreEqual(new DateTime(2026, 8, 6, 8, 35, 21, DateTimeKind.Utc), importResponse.ImportDate);
-		Assert.AreNotEqual(Guid.Empty, importResponse.ImportId);
-		Assert.AreEqual(ImportStatus.Done, importResponse.ImportStatus);
-		Assert.IsNotNull(importResponse.ImportSummary);
-		Assert.AreEqual(1, importResponse.ImportSummary.ImportedCount);
-		Assert.AreEqual(3, importResponse.ImportSummary.NotImportedCount);
+		importResponse.FailureReason.ShouldBeNull();
+		importResponse.ImportDate.ShouldBe(new DateTime(2026, 8, 6, 8, 35, 21, DateTimeKind.Utc));
+		importResponse.ImportId.ShouldNotBe(Guid.Empty);
+		importResponse.ImportStatus.ShouldBe(ImportStatus.Done);
+		importResponse.ImportSummary.ShouldNotBeNull();
+		importResponse.ImportSummary.ImportedCount.ShouldBe(1);
+		importResponse.ImportSummary.NotImportedCount.ShouldBe(3);
 	}
 }

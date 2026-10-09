@@ -13,10 +13,10 @@ public class ThirdPartyTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/ChartOfAccounts/ThirdParty.json"));
 		var thirdParty = JsonSerializer.Deserialize<ThirdParty>(json, JsonSerializerOptions.Web)!;
 
-		Assert.AreEqual("41100000", thirdParty.AccountingAccountNumber);
-		Assert.IsNull(thirdParty.ExternalId);
-		Assert.AreEqual("MC2IT-DEVELOPMENT", thirdParty.ThirdPartyCode);
-		Assert.AreEqual("MC2IT Development Department", thirdParty.ThirdPartyName);
+		thirdParty.AccountingAccountNumber.ShouldBe("41100000");
+		thirdParty.ExternalId.ShouldBeNull();
+		thirdParty.ThirdPartyCode.ShouldBe("MC2IT-DEVELOPMENT");
+		thirdParty.ThirdPartyName.ShouldBe("MC2IT Development Department");
 	}
 
 	[TestMethod]
@@ -28,9 +28,9 @@ public class ThirdPartyTests {
 		};
 
 		var json = JsonSerializer.Serialize(thirdParty, JsonSerializerOptions.Web);
-		Assert.Contains("\"accountingAccountNumber\":\"41100000\"", json);
-		Assert.Contains("\"thirdPartyCode\":\"MC2IT-DEVELOPMENT\"", json);
-		Assert.Contains("\"thirdPartyName\":\"MC2IT Development Department\"", json);
-		Assert.DoesNotContain("\"externalId\"", json);
+		json.ShouldContain("\"accountingAccountNumber\":\"41100000\"");
+		json.ShouldContain("\"thirdPartyCode\":\"MC2IT-DEVELOPMENT\"");
+		json.ShouldContain("\"thirdPartyName\":\"MC2IT Development Department\"");
+		json.ShouldNotContain("\"externalId\"");
 	}
 }

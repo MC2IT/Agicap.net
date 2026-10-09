@@ -14,9 +14,9 @@ public class CursorTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Cursor.json"));
 		var cursor = JsonSerializer.Deserialize<Cursor>(json, JsonSerializerOptions.Web)!;
 
-		Assert.IsNull(cursor.After);
-		Assert.AreEqual(new DateTime(2026, 6, 25, 8, 14, 52, DateTimeKind.Utc), cursor.Before);
-		Assert.AreEqual(247, cursor.Size);
+		cursor.After.ShouldBeNull();
+		cursor.Before.ShouldBe(new DateTime(2026, 6, 25, 8, 14, 52, DateTimeKind.Utc));
+		cursor.Size.ShouldBe(247);
 	}
 }
 
@@ -30,19 +30,19 @@ public class CursorPaginatedListTests {
 	public void FromJson() {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/CursorPaginatedList.json"));
 		var list = JsonSerializer.Deserialize<CursorPaginatedList<Organization>>(json, JsonSerializerOptions.Web)!;
-		Assert.HasCount(2, list.Items);
+		list.Items.Count.ShouldBe(2);
 
 		var firstItem = list.Items.First();
-		Assert.AreEqual(new Guid("3ebb0163-6ac8-449d-a34b-496244f380a1"), firstItem.Id);
-		Assert.AreEqual("Company #1", firstItem.Name);
+		firstItem.Id.ShouldBe(new Guid("3ebb0163-6ac8-449d-a34b-496244f380a1"));
+		firstItem.Name.ShouldBe("Company #1");
 
 		var lastItem = list.Items.Last();
-		Assert.AreEqual(new Guid("866faf6e-19c3-4131-97da-c50ff9a92961"), lastItem.Id);
-		Assert.AreEqual("Company #2", lastItem.Name);
+		lastItem.Id.ShouldBe(new Guid("866faf6e-19c3-4131-97da-c50ff9a92961"));
+		lastItem.Name.ShouldBe("Company #2");
 
 		var cursor = list.Cursor;
-		Assert.IsNull(cursor.After);
-		Assert.AreEqual(new DateTime(2026, 6, 25, 8, 14, 52, DateTimeKind.Utc), cursor.Before);
-		Assert.AreEqual(247, cursor.Size);
+		cursor.After.ShouldBeNull();
+		cursor.Before.ShouldBe(new DateTime(2026, 6, 25, 8, 14, 52, DateTimeKind.Utc));
+		cursor.Size.ShouldBe(247);
 	}
 }

@@ -15,11 +15,11 @@ public class OrganizationApiTests(TestContext testContext) {
 	[TestMethod]
 	public async Task ReadAll() {
 		var list = await api.ReadAllAsync(cancellationToken: testContext.CancellationToken);
-		Assert.HasCount(1, list.Items);
-		Assert.AreEqual(list.Items.Count, list.Pagination.TotalItemsCount);
+		list.Items.Count.ShouldBe(1);
+		list.Pagination.TotalItemsCount.ShouldBe(list.Items.Count);
 
 		var organization = list.Items.Single();
-		Assert.AreEqual(Fixtures.OrganizationId, organization.Id);
-		Assert.AreEqual("MC2IT", organization.Name);
+		organization.Id.ShouldBe(Fixtures.OrganizationId);
+		organization.Name.ShouldBe("MC2IT");
 	}
 }

@@ -13,18 +13,18 @@ public class ProblemDetailsTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/ProblemDetails.json"));
 		var problemDetails = JsonSerializer.Deserialize<ProblemDetails>(json, JsonSerializerOptions.Web)!;
 
-		Assert.AreEqual("The request body is invalid and not meeting business rules.", problemDetails.Detail);
-		Assert.HasCount(2, problemDetails.Extensions);
-		Assert.AreEqual(422, problemDetails.Status);
-		Assert.AreEqual("Business Rule Violation", problemDetails.Title);
-		Assert.AreEqual(new Uri("https://problems-registry.smartbear.com/business-rule-violation"), problemDetails.Type);
+		problemDetails.Detail.ShouldBe("The request body is invalid and not meeting business rules.");
+		problemDetails.Extensions.Count.ShouldBe(2);
+		problemDetails.Status.ShouldBe(422);
+		problemDetails.Title.ShouldBe("Business Rule Violation");
+		problemDetails.Type.ShouldBe(new Uri("https://problems-registry.smartbear.com/business-rule-violation"));
 
 		var code = problemDetails.Extensions["code"];
-		Assert.AreEqual(JsonValueKind.String, code.ValueKind);
-		Assert.AreEqual("422-01", code.GetString());
+		code.ValueKind.ShouldBe(JsonValueKind.String);
+		code.GetString().ShouldBe("422-01");
 
 		var errors = problemDetails.Extensions["errors"];
-		Assert.AreEqual(JsonValueKind.Object, errors.ValueKind);
-		Assert.AreEqual("maximum quantity is 999", errors.GetProperty("quantity").GetString());
+		errors.ValueKind.ShouldBe(JsonValueKind.Object);
+		errors.GetProperty("quantity").GetString().ShouldBe("maximum quantity is 999");
 	}
 }

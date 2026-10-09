@@ -13,25 +13,25 @@ public class BeneficiaryTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Payments/Beneficiary.json"));
 		var beneficiary = JsonSerializer.Deserialize<Beneficiary>(json, JsonSerializerOptions.Web)!;
 
-		Assert.AreEqual("My Bank", beneficiary.BankAccount?.BankName);
-		Assert.AreEqual("BNPAFRPPXXX", beneficiary.BankAccount?.Bic);
-		Assert.AreEqual("FR7630006000011234567890189", beneficiary.BankAccount?.Identifier);
-		Assert.AreEqual("Paris", beneficiary.PostalAddress?.City);
-		Assert.AreEqual("FR", beneficiary.PostalAddress?.Country);
-		Assert.IsNull(beneficiary.CompanyLegalIdentifier);
-		Assert.AreEqual(new Guid("e4cd6d44-4d22-445f-909b-e55e59ad0436"), beneficiary.Id);
-		Assert.AreEqual("My Company", beneficiary.Name);
-		Assert.AreEqual(UncertaintyStatus.Uncertain, beneficiary.UncertaintyStatus);
-		Assert.IsNull(beneficiary.ValidationStatus);
+		beneficiary.BankAccount?.BankName.ShouldBe("My Bank");
+		beneficiary.BankAccount?.Bic.ShouldBe("BNPAFRPPXXX");
+		beneficiary.BankAccount?.Identifier.ShouldBe("FR7630006000011234567890189");
+		beneficiary.PostalAddress?.City.ShouldBe("Paris");
+		beneficiary.PostalAddress?.Country.ShouldBe("FR");
+		beneficiary.CompanyLegalIdentifier.ShouldBeNull();
+		beneficiary.Id.ShouldBe(new Guid("e4cd6d44-4d22-445f-909b-e55e59ad0436"));
+		beneficiary.Name.ShouldBe("My Company");
+		beneficiary.UncertaintyStatus.ShouldBe(UncertaintyStatus.Uncertain);
+		beneficiary.ValidationStatus.ShouldBeNull();
 	}
 
 	[TestMethod]
 	public void ToJson() {
 		var beneficiary = new Beneficiary { Name = "My Company", PostalAddress = new() };
 		var json = JsonSerializer.Serialize(beneficiary, JsonSerializerOptions.Web);
-		Assert.Contains("\"name\":\"My Company\"", json);
-		Assert.DoesNotContain("\"bankAccount\"", json);
-		Assert.DoesNotContain("\"id\"", json);
-		Assert.DoesNotContain("\"postalAddress\"", json);
+		json.ShouldContain("\"name\":\"My Company\"");
+		json.ShouldNotContain("\"bankAccount\"");
+		json.ShouldNotContain("\"id\"");
+		json.ShouldNotContain("\"postalAddress\"");
 	}
 }

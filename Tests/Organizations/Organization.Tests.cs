@@ -13,7 +13,7 @@ public class OrganizationTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Organizations/Organization.json"));
 		var organization = JsonSerializer.Deserialize<Organization>(json, JsonSerializerOptions.Web)!;
 
-		Assert.AreEqual(new Guid("3ebb0163-6ac8-449d-a34b-496244f380a1"), organization.Id);
-		Assert.AreEqual("My Company", organization.Name);
+		organization.Id.ShouldBe(new Guid("3ebb0163-6ac8-449d-a34b-496244f380a1"));
+		organization.Name.ShouldBe("My Company");
 	}
 }

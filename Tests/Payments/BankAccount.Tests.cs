@@ -10,8 +10,8 @@ public class BankAccountTests {
 
 	[TestMethod]
 	public void IsEmpty() {
-		Assert.IsTrue(new BankAccount().IsEmpty);
-		Assert.IsTrue(new BankAccount { BankName = " ", Bic = " ", Identifier = " " }.IsEmpty);
+		new BankAccount().IsEmpty.ShouldBeTrue();
+		new BankAccount { BankName = " ", Bic = " ", Identifier = " " }.IsEmpty.ShouldBeTrue();
 	}
 
 	[TestMethod]
@@ -19,12 +19,12 @@ public class BankAccountTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Payments/BankAccount.json"));
 		var bankAccount = JsonSerializer.Deserialize<BankAccount>(json, JsonSerializerOptions.Web)!;
 
-		Assert.AreEqual("My Bank", bankAccount.BankName);
-		Assert.AreEqual("BNPAFRPPXXX", bankAccount.Bic);
-		Assert.AreEqual("FR", bankAccount.Country);
-		Assert.AreEqual("FR7630006000011234567890189", bankAccount.Identifier);
-		Assert.IsNull(bankAccount.IntermediaryBankBic);
-		Assert.IsNull(bankAccount.LocalClearingCode);
+		bankAccount.BankName.ShouldBe("My Bank");
+		bankAccount.Bic.ShouldBe("BNPAFRPPXXX");
+		bankAccount.Country.ShouldBe("FR");
+		bankAccount.Identifier.ShouldBe("FR7630006000011234567890189");
+		bankAccount.IntermediaryBankBic.ShouldBeNull();
+		bankAccount.LocalClearingCode.ShouldBeNull();
 	}
 
 	[TestMethod]
@@ -37,9 +37,9 @@ public class BankAccountTests {
 		};
 
 		var json = JsonSerializer.Serialize(bankAccount, JsonSerializerOptions.Web);
-		Assert.Contains("\"bankName\":\"My Bank\"", json);
-		Assert.Contains("\"identifier\":\"FR7630006000011234567890189\"", json);
-		Assert.DoesNotContain("\"intermediaryBankBic\"", json);
-		Assert.DoesNotContain("\"localClearingCode\"", json);
+		json.ShouldContain("\"bankName\":\"My Bank\"");
+		json.ShouldContain("\"identifier\":\"FR7630006000011234567890189\"");
+		json.ShouldNotContain("\"intermediaryBankBic\"");
+		json.ShouldNotContain("\"localClearingCode\"");
 	}
 }

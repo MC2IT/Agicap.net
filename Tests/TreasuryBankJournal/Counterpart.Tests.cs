@@ -13,25 +13,25 @@ public class CounterpartTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/TreasuryBankJournal/Counterpart.json"));
 		var counterpart = JsonSerializer.Deserialize<Counterpart>(json, JsonSerializerOptions.Web)!;
 
-		Assert.IsNull(counterpart.AccountingAccountExternalId);
-		Assert.AreEqual("140.0000", counterpart.AccountingAccountNumber);
-		Assert.AreEqual(CounterpartAccountingAccountType.SUPPLIER, counterpart.AccountingAccountType);
-		Assert.AreEqual("USD", counterpart.AccountingCurrency);
-		Assert.AreSequenceEqual(new Dictionary<string, string>() { ["Country"] = "FR", ["Project"] = "Marketing" }, counterpart.AnalyticalCodes);
-		Assert.IsNull(counterpart.CreditInAccountingCurrency);
-		Assert.IsNull(counterpart.CreditInOriginalCurrency);
-		Assert.HasCount(2, counterpart.CustomFields ?? []);
-		Assert.AreEqual(200_000, counterpart.DebitInAccountingCurrency);
-		Assert.AreEqual(300_000, counterpart.DebitInOriginalCurrency);
-		Assert.IsNotNull(counterpart.Document);
-		Assert.IsNull(counterpart.ExchangeRate);
-		Assert.AreEqual("SG1", counterpart.JournalCode);
-		Assert.IsNull(counterpart.LinkedExportedEntry);
-		Assert.AreEqual("ACME Invoice 2", counterpart.Name);
-		Assert.AreEqual("EUR", counterpart.OriginalCurrency);
-		Assert.IsNull(counterpart.TaxKey);
-		Assert.AreEqual("S23", counterpart.ThirdPartyCode);
-		Assert.IsNull(counterpart.ThirdPartyExternalId);
-		Assert.AreEqual("Supplier 23", counterpart.ThirdPartyName);
+		counterpart.AccountingAccountExternalId.ShouldBeNull();
+		counterpart.AccountingAccountNumber.ShouldBe("140.0000");
+		counterpart.AccountingAccountType.ShouldBe(CounterpartAccountingAccountType.SUPPLIER);
+		counterpart.AccountingCurrency.ShouldBe("USD");
+		counterpart.AnalyticalCodes.ShouldBe(new Dictionary<string, string>() { ["Country"] = "FR", ["Project"] = "Marketing" });
+		counterpart.CreditInAccountingCurrency.ShouldBeNull();
+		counterpart.CreditInOriginalCurrency.ShouldBeNull();
+		(counterpart.CustomFields ?? []).Count.ShouldBe(2);
+		counterpart.DebitInAccountingCurrency.ShouldBe(200_000);
+		counterpart.DebitInOriginalCurrency.ShouldBe(300_000);
+		counterpart.Document.ShouldNotBeNull();
+		counterpart.ExchangeRate.ShouldBeNull();
+		counterpart.JournalCode.ShouldBe("SG1");
+		counterpart.LinkedExportedEntry.ShouldBeNull();
+		counterpart.Name.ShouldBe("ACME Invoice 2");
+		counterpart.OriginalCurrency.ShouldBe("EUR");
+		counterpart.TaxKey.ShouldBeNull();
+		counterpart.ThirdPartyCode.ShouldBe("S23");
+		counterpart.ThirdPartyExternalId.ShouldBeNull();
+		counterpart.ThirdPartyName.ShouldBe("Supplier 23");
 	}
 }

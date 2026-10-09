@@ -13,12 +13,12 @@ public class AccountingAccountTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/ChartOfAccounts/AccountingAccount.json"));
 		var accountingAccount = JsonSerializer.Deserialize<AccountingAccount>(json, JsonSerializerOptions.Web)!;
 
-		Assert.AreEqual("MC2IT Development Department", accountingAccount.AccountingAccountName);
-		Assert.AreEqual("99999999", accountingAccount.AccountingAccountNumber);
-		Assert.AreEqual(AccountingAccountType.Other, accountingAccount.AccountingAccountType);
-		Assert.IsNull(accountingAccount.ExternalId);
-		Assert.IsNull(accountingAccount.TaxKey);
-		Assert.IsNull(accountingAccount.VatRate);
+		accountingAccount.AccountingAccountName.ShouldBe("MC2IT Development Department");
+		accountingAccount.AccountingAccountNumber.ShouldBe("99999999");
+		accountingAccount.AccountingAccountType.ShouldBe(AccountingAccountType.Other);
+		accountingAccount.ExternalId.ShouldBeNull();
+		accountingAccount.TaxKey.ShouldBeNull();
+		accountingAccount.VatRate.ShouldBeNull();
 	}
 
 	[TestMethod]
@@ -31,11 +31,11 @@ public class AccountingAccountTests {
 		};
 
 		var json = JsonSerializer.Serialize(accountingAccount, JsonSerializerOptions.Web);
-		Assert.Contains("\"accountingAccountName\":\"MC2IT Development Department\"", json);
-		Assert.Contains("\"accountingAccountNumber\":\"99999999\"", json);
-		Assert.Contains("\"accountingAccountType\":\"Supplier\"", json);
-		Assert.Contains("\"externalId\":\"123456\"", json);
-		Assert.DoesNotContain("\"taxKey\"", json);
-		Assert.DoesNotContain("\"vatRate\"", json);
+		json.ShouldContain("\"accountingAccountName\":\"MC2IT Development Department\"");
+		json.ShouldContain("\"accountingAccountNumber\":\"99999999\"");
+		json.ShouldContain("\"accountingAccountType\":\"Supplier\"");
+		json.ShouldContain("\"externalId\":\"123456\"");
+		json.ShouldNotContain("\"taxKey\"");
+		json.ShouldNotContain("\"vatRate\"");
 	}
 }

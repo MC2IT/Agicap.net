@@ -13,8 +13,8 @@ public class EntityTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Organizations/Entity.json"));
 		var entity = JsonSerializer.Deserialize<Entity>(json, JsonSerializerOptions.Web)!;
 
-		Assert.AreEqual("FR", entity.Country);
-		Assert.AreEqual(666, entity.Id);
-		Assert.AreEqual("My Entity", entity.Name);
+		entity.Country.ShouldBe("FR");
+		entity.Id.ShouldBe(666);
+		entity.Name.ShouldBe("My Entity");
 	}
 }

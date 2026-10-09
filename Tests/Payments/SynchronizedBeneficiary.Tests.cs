@@ -13,15 +13,15 @@ public class SynchronizedBeneficiaryTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Payments/Beneficiary.json"));
 		var synchronizedBeneficiary = new SynchronizedBeneficiary("MC2IT-DEVELOPMENT", JsonSerializer.Deserialize<Beneficiary>(json, JsonSerializerOptions.Web)!);
 
-		Assert.AreEqual("FR7630006000011234567890189", synchronizedBeneficiary.AccountNumber);
-		Assert.AreEqual("FR", synchronizedBeneficiary.BankCountry);
-		Assert.AreEqual("BNPAFRPPXXX", synchronizedBeneficiary.BankIdentifier);
-		Assert.AreEqual("My Bank", synchronizedBeneficiary.BankName);
-		Assert.IsNull(synchronizedBeneficiary.CompanyLegalId);
-		Assert.AreEqual("MC2IT-DEVELOPMENT", synchronizedBeneficiary.ErpId);
-		Assert.AreEqual("My Company", synchronizedBeneficiary.Name);
-		Assert.AreEqual("FR", synchronizedBeneficiary.PostalAddress?.Country);
-		Assert.IsNull(synchronizedBeneficiary.SupplierErpIds);
+		synchronizedBeneficiary.AccountNumber.ShouldBe("FR7630006000011234567890189");
+		synchronizedBeneficiary.BankCountry.ShouldBe("FR");
+		synchronizedBeneficiary.BankIdentifier.ShouldBe("BNPAFRPPXXX");
+		synchronizedBeneficiary.BankName.ShouldBe("My Bank");
+		synchronizedBeneficiary.CompanyLegalId.ShouldBeNull();
+		synchronizedBeneficiary.ErpId.ShouldBe("MC2IT-DEVELOPMENT");
+		synchronizedBeneficiary.Name.ShouldBe("My Company");
+		synchronizedBeneficiary.PostalAddress?.Country.ShouldBe("FR");
+		synchronizedBeneficiary.SupplierErpIds.ShouldBeNull();
 	}
 
 	[TestMethod]
@@ -35,11 +35,11 @@ public class SynchronizedBeneficiaryTests {
 		};
 
 		var json = JsonSerializer.Serialize(synchronizedBeneficiary, JsonSerializerOptions.Web);
-		Assert.Contains("\"bankName\":\"My Bank\"", json);
-		Assert.Contains("\"erpId\":\"MC2IT-DEVELOPMENT\"", json);
-		Assert.Contains("\"name\":\"My Company\"", json);
-		Assert.Contains("\"supplierErpIds\":[\"FOO\",\"BAR\"]", json);
-		Assert.DoesNotContain("\"accountNumber\"", json);
-		Assert.DoesNotContain("\"postalAddress\"", json);
+		json.ShouldContain("\"bankName\":\"My Bank\"");
+		json.ShouldContain("\"erpId\":\"MC2IT-DEVELOPMENT\"");
+		json.ShouldContain("\"name\":\"My Company\"");
+		json.ShouldContain("\"supplierErpIds\":[\"FOO\",\"BAR\"]");
+		json.ShouldNotContain("\"accountNumber\"");
+		json.ShouldNotContain("\"postalAddress\"");
 	}
 }

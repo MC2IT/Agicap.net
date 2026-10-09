@@ -10,8 +10,8 @@ public class PostalAddressTests {
 
 	[TestMethod]
 	public void IsEmpty() {
-		Assert.IsTrue(new PostalAddress().IsEmpty);
-		Assert.IsTrue(new PostalAddress { City = " ", Country = " ", StreetName = " " }.IsEmpty);
+		new PostalAddress().IsEmpty.ShouldBeTrue();
+		new PostalAddress { City = " ", Country = " ", StreetName = " " }.IsEmpty.ShouldBeTrue();
 	}
 
 	[TestMethod]
@@ -19,12 +19,12 @@ public class PostalAddressTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/Payments/PostalAddress.json"));
 		var postalAddress = JsonSerializer.Deserialize<PostalAddress>(json, JsonSerializerOptions.Web)!;
 
-		Assert.AreEqual("Paris", postalAddress.City);
-		Assert.AreEqual("FR", postalAddress.Country);
-		Assert.IsNull(postalAddress.Number);
-		Assert.IsNull(postalAddress.State);
-		Assert.AreEqual("Rue de la Paix", postalAddress.StreetName);
-		Assert.AreEqual("75000", postalAddress.ZipCode);
+		postalAddress.City.ShouldBe("Paris");
+		postalAddress.Country.ShouldBe("FR");
+		postalAddress.Number.ShouldBeNull();
+		postalAddress.State.ShouldBeNull();
+		postalAddress.StreetName.ShouldBe("Rue de la Paix");
+		postalAddress.ZipCode.ShouldBe("75000");
 	}
 
 	[TestMethod]
@@ -37,9 +37,9 @@ public class PostalAddressTests {
 		};
 
 		var json = JsonSerializer.Serialize(postalAddress, JsonSerializerOptions.Web);
-		Assert.Contains("\"city\":\"Paris\"", json);
-		Assert.Contains("\"zipCode\":\"75000\"", json);
-		Assert.DoesNotContain("\"number\"", json);
-		Assert.DoesNotContain("\"state\"", json);
+		json.ShouldContain("\"city\":\"Paris\"");
+		json.ShouldContain("\"zipCode\":\"75000\"");
+		json.ShouldNotContain("\"number\"");
+		json.ShouldNotContain("\"state\"");
 	}
 }

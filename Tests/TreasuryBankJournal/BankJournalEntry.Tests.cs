@@ -13,26 +13,26 @@ public class BankJournalEntryTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/TreasuryBankJournal/BankJournalEntry.json"));
 		var bankJournalEntry = JsonSerializer.Deserialize<BankJournalEntry>(json, JsonSerializerOptions.Web)!;
 
-		Assert.IsNull(bankJournalEntry.AccountingAccountExternalId);
-		Assert.AreEqual("201.01000", bankJournalEntry.AccountingAccountNumber);
-		Assert.AreEqual("USD", bankJournalEntry.AccountingCurrency);
-		Assert.AreEqual(new Guid("f7f7ed5c-943c-4385-aa8d-145fd76b2fa1"), bankJournalEntry.AgicapUniqueId);
-		Assert.AreEqual("Cars bank account", bankJournalEntry.BankAccountName);
-		Assert.AreEqual("RIBA", bankJournalEntry.Causale);
-		Assert.HasCount(2, bankJournalEntry.Counterparts);
-		Assert.AreEqual(900_000, bankJournalEntry.CreditInAccountingCurrency);
-		Assert.AreEqual(1_000_000, bankJournalEntry.CreditInOriginalCurrency);
-		Assert.IsNull(bankJournalEntry.DebitInAccountingCurrency);
-		Assert.IsNull(bankJournalEntry.DebitInOriginalCurrency);
-		Assert.IsNull(bankJournalEntry.EntryMemo);
-		Assert.IsNull(bankJournalEntry.ExchangeRate);
-		Assert.AreEqual("0o00001l", bankJournalEntry.ExportEntryReference);
-		Assert.AreEqual(1, bankJournalEntry.IndexInExport);
-		Assert.AreEqual(57, bankJournalEntry.IndexInYear);
-		Assert.AreEqual("SG1", bankJournalEntry.JournalCode);
-		Assert.AreEqual("ACME Payment", bankJournalEntry.Name);
-		Assert.AreEqual("EUR", bankJournalEntry.OriginalCurrency);
-		Assert.AreEqual(new DateTime(2024, 12, 24), bankJournalEntry.PaymentDate);
-		Assert.AreEqual(BankJournalEntryType.BANK, bankJournalEntry.Type);
+		bankJournalEntry.AccountingAccountExternalId.ShouldBeNull();
+		bankJournalEntry.AccountingAccountNumber.ShouldBe("201.01000");
+		bankJournalEntry.AccountingCurrency.ShouldBe("USD");
+		bankJournalEntry.AgicapUniqueId.ShouldBe(new Guid("f7f7ed5c-943c-4385-aa8d-145fd76b2fa1"));
+		bankJournalEntry.BankAccountName.ShouldBe("Cars bank account");
+		bankJournalEntry.Causale.ShouldBe("RIBA");
+		bankJournalEntry.Counterparts.Count.ShouldBe(2);
+		bankJournalEntry.CreditInAccountingCurrency.ShouldBe(900_000);
+		bankJournalEntry.CreditInOriginalCurrency.ShouldBe(1_000_000);
+		bankJournalEntry.DebitInAccountingCurrency.ShouldBeNull();
+		bankJournalEntry.DebitInOriginalCurrency.ShouldBeNull();
+		bankJournalEntry.EntryMemo.ShouldBeNull();
+		bankJournalEntry.ExchangeRate.ShouldBeNull();
+		bankJournalEntry.ExportEntryReference.ShouldBe("0o00001l");
+		bankJournalEntry.IndexInExport.ShouldBe(1);
+		bankJournalEntry.IndexInYear.ShouldBe(57);
+		bankJournalEntry.JournalCode.ShouldBe("SG1");
+		bankJournalEntry.Name.ShouldBe("ACME Payment");
+		bankJournalEntry.OriginalCurrency.ShouldBe("EUR");
+		bankJournalEntry.PaymentDate.ShouldBe(new DateTime(2024, 12, 24));
+		bankJournalEntry.Type.ShouldBe(BankJournalEntryType.BANK);
 	}
 }

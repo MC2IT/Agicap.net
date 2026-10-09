@@ -13,7 +13,7 @@ public class LinkedEntryTests {
 		var json = File.ReadAllText(Path.Join(AppContext.BaseDirectory, "../Resources/TreasuryBankJournal/LinkedEntry.json"));
 		var linkedEntry = JsonSerializer.Deserialize<LinkedEntry>(json, JsonSerializerOptions.Web)!;
 
-		Assert.AreEqual(new Guid("f7f7ed5c-943c-4385-aa8d-145fd76b2fa1"), linkedEntry.AgicapUniqueId);
-		Assert.AreEqual("0o00001l", linkedEntry.ExportEntryReference);
+		linkedEntry.AgicapUniqueId.ShouldBe(new Guid("f7f7ed5c-943c-4385-aa8d-145fd76b2fa1"));
+		linkedEntry.ExportEntryReference.ShouldBe("0o00001l");
 	}
 }
