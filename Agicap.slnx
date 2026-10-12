@@ -1,4 +1,4 @@
-<Solution>
+<Solution ProjectVersion="0.9.0">
 	<Project Path="Sources/Agicap.csproj" />
 	<Project Path="Tests/Agicap.Tests.csproj">
 		<Build Solution="Release|*" Project="false" />
