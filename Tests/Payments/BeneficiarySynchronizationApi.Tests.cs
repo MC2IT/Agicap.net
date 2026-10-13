@@ -13,21 +13,21 @@ public class BeneficiarySynchronizationApiTests(TestContext testContext) {
 	private readonly BeneficiarySynchronizationApi api = Fixtures.CreateClient().Payments.Beneficiaries(Fixtures.EntityId).Synchronization;
 
 	[TestMethod]
-	public async Task Create() {
+	public void Create() {
 		var beneficiary = new SynchronizedBeneficiary {
 			ErpId = "MC2IT-DEVELOPMENT",
 			Name = "MC2IT Development Department",
 			PostalAddress = new() { City = "Fabrègues", Country = "FR", StreetName = "Rue Gine" }
 		};
 
-		(await api.CreateAsync([beneficiary], testContext.CancellationToken)).ShouldNotBe(Guid.Empty);
+		api.Create([beneficiary], testContext.CancellationToken).ShouldNotBe(Guid.Empty);
 	}
 
 	[TestMethod]
-	public async Task Read() {
+	public void Read() {
 		var syncId = new Guid("3c648676-e07e-4aca-8e63-ce0802221b57");
 
-		var synchronization = await api.ReadAsync(syncId, cancellationToken: testContext.CancellationToken);
+		var synchronization = api.Read(syncId, cancellationToken: testContext.CancellationToken);
 		synchronization.CreatedAt.Date.ShouldBe(new DateTime(2026, 8, 3, 0, 0, 0, DateTimeKind.Utc));
 		synchronization.Errors.Count.ShouldBe(1);
 		synchronization.Status.ShouldBe(BeneficiarySynchronizationStatus.CompletedWithErrors);

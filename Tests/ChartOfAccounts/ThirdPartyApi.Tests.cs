@@ -13,7 +13,7 @@ public class ThirdPartyApiTests(TestContext testContext) {
 	private readonly ThirdPartyApi api = Fixtures.CreateClient().ChartOfAccounts.ThirdParties(Fixtures.EntityId);
 
 	[TestMethod, Timeout(30_000, CooperativeCancellation = true)]
-	public async Task CreateUpdateDelete() {
+	public void CreateUpdateDelete() {
 		var thirdParties = new List<ThirdParty> {
 			new() {
 				AccountingAccountNumber = "41100000",
@@ -23,16 +23,16 @@ public class ThirdPartyApiTests(TestContext testContext) {
 		};
 
 		// It should create or update the specified third-party.
-		var importResponse = await api.CreateAsync(thirdParties, cancellationToken: testContext.CancellationToken);
+		var importResponse = api.Create(thirdParties, cancellationToken: testContext.CancellationToken);
 		while (importResponse.ImportStatus == ImportStatus.Started) {
-			await Task.Delay(2_500, testContext.CancellationToken);
-			importResponse = await api.CreateAsync(thirdParties, importResponse.ImportId, testContext.CancellationToken);
+			Thread.Sleep(2_500);
+			importResponse = api.Create(thirdParties, importResponse.ImportId, testContext.CancellationToken);
 		}
 
 		importResponse.ImportStatus.ShouldBe(ImportStatus.Done);
 		importResponse.ImportSummary?.NotImportedCount.ShouldBe(0);
 
 		// It should delete the specified third-party.
-		await api.DeleteAsync(thirdParties, testContext.CancellationToken);
+		api.Delete(thirdParties, testContext.CancellationToken);
 	}
 }

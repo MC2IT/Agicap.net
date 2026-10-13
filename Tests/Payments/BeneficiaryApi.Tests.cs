@@ -15,7 +15,7 @@ public class BeneficiaryApiTests(TestContext testContext) {
 	private readonly BeneficiaryApi api = Fixtures.CreateClient().Payments.Beneficiaries(Fixtures.EntityId);
 
 	[TestMethod]
-	public async Task CreateUpdateDelete() {
+	public void CreateUpdateDelete() {
 		var beneficiary = new Beneficiary {
 			Name = "MC2IT Test Runner",
 			PostalAddress = new() { City = "Fabrègues", Country = "FR", StreetName = "Rue Gine" }
@@ -23,29 +23,29 @@ public class BeneficiaryApiTests(TestContext testContext) {
 
 		// It should create the specified beneficiary.
 		beneficiary.Id.ShouldBe(Guid.Empty);
-		await api.CreateAsync(beneficiary, testContext.CancellationToken);
+		api.Create(beneficiary, testContext.CancellationToken);
 		beneficiary.Id.ShouldNotBe(Guid.Empty);
 
 		// It should throw an exception if the beneficiary already exists.
-		var exception = await Should.ThrowAsync<HttpResponseException>(() => api.CreateAsync(beneficiary, testContext.CancellationToken));
+		var exception = Should.Throw<HttpResponseException>(() => api.Create(beneficiary, testContext.CancellationToken));
 		exception.StatusCode.ShouldBe(HttpStatusCode.Conflict);
 		exception.ProblemDetails?.Title?.ShouldMatch("beneficiary.*MC2IT.*exists");
 
 		// It should update the specified beneficiary.
 		beneficiary.PostalAddress.Number = "29";
 		beneficiary.PostalAddress.ZipCode = "34690";
-		await api.UpdateAsync(beneficiary, testContext.CancellationToken);
+		api.Update(beneficiary, testContext.CancellationToken);
 
 		// It should delete the specified beneficiary.
-		await api.DeleteAsync(beneficiary, testContext.CancellationToken);
+		api.Delete(beneficiary, testContext.CancellationToken);
 	}
 
 	[TestMethod, Ignore("This test requires an Agicap development environment.")]
-	public async Task DeleteAll() => Assert.Inconclusive();
+	public void DeleteAll() => Assert.Inconclusive();
 
 	[TestMethod]
-	public async Task ReadAll() {
-		var list = await api.ReadAllAsync(cancellationToken: testContext.CancellationToken);
+	public void ReadAll() {
+		var list = api.ReadAll(cancellationToken: testContext.CancellationToken);
 		list.Count.ShouldBeGreaterThan(1);
 
 		var beneficiary = list.Single(item => item.Name.StartsWith("Agicap", StringComparison.InvariantCultureIgnoreCase));

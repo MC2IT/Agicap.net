@@ -8,13 +8,13 @@ namespace Mc2it.Agicap;
 public class ClientTests(TestContext testContext) {
 
 	[TestMethod]
-	public async Task Authenticate() {
+	public void Authenticate() {
 		// It should return a new access token.
 		var client = Fixtures.CreateClient();
 		client.IsAuthenticated.ShouldBeFalse();
 
 		var scopes = new[] { "agicap:public-api", "public-api:manage-payment-beneficiaries", "public-api:manage-suppliers" };
-		var accessToken = await client.AuthenticateAsync(scopes, testContext.CancellationToken);
+		var accessToken = client.Authenticate(scopes, testContext.CancellationToken);
 		client.IsAuthenticated.ShouldBeTrue();
 		accessToken.HasExpired.ShouldBeFalse();
 		accessToken.Scopes.ShouldBe(scopes);
@@ -23,6 +23,6 @@ public class ClientTests(TestContext testContext) {
 
 		// It should throw an exception when the credentials are invalid.
 		client = new Client("FooBar", "BazQux");
-		await Should.ThrowAsync<HttpRequestException>(() => client.AuthenticateAsync(cancellationToken: testContext.CancellationToken));
+		Should.Throw<HttpRequestException>(() => client.Authenticate(cancellationToken: testContext.CancellationToken));
 	}
 }

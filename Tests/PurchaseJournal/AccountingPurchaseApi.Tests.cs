@@ -16,9 +16,9 @@ public class AccountingPurchaseApiTests(TestContext testContext) {
 	public void MarkAsNotImported() => Assert.Inconclusive();
 
 	[TestMethod]
-	public async Task ReadAll() {
+	public void ReadAll() {
 		var lastSynchronizationDate = new DateTime(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-		var purchaseJournalEntries = (await api.ReadAllAsync(lastSynchronizationDate, pageSize: 2, cancellationToken: testContext.CancellationToken)).Items;
+		var purchaseJournalEntries = api.ReadAll(lastSynchronizationDate, pageSize: 2, cancellationToken: testContext.CancellationToken).Items;
 		purchaseJournalEntries.Count.ShouldBe(2);
 
 		foreach (var purchaseJournalEntry in purchaseJournalEntries) {

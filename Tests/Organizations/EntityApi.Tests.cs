@@ -13,8 +13,8 @@ public class EntityApiTests(TestContext testContext) {
 	private readonly EntityApi api = Fixtures.CreateClient().Organizations.Entities(Fixtures.OrganizationId);
 
 	[TestMethod]
-	public async Task ReadAll() {
-		var list = await api.ReadAllAsync(cancellationToken: testContext.CancellationToken);
+	public void ReadAll() {
+		var list = api.ReadAll(cancellationToken: testContext.CancellationToken);
 		list.Items.Count.ShouldBeGreaterThanOrEqualTo(1);
 		list.Pagination.TotalItemsCount.ShouldBe(list.Items.Count);
 

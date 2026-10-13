@@ -22,8 +22,8 @@ public class ExportApiTests(TestContext testContext) {
 	public void MarkAsNotImported() => Assert.Inconclusive();
 
 	[TestMethod]
-	public async Task Read() {
-		var bankJournalExport = await api.ReadAsync(new Guid("575d62e4-e965-49fd-9a2d-b53bb1ad5434"), testContext.CancellationToken);
+	public void Read() {
+		var bankJournalExport = api.Read(new Guid("575d62e4-e965-49fd-9a2d-b53bb1ad5434"), testContext.CancellationToken);
 		bankJournalExport.EntityName.ShouldBe("MC2IT");
 		bankJournalExport.Entries.Count.ShouldBe(5);
 		bankJournalExport.Year.ShouldBe(2026);
@@ -39,8 +39,8 @@ public class ExportApiTests(TestContext testContext) {
 	}
 
 	[TestMethod]
-	public async Task ReadAll() {
-		var list = await api.ReadAllAsync(before: new DateTime(2026, 7, 21, 23, 59, 59, DateTimeKind.Utc), cancellationToken: testContext.CancellationToken);
+	public void ReadAll() {
+		var list = api.ReadAll(before: new DateTime(2026, 7, 21, 23, 59, 59, DateTimeKind.Utc), cancellationToken: testContext.CancellationToken);
 		list.Items.Count.ShouldBe(3);
 
 		var exportSummary = list.Items.First();
