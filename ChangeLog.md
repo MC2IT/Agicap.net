@@ -1,5 +1,10 @@
 # Changelog
 
+## Version [2026.12.0](https://github.com/MC2IT/Agicap.net/compare/v2026.11.0...v2026.12.0)
+- Changed the return type of all read methods returning an `IList` to `List`.
+- Changed the type of all properties typed as `IDictionary` to `Dictionary`.
+- Changed the type of all properties typed as `IList` to `List`.
+
 ## Version [2026.11.0](https://github.com/MC2IT/Agicap.net/compare/v0.9.0...v2026.11.0)
 - Removed the `sealed` modifier from the classes.
 - Switched to a year-based versioning.
