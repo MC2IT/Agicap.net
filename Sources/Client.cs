@@ -96,7 +96,7 @@ public class Client(NetworkCredential credential): IDisposable {
 	/// <param name="scopes">The delegated permissions to consent to.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The generated access token.</returns>
-	public AccessToken Authenticate(string[]? scopes = null, CancellationToken cancellationToken = default) =>
+	public AccessToken Authenticate(IEnumerable<string>? scopes = null, CancellationToken cancellationToken = default) =>
 		AuthenticateAsync(scopes, cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
@@ -105,12 +105,13 @@ public class Client(NetworkCredential credential): IDisposable {
 	/// <param name="scopes">The delegated permissions to consent to.</param>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The generated access token.</returns>
-	public async Task<AccessToken> AuthenticateAsync(string[]? scopes = null, CancellationToken cancellationToken = default) {
+	public async Task<AccessToken> AuthenticateAsync(IEnumerable<string>? scopes = null, CancellationToken cancellationToken = default) {
+		var oauthScopes = new List<string>(scopes ?? []);
 		using var request = NewHttpRequest(HttpMethod.Post, "auth/v1/token", content: new FormUrlEncodedContent(new Dictionary<string, string> {
 			["client_id"] = Credential.UserName,
 			["client_secret"] = Credential.Password,
 			["grant_type"] = "client_credentials",
-			["scope"] = string.Join(' ', scopes is not null && scopes.Length > 0 ? [.. scopes] : DefaultScopes)
+			["scope"] = string.Join(' ', oauthScopes.Count > 0 ? oauthScopes : DefaultScopes)
 		}));
 
 		using var response = await httpClient.SendAsync(request, cancellationToken);
