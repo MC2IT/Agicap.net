@@ -35,5 +35,5 @@ public class CursorPaginatedList<T> {
 	/// <summary>
 	/// The list items.
 	/// </summary>
-	public IList<T> Items { get; set; } = [];
+	public List<T> Items { get; set; } = [];
 }

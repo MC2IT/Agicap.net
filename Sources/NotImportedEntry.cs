@@ -10,7 +10,7 @@ public class NotImportedEntry: ImportedEntry {
 	/// <summary>
 	/// The errors preventing the journal entry from being imported.
 	/// </summary>
-	public IList<NotImportedEntryError> Errors { get; set; } = [];
+	public List<NotImportedEntryError> Errors { get; set; } = [];
 }
 
 /// <summary>

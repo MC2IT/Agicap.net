@@ -11,7 +11,7 @@ public class Supplier {
 	/// The contacts of this supplier.
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public IList<Contact>? Contacts { get; set; }
+	public List<Contact>? Contacts { get; set; }
 
 	/// <summary>
 	/// The date and time at which the supplier was created in Agicap.
@@ -77,7 +77,7 @@ public class Supplier {
 	/// The tags associated with this supplier.
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public IList<string>? Tags { get; set; }
+	public List<string>? Tags { get; set; }
 
 	/// <summary>
 	/// The third-party accounting code of this supplier.

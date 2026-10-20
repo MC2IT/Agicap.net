@@ -93,7 +93,7 @@ public class BeneficiaryApi(Client client, int entityId) {
 	/// </summary>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The beneficiary list.</returns>
-	public IList<Beneficiary> ReadAll(CancellationToken cancellationToken = default) =>
+	public List<Beneficiary> ReadAll(CancellationToken cancellationToken = default) =>
 		ReadAllAsync(cancellationToken).GetAwaiter().GetResult();
 
 	/// <summary>
@@ -101,8 +101,8 @@ public class BeneficiaryApi(Client client, int entityId) {
 	/// </summary>
 	/// <param name="cancellationToken">The token to cancel the operation.</param>
 	/// <returns>The beneficiary list.</returns>
-	public async Task<IList<Beneficiary>> ReadAllAsync(CancellationToken cancellationToken = default) =>
-		await client.GetAsync<IList<Beneficiary>>(requestUri, cancellationToken: cancellationToken);
+	public async Task<List<Beneficiary>> ReadAllAsync(CancellationToken cancellationToken = default) =>
+		await client.GetAsync<List<Beneficiary>>(requestUri, cancellationToken: cancellationToken);
 
 	/// <summary>
 	/// Updates the specified beneficiary.

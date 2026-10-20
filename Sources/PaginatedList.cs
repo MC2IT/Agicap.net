@@ -54,7 +54,7 @@ public class PaginatedList<T> {
 	/// <summary>
 	/// The list items.
 	/// </summary>
-	public IList<T> Items { get; set; } = [];
+	public List<T> Items { get; set; } = [];
 
 	/// <summary>
 	/// The information relevant to the pagination of list items.

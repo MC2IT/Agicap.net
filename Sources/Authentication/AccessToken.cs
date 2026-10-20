@@ -34,14 +34,14 @@ public class AccessToken {
 	[JsonInclude, JsonPropertyName("scope")]
 	internal string Scope {
 		get => string.Join(' ', Scopes);
-		init => Scopes = value.Length > 0 ? [.. value.Split(' ')] : new List<string>();
+		init => Scopes = value.Length > 0 ? [.. value.Split(' ')] : [];
 	}
 
 	/// <summary>
 	/// The OAuth scopes.
 	/// </summary>
 	[JsonIgnore]
-	public IList<string> Scopes { get; init; } = [];
+	public List<string> Scopes { get; init; } = [];
 
 	/// <summary>
 	/// The token type.

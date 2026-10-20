@@ -18,7 +18,7 @@ public class BankJournalExport {
 	/// <summary>
 	/// The entries in the bank journal export.
 	/// </summary>
-	public IList<BankJournalEntry> Entries { get; set; } = [];
+	public List<BankJournalEntry> Entries { get; set; } = [];
 
 	/// <summary>
 	/// The identifier of the export as specified in the request.

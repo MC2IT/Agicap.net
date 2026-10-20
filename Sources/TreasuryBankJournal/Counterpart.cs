@@ -31,7 +31,7 @@ public class Counterpart {
 	/// <summary>
 	/// The list of analytical codes of the counterpart.
 	/// </summary>
-	public IDictionary<string, string> AnalyticalCodes { get; set; } = new Dictionary<string, string>();
+	public Dictionary<string, string> AnalyticalCodes { get; set; } = [];
 
 	/// <summary>
 	/// The credit value in accounting currency.
@@ -46,7 +46,7 @@ public class Counterpart {
 	/// <summary>
 	/// Additional fields coming from the reconciled expected used to initialize the counterpart.
 	/// </summary>
-	public IList<CustomField>? CustomFields { get; set; }
+	public List<CustomField>? CustomFields { get; set; }
 
 	/// <summary>
 	/// The debit value in accounting currency.

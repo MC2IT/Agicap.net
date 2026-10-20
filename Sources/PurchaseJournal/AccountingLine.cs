@@ -26,12 +26,12 @@ public class AccountingLine {
 	/// <summary>
 	/// The analytical codes which are related to the cost bearer.
 	/// </summary>
-	public IDictionary<string, string> AdditionalAnalyticalCodes { get; set; } = new Dictionary<string, string>();
+	public Dictionary<string, string> AdditionalAnalyticalCodes { get; set; } = [];
 
 	/// <summary>
 	/// The analytical codes linked to the expense account.
 	/// </summary>
-	public IDictionary<string, string> AnalyticalCodes { get; set; } = new Dictionary<string, string>();
+	public Dictionary<string, string> AnalyticalCodes { get; set; } = [];
 
 	/// <summary>
 	/// The conversion rate applied to the amounts.

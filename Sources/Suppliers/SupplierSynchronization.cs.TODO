@@ -13,7 +13,7 @@ public class SupplierSynchronization {
 	/// <summary>
 	/// The list of synchronization errors.
 	/// </summary>
-	public IList<SupplierSynchronizationError> Errors { get; set; } = [];
+	public List<SupplierSynchronizationError> Errors { get; set; } = [];
 
 	/// <summary>
 	/// The date and time the synchronization finished.

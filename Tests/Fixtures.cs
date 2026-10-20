@@ -24,5 +24,5 @@ public static class Fixtures {
 	public static Client CreateClient() => new(
 		Environment.GetEnvironmentVariable("AGICAP_CLIENT_ID") ?? "FooBar",
 		Environment.GetEnvironmentVariable("AGICAP_CLIENT_SECRET") ?? "BazQux"
-	) { DefaultScopes = Scopes.All };
+	) { DefaultScopes = [.. Scopes.All] };
 }

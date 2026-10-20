@@ -18,7 +18,7 @@ public class ProblemDetails {
 	/// The extension members.
 	/// </summary>
 	[JsonExtensionData]
-	public IDictionary<string, JsonElement> Extensions { get; set; } = new Dictionary<string, JsonElement>();
+	public Dictionary<string, JsonElement> Extensions { get; set; } = [];
 
 	/// <summary>
 	/// A URI reference that identifies the specific occurrence of the problem.

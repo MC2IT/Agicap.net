@@ -36,7 +36,7 @@ public class Client(NetworkCredential credential): IDisposable {
 	/// <summary>
 	/// The scopes to use by default when invoking the <see cref="AuthenticateAsync"/> method.
 	/// </summary>
-	public IList<string> DefaultScopes { get; set; } = [Scopes.PublicApi];
+	public List<string> DefaultScopes { get; set; } = [Scopes.PublicApi];
 
 	/// <summary>
 	/// Value indicating whether this client is authenticated.
@@ -110,7 +110,7 @@ public class Client(NetworkCredential credential): IDisposable {
 			["client_id"] = Credential.UserName,
 			["client_secret"] = Credential.Password,
 			["grant_type"] = "client_credentials",
-			["scope"] = string.Join(' ', scopes is not null && scopes.Length > 0 ? scopes : DefaultScopes)
+			["scope"] = string.Join(' ', scopes is not null && scopes.Length > 0 ? [.. scopes] : DefaultScopes)
 		}));
 
 		using var response = await httpClient.SendAsync(request, cancellationToken);

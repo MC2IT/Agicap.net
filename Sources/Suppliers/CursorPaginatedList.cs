@@ -9,7 +9,7 @@ public class CursorPaginatedList<T> {
 	/// <summary>
 	/// The list items.
 	/// </summary>
-	public IList<T> Items { get; set; } = [];
+	public List<T> Items { get; set; } = [];
 
 	/// <summary>
 	/// A cursor to pass back to fetch the next page, or <see langword="null"/> when the last page is reached.

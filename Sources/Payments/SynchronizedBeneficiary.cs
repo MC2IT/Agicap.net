@@ -97,7 +97,7 @@ public class SynchronizedBeneficiary() {
 	/// The ERP identifiers of the suppliers to associate with this beneficiary.
 	/// </summary>
 	[JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public IList<string>? SupplierErpIds { get; set; }
+	public List<string>? SupplierErpIds { get; set; }
 
 	/// <summary>
 	/// Creates a new synchronized beneficiary from the specified <see cref="Beneficiary"/>.

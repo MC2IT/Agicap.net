@@ -41,7 +41,7 @@ public class BankJournalEntry {
 	/// <summary>
 	/// The bank journal entry counterparts.
 	/// </summary>
-	public IList<Counterpart> Counterparts { get; set; } = [];
+	public List<Counterpart> Counterparts { get; set; } = [];
 
 	/// <summary>
 	/// The credit value in accounting currency.

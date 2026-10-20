@@ -16,7 +16,7 @@ public class BeneficiarySynchronization {
 	/// <summary>
 	/// The list of synchronization errors.
 	/// </summary>
-	public IList<BeneficiarySynchronizationError> Errors { get; set; } = [];
+	public List<BeneficiarySynchronizationError> Errors { get; set; } = [];
 
 	/// <summary>
 	/// The date and time the synchronization finished.
